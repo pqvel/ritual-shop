@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Container } from "@/components/ui/Wrappers";
+import Link from "next/link";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,10 +19,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <header className=" fixed top-0 left-0 w-full h-100 ">
-          <div></div>
-          <nav className="w-full bg-cyan-900"></nav>
+      <body className={inter.className + " pt-[300px]"}>
+        <header className=" fixed top-0 left-0 w-full bg-white z-10">
+          <Container>
+            <Image
+              className="py-2"
+              src="/images/logo.png"
+              alt="Логотип"
+              width={377}
+              height={86}
+              priority
+            />
+          </Container>
+          <nav className="w-full bg-cyan-900">
+            <Container>
+              <Link href="/">Главная</Link>
+              <Link href="/">Памятники</Link>
+              <Link href="/portfolio">Портфолио</Link>
+            </Container>
+          </nav>
         </header>
         {children}
       </body>
