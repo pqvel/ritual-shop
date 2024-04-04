@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className + " pt-[300px]"}>
+      <body className={inter.className + " pt-[126px] bg-gray-100"}>
         <header className=" fixed top-0 left-0 w-full bg-white z-10">
           <Container>
             <Image

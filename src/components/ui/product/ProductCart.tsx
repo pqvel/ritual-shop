@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
 
+// размер одиночный двойной
 type Props = {
   href: string;
   image: string;
