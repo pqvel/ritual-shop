@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .input {
+    @apply py-2 px-3 rounded border border-gray-200 bg-gray-100 placeholder:text-slate-500 outline-cyan-600;
+  }
+}
