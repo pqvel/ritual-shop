@@ -1,4 +1,5 @@
-import { Container, Section } from "@/components/ui/Wrappers";
+import { Container } from "@/components/ui/Wrappers";
+import { Section, SectionTitle } from "@/components/ui/Section";
 import ProductCard from "@/components/ui/cards/ProductCard";
 import { Grid } from "@/components/ui/Wrappers";
 
@@ -32,6 +33,7 @@ export default function Home() {
         </Section>
         <Section>
           <Container>
+            <SectionTitle>Памятники</SectionTitle>
             <Grid>
               <ProductCard
                 category="dwqd"
@@ -73,6 +75,7 @@ export default function Home() {
         </Section>
         <Section>
           <Container>
+            <SectionTitle>Категории</SectionTitle>
             <Grid>
               <CategoryCard
                 title="category"

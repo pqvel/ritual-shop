@@ -24,12 +24,3 @@ export const Grid: FC<PropsGrid> = ({ children }) => {
     </div>
   );
 };
-
-type PropsSection = {
-  children: ReactNode;
-  className?: string;
-};
-
-export const Section: FC<PropsSection> = ({ children, className = "" }) => {
-  return <section className={`py-10 ${className}`}>{children}</section>;
-};
