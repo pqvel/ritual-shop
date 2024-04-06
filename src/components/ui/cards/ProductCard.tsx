@@ -15,7 +15,7 @@ const ProductCart: FC<Props> = ({ href, image, title, price, category }) => {
   return (
     <Link
       href={href}
-      className="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg lg:hover:-translate-y-1 transition"
+      className="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg lg:hover:-translate-y-1 will-change-transform	 transition"
     >
       <div className="relative w-full pt-[100%]">
         <Image
