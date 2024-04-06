@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ReactNode, FC } from "react";
 
 type PropsSection = {
@@ -6,7 +7,7 @@ type PropsSection = {
 };
 
 export const Section: FC<PropsSection> = ({ children, className = "" }) => {
-  return <section className={`py-10 ${className}`}>{children}</section>;
+  return <section className={`py-12 ${className}`}>{children}</section>;
 };
 
 type PropsSectionTitle = {
@@ -14,5 +15,31 @@ type PropsSectionTitle = {
 };
 
 export const SectionTitle: FC<PropsSectionTitle> = ({ children }) => {
-  return <h2 className="text-xl font-bold mb-4">{children}</h2>;
+  return <h2 className=" text-4xl font-bold">{children}</h2>;
+};
+
+type PropsSectionTitleGroup = {
+  children: ReactNode;
+};
+
+export const SectionTitleGroup: FC<PropsSectionTitleGroup> = ({ children }) => {
+  return (
+    <div className="flex justify-between items-center mb-6">{children}</div>
+  );
+};
+
+type PropsSectionLink = {
+  children: ReactNode;
+  href: string;
+};
+
+export const SectionLink: FC<PropsSectionLink> = ({ children, href }) => {
+  return (
+    <Link
+      href={href}
+      className="flex justify-between items-center text-blue-600 hover:text-blue-800"
+    >
+      {children}
+    </Link>
+  );
 };

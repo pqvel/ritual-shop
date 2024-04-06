@@ -11,7 +11,7 @@ type Props = {
 const CategoryCard: FC<Props> = ({ title, href, image }) => {
   return (
     <Link
-      className="flex items-center rounded-lg p-3 bg-gray-300 bg-opacity-50"
+      className="flex items-center rounded-lg p-3  bg-white shadow lg:hover:shadow-md transition"
       href={href}
     >
       <Image

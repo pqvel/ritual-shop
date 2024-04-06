@@ -19,7 +19,7 @@ type PropsGrid = {
 
 export const Grid: FC<PropsGrid> = ({ children }) => {
   return (
-    <div className="grid gap-3 grid-cols-[repeat(_auto-fit,_minmax(260px,_1fr))]">
+    <div className="grid gap-4 grid-cols-[repeat(_auto-fit,_minmax(260px,_1fr))]">
       {children}
     </div>
   );

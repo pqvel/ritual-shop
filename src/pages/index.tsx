@@ -1,22 +1,29 @@
 import { Container } from "@/components/ui/Wrappers";
-import { Section, SectionTitle } from "@/components/ui/Section";
+import {
+  Section,
+  SectionLink,
+  SectionTitle,
+  SectionTitleGroup,
+} from "@/components/ui/Section";
 import ProductCard from "@/components/ui/cards/ProductCard";
 import { Grid } from "@/components/ui/Wrappers";
-
+import Popup from "@/components/ui/Popup";
+import FeedbackForm from "@/components/forms/FeedbackForm";
+import Image from "next/image";
 import RootLayout from "./layout";
 import CategoryCard from "@/components/ui/cards/CategoryCard";
 
 export default function Home() {
   return (
     <RootLayout>
-      <main>
+      <main className="pt-[146px]">
         {/* <Popup>
-        <FeedbackForm></FeedbackForm>
-      </Popup> */}
+          <FeedbackForm></FeedbackForm>
+        </Popup> */}
 
-        <Section className={`bg-[url('/images/mramor_bg.jpg')]`}>
-          <Container>
-            <div className="">
+        <Section className={`bg-[url('/images/mramor_bg.jpg')] min-h-[500px]`}>
+          <Container className="flex items-center justify-center h-full">
+            <div className=" w-2/3">
               <h1 className=" text-4xl font-semibold mb-4 max-w-screen-md">
                 Памятники из гранита. Вечная память в каждой детали
               </h1>
@@ -28,13 +35,44 @@ export default function Home() {
                 Заказть звонок
               </button>
             </div>
-            <div></div>
+            <div className=" w-1/3">
+              <Image
+                src="/images/pomnik.png"
+                width={200}
+                height={200}
+                alt="Памятник"
+              />
+            </div>
           </Container>
         </Section>
         <Section>
           <Container>
-            <SectionTitle>Памятники</SectionTitle>
+            <SectionTitleGroup>
+              <SectionTitle>Популярные памятники</SectionTitle>
+              <SectionLink href="/all">Смотреть все</SectionLink>
+            </SectionTitleGroup>
             <Grid>
+              <ProductCard
+                category="dwqd"
+                image="/images/475.jpg"
+                href="/ddq"
+                title="qddqqd"
+                price="312"
+              />
+              <ProductCard
+                category="dwqd"
+                image="/images/475.jpg"
+                href="/ddq"
+                title="qddqqd"
+                price="312"
+              />
+              <ProductCard
+                category="dwqd"
+                image="/images/475.jpg"
+                href="/ddq"
+                title="qddqqd"
+                price="312"
+              />
               <ProductCard
                 category="dwqd"
                 image="/images/475.jpg"
@@ -73,10 +111,35 @@ export default function Home() {
             </Grid>
           </Container>
         </Section>
-        <Section>
+        <Section className=" bg-zinc-100">
           <Container>
-            <SectionTitle>Категории</SectionTitle>
+            <SectionTitleGroup>
+              <SectionTitle>Категории</SectionTitle>
+              <SectionLink href="/all">Смотреть все</SectionLink>
+            </SectionTitleGroup>
             <Grid>
+              <CategoryCard
+                title="category"
+                href="/catalog"
+                image="/images/475.jpg"
+              />
+
+              <CategoryCard
+                title="category"
+                href="/catalog"
+                image="/images/475.jpg"
+              />
+
+              <CategoryCard
+                title="category"
+                href="/catalog"
+                image="/images/475.jpg"
+              />
+              <CategoryCard
+                title="category"
+                href="/catalog"
+                image="/images/475.jpg"
+              />
               <CategoryCard
                 title="category"
                 href="/catalog"
@@ -101,6 +164,9 @@ export default function Home() {
               />
             </Grid>
           </Container>
+        </Section>
+        <Section>
+          <Container>d</Container>
         </Section>
       </main>
     </RootLayout>
