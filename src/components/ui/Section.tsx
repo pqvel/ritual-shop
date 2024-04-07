@@ -22,11 +22,15 @@ export const SectionTitle: FC<PropsSectionTitle> = ({ children }) => {
 
 type PropsSectionTitleGroup = {
   children: ReactNode;
+  className?: string;
 };
 
-export const SectionTitleGroup: FC<PropsSectionTitleGroup> = ({ children }) => {
+export const SectionTitleGroup: FC<PropsSectionTitleGroup> = ({
+  children,
+  className = "",
+}) => {
   return (
-    <div className="flex justify-between items-center mb-4 md:mb-6">
+    <div className={`flex items-center mb-4 md:mb-6 ${className}`}>
       {children}
     </div>
   );

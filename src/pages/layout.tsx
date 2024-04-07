@@ -4,6 +4,7 @@ import Image from "next/image";
 import HoverSelect from "@/components/ui/HoverSelect";
 import "../app/globals.scss";
 import { useState } from "react";
+import { Section } from "@/components/ui/Section";
 
 export default function RootLayout({
   children,
@@ -117,42 +118,42 @@ export default function RootLayout({
                   <>
                     <Link
                       className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
-                      href="/catalog"
+                      href="/catalog/odinocnie-pamyatniki"
                     >
                       Одиночные памятники из гранита
                     </Link>
 
                     <Link
                       className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
-                      href="/all"
+                      href="/catalog/odinocnie-pamyatniki"
                     >
                       Двойные памятники из гранита
                     </Link>
 
                     <Link
                       className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
-                      href="/contact"
+                      href="/catalog/odinocnie-pamyatniki"
                     >
                       Элитные памятники из гранита
                     </Link>
 
                     <Link
                       className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
-                      href="/contact"
+                      href="/catalog/odinocnie-pamyatniki"
                     >
                       Станочные скульптурные работы
                     </Link>
 
                     <Link
                       className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
-                      href="/contact"
+                      href="/catalog/odinocnie-pamyatniki"
                     >
                       Бюджетные памятники
                     </Link>
 
                     <Link
                       className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
-                      href="/contact"
+                      href="/catalog/odinocnie-pamyatniki"
                     >
                       Колумбарные памятники
                     </Link>
@@ -168,28 +169,28 @@ export default function RootLayout({
                   <>
                     <Link
                       className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
-                      href="/catalog"
+                      href="/catalog/odinocnie-pamyatniki"
                     >
                       Ограды из гранита
                     </Link>
 
                     <Link
                       className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
-                      href="/all"
+                      href="/catalog/odinocnie-pamyatniki"
                     >
                       Ограды металлические
                     </Link>
 
                     <Link
                       className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
-                      href="/contact"
+                      href="/catalog/odinocnie-pamyatniki"
                     >
                       Ограды из нержавеющей стали
                     </Link>
 
                     <Link
                       className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
-                      href="/contact"
+                      href="/catalog/odinocnie-pamyatniki"
                     >
                       Кованые ограды
                     </Link>
@@ -238,11 +239,18 @@ export default function RootLayout({
           </Container>
         </nav>
       </header>
-      {children}
+      <main className="pt-[80px] lg:pt-[146px] bg-gray-100 flex-1">
+        {children}
+      </main>
       <footer className=" bg-black bg-opacity-80 py-10 text-white">
         <Container>
           <Grid>
             <span className=" text-sm">© 2011—2023 | УНП 590264434</span>
+            <div></div>
+            <div>
+              Разработчик сайта:
+              <a href="mailto:solyqnik@gmail.com">solyqnik@gmail.com</a>
+            </div>
           </Grid>
         </Container>
       </footer>

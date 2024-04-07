@@ -8,28 +8,31 @@ type Props = {
   image: string;
   title: string;
   price: string;
-  category: string;
+  vendorCode: string;
 };
 
-const ProductCart: FC<Props> = ({ href, image, title, price, category }) => {
+const ProductCart: FC<Props> = ({ href, image, title, price, vendorCode }) => {
   return (
     <Link
       href={href}
-      className="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg lg:hover:-translate-y-1 will-change-transform	 transition"
+      className="group flex flex-col w-full bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg lg:hover:-translate-y-1 will-change-transform transition overflow-hidden"
     >
-      <div className="relative w-full pt-[100%]">
-        <Image
-          className="absolute top-0 left-0 w-full h-full object-contain"
-          width={100}
-          height={100}
-          src={image}
-          alt={title}
-        />
-      </div>
+      <Image
+        className="w-full"
+        width={100}
+        height={100}
+        src={image}
+        alt={title}
+      />
+
       <div className="p-4">
-        <div className="font-bold text-lg">{title}</div>
-        <div>{category}</div>
-        <div>{price} руб.</div>
+        <div className="font-semibold text-lg">{title}</div>
+        <div className="flex justify-between items-end mt-3">
+          <div className="text-lg font-semibold">
+            от <span className=" text-2xl text-cyan-700">{price}</span> руб
+          </div>
+          <span className=" text-gray-500">{vendorCode}</span>
+        </div>
       </div>
     </Link>
   );

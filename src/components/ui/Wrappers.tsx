@@ -19,8 +19,23 @@ type PropsGrid = {
 
 export const Grid: FC<PropsGrid> = ({ children }) => {
   return (
-    <div className="grid gap-4 grid-cols-[repeat(_auto-fit,_minmax(260px,_1fr))]">
+    <div className="w-full grid gap-4 grid-cols-[repeat(_auto-fit,_minmax(260px,_1fr))]">
       {children}
     </div>
+  );
+};
+
+type PropsAside = {
+  children: ReactNode;
+  className?: string;
+};
+
+export const Aside: FC<PropsAside> = ({ children, className = "" }) => {
+  return (
+    <aside
+      className={`flex flex-col w-96 border-gray-200 bg-white rounded shadow p-5 ${className}`}
+    >
+      {children}
+    </aside>
   );
 };

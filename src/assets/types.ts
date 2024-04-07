@@ -4,5 +4,5 @@ export type ProductCartType = {
   image: string;
   title: string;
   price: string;
-  category: string;
+  vendorCode: string;
 };

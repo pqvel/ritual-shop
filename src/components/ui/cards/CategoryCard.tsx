@@ -21,7 +21,7 @@ const CategoryCard: FC<Props> = ({ title, href, image }) => {
         src={image}
         alt={title}
       />
-      <div className="text-xl font-medium">{title}</div>
+      <div className="text-xl">{title}</div>
     </Link>
   );
 };
