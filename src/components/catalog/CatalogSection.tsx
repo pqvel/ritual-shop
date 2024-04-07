@@ -5,7 +5,7 @@ type Props = {
 };
 
 const CatalogSection: FC<Props> = ({ children }) => {
-  return <div className="flex flex-col py-5">{children}</div>;
+  return <div className="flex flex-col pt-5 pb-20">{children}</div>;
 };
 
 export default CatalogSection;

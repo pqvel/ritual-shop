@@ -13,6 +13,7 @@ import { Checkbox } from "@/components/ui/formItems/Input";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import CatalogTitle from "@/components/catalog/CatalogTitle";
 import CatalogSection from "@/components/catalog/CatalogSection";
+import Pagination from "@/components/ui/Pagination";
 const CatalogLvl2Page = () => {
   const [popupularProducts] = useState<ProductCartType[]>([
     {
@@ -141,11 +142,14 @@ const CatalogLvl2Page = () => {
                 </div>
               </div>
             </Aside>
-            <Grid>
-              {popupularProducts.map((product) => (
-                <ProductCart {...product} key={product.id} />
-              ))}
-            </Grid>
+            <div className="flex flex-col items-center w-full">
+              <Grid>
+                {popupularProducts.map((product) => (
+                  <ProductCart {...product} key={product.id} />
+                ))}
+              </Grid>
+              <Pagination />
+            </div>
           </div>
         </Container>
       </CatalogSection>

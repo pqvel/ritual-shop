@@ -35,7 +35,7 @@ export default function Home() {
   const [popupularProducts] = useState<ProductCartType[]>([
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-1",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -43,7 +43,7 @@ export default function Home() {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -51,7 +51,7 @@ export default function Home() {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -59,7 +59,7 @@ export default function Home() {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -67,7 +67,7 @@ export default function Home() {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -75,7 +75,7 @@ export default function Home() {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -83,7 +83,7 @@ export default function Home() {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -129,16 +129,18 @@ export default function Home() {
         <Container>
           <SectionTitleGroup className=" justify-between">
             <SectionTitle>Популярные памятники</SectionTitle>
-            <SectionLink href="/all">Смотреть все</SectionLink>
+            <SectionLink href="/catalog/pamyatniki/">Смотреть все</SectionLink>
           </SectionTitleGroup>
           {/* <Grid> */}
           <Swiper
+            className="group relative"
             modules={[Navigation]}
             navigation={{
               prevEl: ".prev",
               nextEl: ".next",
             }}
             spaceBetween={16}
+            loop
             breakpoints={{
               0: {
                 slidesPerView: 1,
@@ -159,8 +161,12 @@ export default function Home() {
                 <ProductCard {...product} />
               </SwiperSlide>
             ))}
-            <button className="next">+</button>
-            <button className="prev">-</button>
+            <button className="prev absolute w-14 h-10 top-1/2 -translate-y-1/2 -left-14 z-10  transition-[0.2s] text-white bg-black bg-opacity-70 group-hover:left-8 m-0 p-0 lg:hover:bg-opacity-80">
+              -
+            </button>
+            <button className="next absolute w-14 h-10 top-1/2 -translate-y-1/2 -right-14 z-10  transition-[0.2s] text-white bg-black bg-opacity-70 group-hover:right-8 m-0 p-0 lg:hover:bg-opacity-80">
+              +
+            </button>
           </Swiper>
         </Container>
       </Section>
@@ -168,7 +174,7 @@ export default function Home() {
         <Container>
           <SectionTitleGroup className=" justify-between">
             <SectionTitle>Категории</SectionTitle>
-            <SectionLink href="/all">Смотреть все</SectionLink>
+            <SectionLink href="/catalog/">Смотреть все</SectionLink>
           </SectionTitleGroup>
           <Grid>
             <CategoryCard

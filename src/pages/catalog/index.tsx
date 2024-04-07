@@ -14,12 +14,13 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import CatalogTitle from "@/components/catalog/CatalogTitle";
 import CatalogSection from "@/components/catalog/CatalogSection";
 import { AsideLinks } from "@/components/ui/catalog";
+import Pagination from "@/components/ui/Pagination";
 
 const CatalogLvl1Page = () => {
   const [popupularProducts] = useState<ProductCartType[]>([
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-1",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -27,7 +28,7 @@ const CatalogLvl1Page = () => {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -35,7 +36,7 @@ const CatalogLvl1Page = () => {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -43,7 +44,7 @@ const CatalogLvl1Page = () => {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -51,7 +52,7 @@ const CatalogLvl1Page = () => {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -59,7 +60,7 @@ const CatalogLvl1Page = () => {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -67,7 +68,7 @@ const CatalogLvl1Page = () => {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -75,7 +76,7 @@ const CatalogLvl1Page = () => {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -83,7 +84,7 @@ const CatalogLvl1Page = () => {
     },
     {
       id: v4(),
-      href: "/",
+      href: "/catalog/odinocnie-pamyatniki/maket",
       title: "Памятник вертикальный гранитный А-12",
       price: `${Math.floor(Math.random() * 1000 * 100) / 100}`,
       image: "/images/476.jpg",
@@ -156,11 +157,14 @@ const CatalogLvl1Page = () => {
                 ]}
               />
             </Aside>
-            <Grid>
-              {popupularProducts.map((product) => (
-                <ProductCart {...product} key={product.id} />
-              ))}
-            </Grid>
+            <div className=" flex flex-col items-center w-full">
+              <Grid>
+                {popupularProducts.map((product) => (
+                  <ProductCart {...product} key={product.id} />
+                ))}
+              </Grid>
+              <Pagination />
+            </div>
           </div>
         </Container>
       </CatalogSection>
