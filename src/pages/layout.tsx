@@ -245,7 +245,7 @@ export default function RootLayout({
       <footer className=" bg-black bg-opacity-80 py-10 text-white">
         <Container>
           <span className=" text-sm">
-            © Copyright "Десяточка" 2015г. ИП Скрипко Леонид Иосифович
+            © Copyright &quot;Десяточка&quot; 2015г. ИП Скрипко Леонид Иосифович
             Свидетельство о гос. регистрации: 590264434, выдано 17.06.2011г.
             Островецким районным исполнительным комитетом
           </span>
