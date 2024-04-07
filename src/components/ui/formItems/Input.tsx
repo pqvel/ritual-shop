@@ -44,7 +44,7 @@ export const Checkbox: FC<CheckboxProps> = ({ value, name, label }) => {
           value={value}
           id={`checkbox-${name}-${value}`}
         />
-        <span className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+        <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-3.5 w-3.5"
@@ -59,7 +59,7 @@ export const Checkbox: FC<CheckboxProps> = ({ value, name, label }) => {
               clip-rule="evenodd"
             ></path>
           </svg>
-        </span>
+        </div>
       </label>
       <label
         className="mt-px font-light text-gray-700 cursor-pointer select-none"

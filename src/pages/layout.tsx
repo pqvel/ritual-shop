@@ -43,10 +43,10 @@ export default function RootLayout({
               </a>
             </li>
             <li className=" relative flex lg:flex-col items-center lg:items-start">
+              s
               <span className="text-gray-400 text-sm lg:text-base uppercase hidden lg:inline absolute -left-[70px] lg:static top-1/2 -translate-y-1/2 lg:translate-y-0">
                 ВЕЛКОМ:
               </span>
-
               <a
                 className="text-black text-base lg:text-lg lg:hover:underline transition"
                 href="tel:+375293351010"
@@ -95,13 +95,13 @@ export default function RootLayout({
             </div>
             <ul className="MENU-LINK-MOBILE-OPEN flex flex-col items-center justify-between min-h-[250px]">
               <li className="border-b border-gray-400 my-8 uppercase">
-                <a href="/about">About</a>
+                <Link href="/about">About</Link>
               </li>
               <li className="border-b border-gray-400 my-8 uppercase">
-                <a href="/portfolio">Portfolio</a>
+                <Link href="/portfolio">Portfolio</Link>
               </li>
               <li className="border-b border-gray-400 my-8 uppercase">
-                <a href="/contact">Contact</a>
+                <Link href="/contact">Contact</Link>
               </li>
             </ul>
           </div>

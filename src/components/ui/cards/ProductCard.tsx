@@ -29,9 +29,9 @@ const ProductCart: FC<Props> = ({ href, image, title, price, vendorCode }) => {
         <div className="font-semibold text-lg">{title}</div>
         <div className="flex justify-between items-end mt-3">
           <div className="text-lg font-semibold">
-            от <span className=" text-2xl text-cyan-700">{price}</span> руб
+            от <div className=" text-2xl text-cyan-700">{price}</div> руб
           </div>
-          <span className=" text-gray-500">{vendorCode}</span>
+          <div className=" text-gray-500">{vendorCode}</div>
         </div>
       </div>
     </Link>
