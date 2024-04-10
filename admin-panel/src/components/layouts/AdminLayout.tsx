@@ -7,6 +7,7 @@ import {
   NavigationMenuContent,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
+import Container from "@/components/ui/my/Wrappers";
 
 type Props = {
   children: ReactNode;
@@ -15,7 +16,7 @@ type Props = {
 const AdminLayout: FC<Props> = ({ children }) => {
   return (
     <>
-      <header>
+      <header className="flex items-center justify-center h-20 w-full bg-slate-900">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -27,8 +28,9 @@ const AdminLayout: FC<Props> = ({ children }) => {
           </NavigationMenuList>
         </NavigationMenu>
       </header>
-      <main>{children}</main>
-      <footer></footer>
+      <div className="w-full max-w-7xl px-3 mx-auto flex-1 my-5">
+        <main className="min-h-full">{children}</main>
+      </div>
     </>
   );
 };

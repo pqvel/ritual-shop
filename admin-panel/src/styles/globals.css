@@ -5,6 +5,5 @@
 html,
 body,
 #__next {
-  height: 100%;
-  min-height: 100%;
+  @apply flex flex-col flex-1 h-full min-h-full;
 }
