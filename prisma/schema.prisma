@@ -3,10 +3,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator client {
+  provider = "prisma-client-js"
+}
+
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
-  password String 
+  password String
   username  String?
   role Role @default(USER)
 }
@@ -15,3 +19,29 @@ enum Role {
   ADMIN
   USER
 }
+
+model Category {
+  id         Int        @id @default(autoincrement())
+  title      String     @unique
+  slug       String     @unique
+  image      String
+  level      Int        @default(1)
+  parent     Category?  @relation("ChildCategories", fields: [parentId], references: [id])
+  parentId   Int?
+  active     Boolean   @default(false)
+  childCategories   Category[] @relation("ChildCategories")
+}
+
+// model Product {
+//   id Int @id @default(autoincrement())
+//   title String
+//   slug String
+//   vendorCode String
+//   characteristics ProductCharacteristic[] @relation("ChildCategories", fields: [parentId], references: [id])
+// }
+
+// model ProductCharacteristic {
+//   id Int @id @default(autoincrement())
+//   title String
+//   variants String[]
+// }

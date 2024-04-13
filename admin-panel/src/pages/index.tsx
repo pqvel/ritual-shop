@@ -1,8 +1,12 @@
+import Header from "@/components/Header";
 import AdminLayout from "@/components/layouts/AdminLayout";
-import React from "react";
 
 const MainPage = () => {
-  return <AdminLayout>kfe </AdminLayout>;
+  return (
+    <AdminLayout>
+      <Header />
+    </AdminLayout>
+  );
 };
 
 export default MainPage;
