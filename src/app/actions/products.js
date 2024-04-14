@@ -2,34 +2,10 @@
 import db from "../../../db/db";
 import { productSchema } from "@/zod/schemas";
 import fs from "fs/promises";
-import path from "path";
+import path, { join } from "path";
 import slugify from "slugify";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
-async function saveImage(image) {
-  try {
-    // Create directory if it doesn't exist
-    // await fs.mkdir(directory, { recursive: true });
-
-    // Generate unique image path
-    // `/images/products/${crypto.randomUUID()}-${image.name}`;
-    const imagePath = path.join(
-      process.cwd(),
-      "products",
-      `${crypto.randomUUID()}-${image.name}`
-    );
-
-    // Write image data to file
-    await fs.writeFile(imagePath, Buffer.from(await image.arrayBuffer()));
-
-    // Return the image path for further use
-    return imagePath;
-  } catch (error) {
-    console.error("Error saving image:", error);
-    throw error;
-  }
-}
 
 export const createProduct = async (state, formData) => {
   const result = productSchema.safeParse(
@@ -40,7 +16,11 @@ export const createProduct = async (state, formData) => {
 
   const { title, vendorCode, image, categoryId, characteristics } = result.data;
 
-  const imagePath = await saveImage(image);
+  const bytes = await image.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+  const imagePath = join("/", "tmp", "products", image.name);
+  await fs.writeFile(imagePath, buffer);
+  console.log(`open ${imagePath} to see the iploaded file`);
 
   const product = await db.product.create({
     data: {
@@ -49,7 +29,7 @@ export const createProduct = async (state, formData) => {
         locale: "ru",
         lower: true,
       }),
-      image: imagePath,
+      image: path,
       categoryId,
       vendorCode,
     },
