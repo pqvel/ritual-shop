@@ -50,7 +50,7 @@ export const createCategory = async (state, formData) => {
   //   Buffer.from(await image.arrayBuffer())
   // );
 
-  await saveImage(image);
+  const imagePath = await saveImage(image);
 
   await db.category.create({
     data: {
