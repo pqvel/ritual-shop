@@ -18,7 +18,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import db from "../../../../../../db/db";
 import ProductItem from "@/app/admin/_components/product/ProductItem";
 
-export const getData = async (categorySlug: string, productSlug: string) => {
+const getData = async (categorySlug: string, productSlug: string) => {
   return await db.category.findUnique({
     where: {
       slug: categorySlug,

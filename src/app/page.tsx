@@ -142,7 +142,7 @@ const Home: FC = async () => {
           </div>
         </Container>
       </Section>
-      <FeedbackPopup />
+      {/* <FeedbackPopup /> */}
     </MainLayout>
   );
 };

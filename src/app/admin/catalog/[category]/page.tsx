@@ -12,7 +12,6 @@ import {
   Table,
   TableBody,
   TableHeader,
-  TableCell,
   TableRow,
   TableCaption,
   TableHead,
@@ -24,8 +23,7 @@ type Props = {
     category: string;
   };
 };
-
-export const getCategories = async (slug: string) => {
+const getCategories = async (slug: string) => {
   const data = await db.category.findUnique({
     where: { slug },
     include: {

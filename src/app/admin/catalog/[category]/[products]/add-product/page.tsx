@@ -1,12 +1,10 @@
 import { FC } from "react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
-import CategoryForm from "@/app/admin/_components/forms/CategoryForm";
-
 import db from "../../../../../../../db/db";
 import ProductForm from "@/app/admin/_components/forms/ProductForm";
 
-export const getData = async (categorySlug: string, productSlug: string) => {
+const getData = async (categorySlug: string, productSlug: string) => {
   return await db.category.findUnique({
     where: {
       slug: categorySlug,

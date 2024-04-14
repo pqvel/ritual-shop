@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { useState } from "react";
 import { useFormState } from "react-dom";
 import { Card, CardHeader, CardContent } from "@/components/ui/shadcn-ui/card";
 import { Label } from "@/components/ui/shadcn-ui/label";
@@ -9,7 +9,6 @@ import { useFormStatus } from "react-dom";
 import { createProduct } from "@/app/actions/products";
 import {
   Table,
-  TableCaption,
   TableRow,
   TableHeader,
   TableHead,
@@ -19,28 +18,13 @@ import {
 } from "@/components/ui/shadcn-ui/table";
 import { v4 as uuid } from "uuid";
 
-type Props = {
-  categoryId: number;
-};
-
-type ProductCharacteristic = {
-  id: string;
-  title: string;
-  values: string[];
-};
-
-const ProductForm: FC<Props> = ({ categoryId }) => {
+const ProductForm = ({ categoryId }) => {
   console.log(categoryId);
-  const [formState, action] = useFormState<ReturnType<typeof createProduct>>(
-    createProduct,
-    {}
-  );
+  const [formState, action] = useFormState(createProduct, {});
 
-  const [characteristics, setCharacteristics] = useState<
-    ProductCharacteristic[]
-  >([]);
+  const [characteristics, setCharacteristics] = useState([]);
 
-  const changeCaracteristicTitle = (value: string, id: string) => {
+  const changeCaracteristicTitle = (value, id) => {
     setCharacteristics((characteristics) =>
       characteristics.map((char) => {
         if (char.id !== id) return char;
@@ -57,11 +41,7 @@ const ProductForm: FC<Props> = ({ categoryId }) => {
     ]);
   };
 
-  const changeCaracteristicValue = (
-    value: string,
-    id: string,
-    index: number
-  ) => {
+  const changeCaracteristicValue = (value, id, index) => {
     setCharacteristics((items) =>
       items.map((item) => {
         if (item.id !== id) return item;
@@ -78,8 +58,9 @@ const ProductForm: FC<Props> = ({ categoryId }) => {
     );
   };
 
-  const onSubmit = (formData: FormData) => {
+  const onSubmit = (formData) => {
     formData.append("characteristics", JSON.stringify(characteristics));
+    // @ts-ignore
     action(formData);
   };
 
@@ -130,7 +111,7 @@ const ProductForm: FC<Props> = ({ categoryId }) => {
                     />
                   </TableCell>
                   {values.map((value, index) => (
-                    <TableCell>
+                    <TableCell key={value}>
                       <Input
                         value={value}
                         onChange={(e) =>
@@ -180,7 +161,7 @@ const ProductForm: FC<Props> = ({ categoryId }) => {
 
 export default ProductForm;
 
-const SubmitButton: FC = () => {
+const SubmitButton = () => {
   const status = useFormStatus();
   return (
     <Button className="w-auto" type="submit" disabled={status.pending}>
