@@ -6,6 +6,29 @@ import slugify from "slugify";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+async function saveImage(image) {
+  const directory = "public/images/products";
+  try {
+    // Create directory if it doesn't exist
+    await fs.mkdir(directory, { recursive: true });
+
+    // Generate unique image path
+    const imagePath = `/images/products/${crypto.randomUUID()}-${image.name}`;
+
+    // Write image data to file
+    await fs.writeFile(
+      `public${imagePath}`,
+      Buffer.from(await image.arrayBuffer())
+    );
+
+    // Return the image path for further use
+    return imagePath;
+  } catch (error) {
+    console.error("Error saving image:", error);
+    throw error;
+  }
+}
+
 export const createProduct = async (state, formData) => {
   const result = productSchema.safeParse(
     Object.fromEntries(formData.entries())
@@ -15,12 +38,7 @@ export const createProduct = async (state, formData) => {
 
   const { title, vendorCode, image, categoryId, characteristics } = result.data;
 
-  await fs.mkdir("/public/images/products", { recursive: true });
-  const imagePath = `/images/products/${crypto.randomUUID()}-${image.name}`;
-  await fs.writeFile(
-    `public${imagePath}`,
-    Buffer.from(await image.arrayBuffer())
-  );
+  await saveImage(image);
 
   const product = await db.product.create({
     data: {

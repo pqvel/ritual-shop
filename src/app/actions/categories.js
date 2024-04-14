@@ -6,6 +6,29 @@ import slugify from "slugify";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+async function saveImage(image) {
+  const directory = "public/images/categories";
+  try {
+    // Create directory if it doesn't exist
+    await fs.mkdir(directory, { recursive: true });
+
+    // Generate unique image path
+    const imagePath = `/images/categories/${crypto.randomUUID()}-${image.name}`;
+
+    // Write image data to file
+    await fs.writeFile(
+      `public${imagePath}`,
+      Buffer.from(await image.arrayBuffer())
+    );
+
+    // Return the image path for further use
+    return imagePath;
+  } catch (error) {
+    console.error("Error saving image:", error);
+    throw error;
+  }
+}
+
 export const getCategories = async () => {
   return await db.category.findMany({ where: { level: 1 } });
 };
@@ -20,14 +43,14 @@ export const createCategory = async (state, formData) => {
 
   const { title, image, parentId, level } = result.data;
 
-  await fs.mkdir("/public/images/categories", { recursive: true });
-  const imagePath = `/images/categories/${crypto.randomUUID()}-${image.name}`;
-  await fs.writeFile(
-    `public${imagePath}`,
-    Buffer.from(await image.arrayBuffer())
-  );
+  // await fs.mkdir("/public/images/categories", { recursive: true });
+  // const imagePath = `/images/categories/${crypto.randomUUID()}-${image.name}`;
+  // await fs.writeFile(
+  //   `public${imagePath}`,
+  //   Buffer.from(await image.arrayBuffer())
+  // );
 
-  console.log(parentId);
+  await saveImage(image);
 
   await db.category.create({
     data: {
