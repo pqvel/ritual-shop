@@ -2,24 +2,26 @@
 import db from "../../../db/db";
 import { productSchema } from "@/zod/schemas";
 import fs from "fs/promises";
+import path from "path";
 import slugify from "slugify";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 async function saveImage(image) {
-  const directory = "public/images/products";
   try {
     // Create directory if it doesn't exist
-    await fs.mkdir(directory, { recursive: true });
+    // await fs.mkdir(directory, { recursive: true });
 
     // Generate unique image path
-    const imagePath = `/images/products/${crypto.randomUUID()}-${image.name}`;
+    // `/images/products/${crypto.randomUUID()}-${image.name}`;
+    const imagePath = path.join(
+      process.cwd(),
+      "products",
+      `${crypto.randomUUID()}-${image.name}`
+    );
 
     // Write image data to file
-    await fs.writeFile(
-      `public${imagePath}`,
-      Buffer.from(await image.arrayBuffer())
-    );
+    await fs.writeFile(imagePath, Buffer.from(await image.arrayBuffer()));
 
     // Return the image path for further use
     return imagePath;
@@ -38,7 +40,7 @@ export const createProduct = async (state, formData) => {
 
   const { title, vendorCode, image, categoryId, characteristics } = result.data;
 
-  await saveImage(image);
+  const imagePath = await saveImage(image);
 
   const product = await db.product.create({
     data: {
@@ -83,7 +85,7 @@ export const deleteProduct = async (id) => {
     },
   });
 
-  await fs.unlink(`public${category.image}`);
+  await fs.unlink(path(process.cwd(), category.image));
 
   return product;
 };

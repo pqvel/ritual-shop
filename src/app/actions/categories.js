@@ -10,16 +10,25 @@ async function saveImage(image) {
   const directory = "public/images/categories";
   try {
     // Create directory if it doesn't exist
-    await fs.mkdir(directory, { recursive: true });
+    // await fs.mkdir(directory, { recursive: true });
 
-    // Generate unique image path
-    const imagePath = `/images/categories/${crypto.randomUUID()}-${image.name}`;
+    // // Generate unique image path
+    // const imagePath = `/images/categories/${crypto.randomUUID()}-${image.name}`;
+
+    // // Write image data to file
+    // await fs.writeFile(
+    //   `public${imagePath}`,
+    //   Buffer.from(await image.arrayBuffer())
+    // );
+
+    const imagePath = path.join(
+      process.cwd(),
+      "categories",
+      `${crypto.randomUUID()}-${image.name}`
+    );
 
     // Write image data to file
-    await fs.writeFile(
-      `public${imagePath}`,
-      Buffer.from(await image.arrayBuffer())
-    );
+    await fs.writeFile(imagePath, Buffer.from(await image.arrayBuffer()));
 
     // Return the image path for further use
     return imagePath;
@@ -94,5 +103,6 @@ export const deleteCategory = async (id) => {
     },
   });
 
-  await fs.unlink(`public${category.image}`);
+  // await fs.unlink(`public${category.image}`);
+  await fs.unlink(path(process.cwd(), category.image));
 };
