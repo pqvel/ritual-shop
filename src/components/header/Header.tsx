@@ -15,6 +15,8 @@ const getCategories = async () => {
 
 const Header: FC = async () => {
   const categories = await getCategories();
+
+  console.log(categories);
   return (
     <header className="h-20 fixed top-0 left-0 w-full bg-white z-10 border-b border-b-gray-20 shadow-sm lg:border-none lg:h-[146px]">
       <Container className="flex justify-between items-center">
