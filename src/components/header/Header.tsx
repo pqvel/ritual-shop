@@ -76,6 +76,7 @@ const Header: FC = async () => {
             {categories.map((category) => (
               <>
                 <HoverSelect
+                  key={category.id}
                   className="mr-3 hover:cursor-pointer"
                   header={
                     <Link
@@ -87,6 +88,7 @@ const Header: FC = async () => {
                   }
                   body={category.childCategories.map((childCategory) => (
                     <Link
+                      key={childCategory.id}
                       className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
                       href={`/catalog/${category.slug}/${childCategory.slug}`}
                     >

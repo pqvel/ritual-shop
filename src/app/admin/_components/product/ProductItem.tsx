@@ -43,7 +43,7 @@ const ProductItem: FC<Props> = ({
           <TableCell align="right" colSpan={8}>
             <Table>
               {productCharacteristics.map((item) => (
-                <TableRow>
+                <TableRow key={item.id}>
                   <TableCell className=" font-medium">{item.title}</TableCell>
                   <TableCell>{item.variants[0]}</TableCell>
                   <TableCell>{item.variants[1]}</TableCell>

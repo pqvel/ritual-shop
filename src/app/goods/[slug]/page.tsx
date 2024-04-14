@@ -145,7 +145,10 @@ const ProductPage: FC<Props> = async ({ params }) => {
             </SectionTitleGroup>
             <table className="">
               {product!.characteristics.map(({ title, variants }) => (
-                <tr className="border-y cursor-pointer hover:bg-slate-50">
+                <tr
+                  className="border-y cursor-pointer hover:bg-slate-50"
+                  key={title}
+                >
                   <td className="py-5 px-2 text-lg font-medium">{title}:</td>
                   <td className="py-5 px-2 text-lg">{variants[0]}</td>
                   <td className="py-5 px-2 text-lg">{variants[1]}</td>
