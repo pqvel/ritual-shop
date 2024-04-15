@@ -11,6 +11,9 @@ const Header: FC = () => {
         <Link href="/admin/catalog" className="text-white hover:underline">
           Каталог
         </Link>
+        <Link href="/admin/portfolio" className="text-white hover:underline">
+          Портфолио
+        </Link>
       </nav>
     </header>
   );

@@ -51,8 +51,6 @@ const Home: FC = async () => {
     getProducts(),
   ]);
 
-  console.log(products);
-
   return (
     <MainLayout>
       <Section

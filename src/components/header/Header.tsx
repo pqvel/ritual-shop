@@ -5,10 +5,11 @@ import { Container } from "@/components/ui/Wrappers";
 import HoverSelect from "@/components/ui/HoverSelect";
 import db from "../../../db/db";
 import BurgerMenu from "./BurgerMenu";
+import { AsideLinks } from "../ui/catalog";
 
 const getCategories = async () => {
   return await db.category.findMany({
-    where: { level: 1 },
+    where: { level: 1, active: true },
     include: { childCategories: true },
   });
 };
@@ -16,7 +17,6 @@ const getCategories = async () => {
 const Header: FC = async () => {
   const categories = await getCategories();
 
-  console.log(categories);
   return (
     <header className="h-20 fixed top-0 left-0 w-full bg-white z-10 border-b border-b-gray-20 shadow-sm lg:border-none lg:h-[146px]">
       <Container className="flex justify-between items-center">
@@ -66,8 +66,24 @@ const Header: FC = async () => {
             </a>
           </li>
         </ul>
+
+        <BurgerMenu>
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            {categories.map((category) => (
+              <AsideLinks
+                key={category.id}
+                title={category.title}
+                href={`/catalog/${category.slug}`}
+                links={category.childCategories.map(({ title, slug }) => ({
+                  title: title,
+                  href: `/catalog/${category.slug}/${slug}`,
+                }))}
+              />
+            ))}
+          </div>
+        </BurgerMenu>
       </Container>
-      <BurgerMenu />
+
       <nav className="w-full bg-cyan-900 py-1 text-white text-lg font-medium hidden lg:flex">
         <Container className="flex justify-between">
           <div className="flex items-center">

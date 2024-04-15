@@ -2,12 +2,14 @@
 import db from "../../../db/db";
 import { productSchema } from "@/zod/schemas";
 import fs from "fs/promises";
-import path, { join } from "path";
 import slugify from "slugify";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export const createProduct = async (state, formData) => {
+export const createPortfolioProduct = async (
+  state: any,
+  formData: FormData
+) => {
   const result = productSchema.safeParse(
     Object.fromEntries(formData.entries())
   );
@@ -24,7 +26,7 @@ export const createProduct = async (state, formData) => {
     Buffer.from(await data.image.arrayBuffer())
   );
 
-  const product = await db.product.create({
+  await db.portfolioProduct.create({
     data: {
       title,
       slug: slugify(`${title}-${vendorCode}`, {
@@ -37,37 +39,6 @@ export const createProduct = async (state, formData) => {
     },
   });
 
-  await db.productCharacteristic.createMany({
-    data: characteristics.map((char) => ({
-      title: char.title,
-      variants: char.values.map(({ value }) => value),
-      productId: product.id,
-    })),
-  });
-
-  revalidatePath("/admin/catalog");
-  redirect("/admin/catalog");
-};
-
-export const changeProductActive = async (id, isActive) => {
-  return await db.category.update({
-    where: {
-      id,
-    },
-    data: {
-      active: isActive,
-    },
-  });
-};
-
-export const deleteProduct = async (id) => {
-  const product = await db.product.delete({
-    where: {
-      id: id,
-    },
-  });
-
-  await fs.unlink(path(process.cwd(), category.image));
-
-  return product;
+  revalidatePath("/admin/portfolio");
+  redirect("/admin/portfolio");
 };

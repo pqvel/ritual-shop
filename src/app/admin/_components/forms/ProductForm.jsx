@@ -37,21 +37,29 @@ const ProductForm = ({ categoryId }) => {
   const addCharactiristic = () => {
     setCharacteristics((characteristics) => [
       ...characteristics,
-      { id: uuid(), title: "", values: ["", "", ""] },
+      {
+        id: uuid(),
+        title: "",
+        values: [
+          { id: uuid(), value: "" },
+          { id: uuid(), value: "" },
+          { id: uuid(), value: "" },
+        ],
+      },
     ]);
   };
 
-  const changeCaracteristicValue = (value, id, index) => {
+  const changeCaracteristicValue = (value, id, valueId) => {
     setCharacteristics((items) =>
       items.map((item) => {
         if (item.id !== id) return item;
 
         return {
           ...item,
-          values: item.values.map((val, i) => {
-            if (i !== index) return val;
+          values: item.values.map((val) => {
+            if (val.id !== valueId) return val;
 
-            return value;
+            return { ...val, value: value };
           }),
         };
       })
@@ -110,12 +118,12 @@ const ProductForm = ({ categoryId }) => {
                       }
                     />
                   </TableCell>
-                  {values.map((value, index) => (
-                    <TableCell key={value}>
+                  {values.map((val) => (
+                    <TableCell key={val.id}>
                       <Input
-                        value={value}
+                        value={val.value}
                         onChange={(e) =>
-                          changeCaracteristicValue(e.target.value, id, index)
+                          changeCaracteristicValue(e.target.value, id, val.id)
                         }
                         placeholder="Гранит"
                       />
