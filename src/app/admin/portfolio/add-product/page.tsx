@@ -1,15 +1,8 @@
 import { FC } from "react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import PortfolioForm from "../../_components/forms/PortfolioForm";
 
-type Props = {
-  params: { category: string };
-};
-
-const getPortfolioPrudcts = async () => {};
-
-const AddCategoryPage: FC<Props> = async ({ params }) => {
-  // const parentCategory = await getCategories(params.category);
-
+const AddCategoryPage: FC = async () => {
   return (
     <>
       <Breadcrumb
@@ -25,7 +18,7 @@ const AddCategoryPage: FC<Props> = async ({ params }) => {
           },
         ]}
       />
-      {/* <CategoryForm level={2} parentId={parentCategory.id} /> */}
+      <PortfolioForm />
     </>
   );
 };

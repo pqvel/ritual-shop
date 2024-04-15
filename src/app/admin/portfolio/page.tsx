@@ -15,7 +15,15 @@ import {
   TableRow,
   TableHead,
 } from "@/components/ui/shadcn-ui/table";
-const PortfolioPage: FC = () => {
+import db from "../../../../db/db";
+import PortfolioItem from "../_components/portfolio/PortfolioItem";
+
+const getProtfolioProducts = async () => {
+  return await db.portfolioProduct.findMany();
+};
+
+const PortfolioPage: FC = async () => {
+  const portfolioProducts = await getProtfolioProducts();
   return (
     <>
       <Breadcrumb
@@ -43,14 +51,19 @@ const PortfolioPage: FC = () => {
               <TableRow>
                 <TableHead className="w-[100px]">Active</TableHead>
                 <TableHead className="w-[100px]">ID</TableHead>
-                <TableHead className="w-[100px]">Parent ID</TableHead>
-                <TableHead>Название</TableHead>
-                <TableHead>slug</TableHead>
+                <TableHead>Дата добавления</TableHead>
                 <TableHead>Изображение</TableHead>
                 <TableHead className="text-right">Действия</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody></TableBody>
+            <TableBody>
+              {portfolioProducts.map((portfolioProduct) => (
+                <PortfolioItem
+                  key={portfolioProduct.id}
+                  product={portfolioProduct}
+                />
+              ))}
+            </TableBody>
           </Table>
         </CardContent>
       </Card>

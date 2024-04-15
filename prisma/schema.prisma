@@ -49,14 +49,14 @@ model ProductCharacteristic {
   product   Product  @relation(fields: [productId], references: [id])
 }
 
-enum Role {
-  ADMIN
-  USER
-}
-
 model PortfolioProduct {
   id Int @id @default(autoincrement())
   image String 
   createdAt DateTime @default(now())
   active Boolean @default(false)
+}
+
+enum Role {
+  ADMIN
+  USER
 }

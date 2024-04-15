@@ -130,7 +130,7 @@ const Header: FC = async () => {
             <div className=" h-7 w-0.5 bg-white mr-3"></div>
             <Link
               className="inline-block hover:underline hover:underline-offset-4 p-1 rounded-md"
-              href="/"
+              href="/portfolio"
             >
               Наши работы
             </Link>

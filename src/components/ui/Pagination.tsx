@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { FC, ReactNode } from "react";
-// import classNames from "classnames";
-// НУЖНО СДЕЛАТЬ НА КЛИЕНТЕ
+import classNames from "classnames";
 type Props = {
   currentPage: number;
   countPages: number;
@@ -9,99 +8,78 @@ type Props = {
 };
 
 const Pagination: FC<Props> = ({ currentPage, countPages, href }) => {
-  if (currentPage < 3) {
-    return (
-      <PaginationWrapper
-        countPages={countPages}
-        currentPage={currentPage}
-        href={href}
-      >
-        <li>
-          <Link
-            className={`flex items-center justify-center w-10 h-10 rounded-full text-sm text-surface transition ${
-              currentPage === 1
-                ? "bg-cyan-700 lg:hover:bg-cyan-800 text-white"
-                : "bg-gray-200 lg:hover:bg-gray-300 text-black"
-            }`}
-            href={`${href}/?page=${1}`}
-          >
-            1
-          </Link>
-        </li>
-        <li>
-          <Link
-            className={`flex items-center justify-center w-10 h-10 rounded-full text-sm text-surface transition ${
-              currentPage === 2
-                ? "bg-cyan-700 lg:hover:bg-cyan-800 text-white"
-                : "bg-gray-200 lg:hover:bg-gray-300 text-black"
-            }`}
-            href={`${href}/?page=${2}`}
-          >
-            2
-          </Link>
-        </li>
-        {countPages >= 3 && (
-          <li>
-            <Link
-              className={`flex items-center justify-center w-10 h-10 rounded-full text-sm text-surface transition ${
-                currentPage === 3
-                  ? "bg-cyan-700 lg:hover:bg-cyan-800 text-white"
-                  : "bg-gray-200 lg:hover:bg-gray-300 text-black"
-              }`}
-              href={`${href}/?page=${currentPage - 1}`}
-            >
-              3
-            </Link>
-          </li>
-        )}
-      </PaginationWrapper>
-    );
-  }
+  return (
+    <ul className="flex justify-center items-center list-style-none mt-10">
+      {currentPage !== 1 && (
+        <PaginationItem href={`${href}/?page=${currentPage - 1}`}>
+          <svg className="rotate-180" width={20} height={20}>
+            <use href="/images/sprites.svg#icon-arrow"></use>
+          </svg>
+        </PaginationItem>
+      )}
+
+      {currentPage - 2 > 0 && (
+        <PaginationItem href={`${href}/?page=${currentPage - 2}`}>
+          {currentPage - 2}
+        </PaginationItem>
+      )}
+      {currentPage - 1 > 0 && (
+        <PaginationItem href={`${href}/?page=${currentPage - 1}`}>
+          {currentPage - 1}
+        </PaginationItem>
+      )}
+      <PaginationItem active href={`${href}/?page=${currentPage}`}>
+        {currentPage}
+      </PaginationItem>
+      {currentPage + 1 <= countPages && (
+        <PaginationItem href={`${href}/?page=${currentPage + 1}`}>
+          {currentPage + 1}
+        </PaginationItem>
+      )}
+      {currentPage + 2 <= countPages && (
+        <PaginationItem href={`${href}/?page=${currentPage + 2}`}>
+          {currentPage + 2}
+        </PaginationItem>
+      )}
+
+      {countPages !== currentPage && (
+        <PaginationItem href={`${href}/?page=${currentPage + 1}`}>
+          <svg width={20} height={20}>
+            <use href="/images/sprites.svg#icon-arrow"></use>
+          </svg>
+        </PaginationItem>
+      )}
+    </ul>
+  );
 };
 
 export default Pagination;
 
-interface PaginationWrapperProps extends Props {
+type PaginationItemProps = {
   children: ReactNode;
-}
+  href: string;
+  active?: boolean;
+};
 
-const PaginationWrapper: FC<PaginationWrapperProps> = ({
-  currentPage,
-  countPages,
-  href,
+const PaginationItem: FC<PaginationItemProps> = ({
   children,
+  href,
+  active = false,
 }) => {
   return (
-    <nav className=" mt-8">
-      <ul className=" grid grid-cols-5 gap-3 list-style-none">
-        {currentPage !== 1 && (
-          <li>
-            <Link
-              className="flex items-center justify-center w-10 h-10 rounded-full text-sm text-surface transition bg-gray-200 lg:hover:bg-gray-300 text-black"
-              href={`${href}/?page=${currentPage - 1}`}
-            >
-              <svg className=" rotate-180" width={20} height={20}>
-                <use href="/images/sprites.svg#icon-arrow"></use>
-              </svg>
-            </Link>
-          </li>
+    <li className="flex mx-1.5">
+      <Link
+        className={classNames(
+          "flex items-center justify-center w-10 h-10 rounded-full text-sm text-surface transition",
+          {
+            "bg-cyan-700 lg:hover:bg-cyan-800 text-white": active,
+            "bg-gray-200 lg:hover:bg-gray-300 text-black": !active,
+          }
         )}
-
+        href={href}
+      >
         {children}
-
-        {currentPage !== countPages && (
-          <li>
-            <Link
-              className="flex items-center justify-center w-10 h-10 rounded-full text-sm text-surface transition  bg-gray-200 lg:hover:bg-gray-300"
-              href={`${href}/?page=${currentPage + 1}`}
-            >
-              <svg width={20} height={20}>
-                <use href="/images/sprites.svg#icon-arrow"></use>
-              </svg>
-            </Link>
-          </li>
-        )}
-      </ul>
-    </nav>
+      </Link>
+    </li>
   );
 };

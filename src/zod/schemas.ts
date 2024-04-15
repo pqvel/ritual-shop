@@ -5,6 +5,10 @@ const imageSchema = fileSchema.refine(
   (file) => file.size === 0 || file.type.startsWith("image/")
 );
 
+export const portfolioProduct: Zod.Schema = z.object({
+  image: imageSchema.refine((file: any) => file.size > 0, "Required"),
+});
+
 export const categorySchema: Zod.Schema = z.object({
   title: z.string().min(1),
   image: imageSchema.refine((file: any) => file.size > 0, "Required"),

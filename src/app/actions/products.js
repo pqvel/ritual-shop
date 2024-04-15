@@ -60,14 +60,14 @@ export const changeProductActive = async (id, isActive) => {
   });
 };
 
-export const deleteProduct = async (id) => {
+export const deleteйProduct = async (id) => {
   const product = await db.product.delete({
     where: {
       id: id,
     },
   });
 
-  await fs.unlink(path(process.cwd(), category.image));
+  await fs.unlink(`public${product.image}`);
 
   return product;
 };

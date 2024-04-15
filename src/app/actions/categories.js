@@ -71,5 +71,6 @@ export const deleteCategory = async (id) => {
   });
 
   await fs.unlink(`public${category.image}`);
-  // await fs.unlink(path(process.cwd(), category.image));
+
+  return category;
 };

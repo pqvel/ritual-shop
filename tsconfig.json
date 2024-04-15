@@ -29,8 +29,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/actions/categories.js",
-    "src/app/actions/products.jts",
-    "src/app/admin/_components/forms/ProductForm.jsx"
+    "src/app/actions/products.js",
+    "src/app/admin/_components/forms/ProductForm.jsx",
+    "src/app/actions/portfolio.js"
   ],
   "exclude": ["node_modules"]
 }
