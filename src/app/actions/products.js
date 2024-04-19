@@ -6,15 +6,25 @@ import path, { join } from "path";
 import slugify from "slugify";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
+// import { Product } from "@prisma/client";
 export const createProduct = async (state, formData) => {
   const result = productSchema.safeParse(
     Object.fromEntries(formData.entries())
   );
 
+  console.log(result.error);
+
   if (result.success === false) return result.error.formErrors.fieldErrors;
 
-  const { title, vendorCode, image, categoryId, characteristics } = result.data;
+  const {
+    title,
+    vendorCode,
+    image,
+    categoryId,
+    characteristics,
+    mainCategoryId,
+    price,
+  } = result.data;
 
   const data = result.data;
   await fs.mkdir("public/products", { recursive: true });
@@ -34,6 +44,8 @@ export const createProduct = async (state, formData) => {
       image: imagePath,
       categoryId,
       vendorCode,
+      mainCategoryId,
+      price,
     },
   });
 
@@ -50,7 +62,7 @@ export const createProduct = async (state, formData) => {
 };
 
 export const changeProductActive = async (id, isActive) => {
-  return await db.category.update({
+  return await db.product.update({
     where: {
       id,
     },
@@ -60,7 +72,7 @@ export const changeProductActive = async (id, isActive) => {
   });
 };
 
-export const deleteйProduct = async (id) => {
+export const deleteProduct = async (id) => {
   const product = await db.product.delete({
     where: {
       id: id,

@@ -1,13 +1,20 @@
-import React, { FC } from "react";
+import React, { ChangeEvent, FocusEvent, FC } from "react";
 
 type Props = {
   className?: string;
   placeholder?: string;
   name?: string;
+  value?: string | number;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 };
 
 export const TextInput: FC<Props> = (props) => (
   <input {...props} className={`input ${props.className}`} type="text" />
+);
+
+export const NumberInput: FC<Props> = (props) => (
+  <input {...props} className={`input ${props.className}`} type="number" />
 );
 
 export const PhoneInput: FC<Props> = (props) => (

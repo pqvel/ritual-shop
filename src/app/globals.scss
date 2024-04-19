@@ -160,3 +160,41 @@ body {
 //   width: 32px;
 //   height: 32px;
 // }
+
+.loading,
+.loading,
+.loading {
+  background-color: #ededed;
+  background: linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 60%
+    )
+    #ededed;
+  background-size: 200% 100%;
+  background-position-x: 180%;
+  animation: 1s loading ease-in-out infinite;
+}
+
+@keyframes loading {
+  to {
+    background-position-x: -20%;
+  }
+}
+
+main {
+  background: #f6f6f6 !important;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none; // Yeah, yeah everybody write about it
+}
+
+input[type="number"],
+input[type="number"]:hover,
+input[type="number"]:focus {
+  appearance: none;
+  -moz-appearance: textfield;
+}

@@ -1,7 +1,6 @@
 import React, { FC } from "react";
-import Link from "next/link";
 import db from "../../../db/db";
-import { Grid, Container, Aside } from "@/components/ui/Wrappers";
+import { Grid, Container, Aside, CatalogGrid } from "@/components/ui/Wrappers";
 import ProductCart from "@/components/ui/cards/ProductCard";
 import Separator from "@/components/ui/Separator";
 import Breadcrumb from "@/components/ui/Breadcrumb";
@@ -10,8 +9,9 @@ import CatalogSection from "@/components/catalog/CatalogSection";
 import { AsideLinks } from "@/components/ui/catalog";
 import Pagination from "@/components/ui/Pagination";
 import MainLayout from "@/components/layouts/MainLayout";
+import Loading from "./loading";
 // import Pagination from "@/components/ui/Pagination";
-
+import Catalog from "@/components/catalog/Catalog";
 const getCategories = async () => {
   return await db.category.findMany({
     where: { level: 1 },
@@ -53,9 +53,9 @@ const CatalogpPage: FC<Props> = async ({ searchParams }) => {
             ]}
           />
           <CatalogTitle>Памятники</CatalogTitle>
-          <div className="flex items-start">
-            <Aside className=" mr-4">
-              {categories.map((category) => (
+          {/* <div className="flex items-start">
+            <Aside className=" mr-4"> */}
+          {/* {categories.map((category) => (
                 <>
                   <AsideLinks
                     title="Памятники"
@@ -67,10 +67,15 @@ const CatalogpPage: FC<Props> = async ({ searchParams }) => {
                   />
                   <Separator />
                 </>
-              ))}
+              ))} */}
+          {/* <form className="flex flex-col">
+                <input type="number" name="price" />
+                <input type="checkbox" name="value" />
+                <button type="submit">submit</button>
+              </form>
             </Aside>
             <div className=" flex flex-col items-center w-full">
-              <Grid>
+              <CatalogGrid>
                 {products.map((product) => (
                   <ProductCart
                     product={product}
@@ -78,10 +83,27 @@ const CatalogpPage: FC<Props> = async ({ searchParams }) => {
                     key={product.id}
                   />
                 ))}
-              </Grid>
+              </CatalogGrid>
+
+              <Loading />
               <Pagination href="/catalog/" currentPage={2} countPages={5} />
             </div>
-          </div>
+          </div> */}
+          <Catalog
+            categoriesChildren={categories.map((category) => (
+              <>
+                <AsideLinks
+                  title="Памятники"
+                  href={`/catalog/${category.slug}`}
+                  links={category.childCategories.map(({ title, slug }) => ({
+                    title,
+                    href: `/catalog/${category.slug}/${slug}`,
+                  }))}
+                />
+                <Separator />
+              </>
+            ))}
+          />
         </Container>
       </CatalogSection>
     </MainLayout>

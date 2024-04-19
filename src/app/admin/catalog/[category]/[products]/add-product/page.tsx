@@ -58,7 +58,10 @@ const AddProductPage: FC<Props> = async ({ params }) => {
           },
         ]}
       />
-      <ProductForm categoryId={mainCategory!.childCategories[0].id} />
+      <ProductForm
+        mainCategoryId={mainCategory!.id}
+        categoryId={mainCategory!.childCategories[0].id}
+      />
     </>
   );
 };

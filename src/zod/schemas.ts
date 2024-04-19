@@ -27,8 +27,16 @@ export const productSchema: Zod.Schema = z.object({
     .string()
     .min(1)
     .transform((val) => parseInt(val, 10)),
+  mainCategoryId: z
+    .string()
+    .min(1)
+    .transform((val) => parseInt(val, 10)),
   characteristics: z
     .string()
     .min(1)
     .transform((str) => JSON.parse(str)),
+  price: z
+    .string()
+    .min(1)
+    .transform((val) => parseInt(val, 10)),
 });

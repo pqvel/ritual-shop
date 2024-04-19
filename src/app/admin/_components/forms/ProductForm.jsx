@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/shadcn-ui/table";
 import { v4 as uuid } from "uuid";
 
-const ProductForm = ({ categoryId }) => {
+const ProductForm = ({ categoryId, mainCategoryId }) => {
   console.log(categoryId);
   const [formState, action] = useFormState(createProduct, {});
 
@@ -97,6 +97,11 @@ const ProductForm = ({ categoryId }) => {
             />
           </Label>
 
+          <Label className="block mb-4">
+            <div className="mb-2 text-lg">Цена</div>
+            <Input placeholder="1200" name="price" type="number" />
+          </Label>
+
           <Table className="bg-white">
             <TableHeader>
               <TableRow>
@@ -154,6 +159,10 @@ const ProductForm = ({ categoryId }) => {
               Внимание! изменение данных параметров может привести к необратимым
               последствиям!!! Не стоит менять вообще эти данные
             </div>
+            <Label className="block mb-4">
+              <div className="mb-2 text-lg">ID Главной категории</div>
+              <Input name="mainCategoryId" value={mainCategoryId} />
+            </Label>
             <Label className="block mb-4">
               <div className="mb-2 text-lg">ID категории</div>
               <Input name="categoryId" value={categoryId} />
