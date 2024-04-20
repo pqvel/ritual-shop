@@ -21,7 +21,16 @@ export const PhoneInput: FC<Props> = (props) => (
   <input {...props} className={`input ${props.className}`} type="tel" />
 );
 
-export const TextArea: FC<Props> = (props) => (
+type PropsTextarea = {
+  className?: string;
+  placeholder?: string;
+  name?: string;
+  value?: string | number;
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (e: FocusEvent<HTMLTextAreaElement>) => void;
+};
+
+export const TextArea: FC<PropsTextarea> = (props) => (
   <textarea
     {...props}
     className={`input resize-none h-36 ${props.className}`}
