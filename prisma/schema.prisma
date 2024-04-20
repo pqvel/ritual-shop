@@ -35,7 +35,6 @@ model Product {
   vendorCode      String
   image           String
   categoryId      Int
-  mainCategoryId  Int
   active          Boolean                 @default(false)
   price           Float                   @default(0)
   category        Category                @relation(fields: [categoryId], references: [id])
@@ -51,10 +50,10 @@ model ProductCharacteristic {
 }
 
 model PortfolioProduct {
-  id Int @id @default(autoincrement())
-  image String 
+  id        Int      @id @default(autoincrement())
+  image     String
   createdAt DateTime @default(now())
-  active Boolean @default(false)
+  active    Boolean  @default(false)
 }
 
 enum Role {
