@@ -12,8 +12,12 @@ import MainLayout from "@/components/layouts/MainLayout";
 
 const getCategories = async () => {
   return await db.category.findMany({
-    where: { level: 1 },
-    include: { childCategories: true },
+    where: { active: true },
+    include: {
+      childCategories: {
+        where: { active: true },
+      },
+    },
   });
 };
 
@@ -22,7 +26,7 @@ const getCurrentCategories = async (
   childCategorySlug: string
 ) => {
   return await db.category.findUnique({
-    where: { level: 1, slug: mainCategorySlug, active: true },
+    where: { slug: mainCategorySlug, active: true },
     include: {
       childCategories: {
         where: { slug: childCategorySlug, active: true },
@@ -47,10 +51,13 @@ const getProducts = async (
     include: {
       childCategories: {
         where: {
+          active: true,
           slug: childCategorySlug,
         },
         include: {
-          products: true,
+          products: {
+            where: { active: true },
+          },
         },
       },
     },

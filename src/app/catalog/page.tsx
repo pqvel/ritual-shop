@@ -11,14 +11,21 @@ import CatalogAside from "@/components/catalog/CatalogAside";
 
 const getCategories = async () => {
   return await db.category.findMany({
-    where: { level: 1 },
-    include: { childCategories: true },
+    where: { active: true },
+    include: {
+      childCategories: {
+        where: { active: true },
+      },
+    },
   });
 };
 
 const getProducts = async (currentPage: number) => {
   const countItemsPerPage = 1;
-  const { _count } = await db.portfolioProduct.aggregate({ _count: true });
+  const { _count } = await db.product.aggregate({
+    _count: true,
+    where: { active: true },
+  });
 
   const products = await db.product.findMany({
     take: countItemsPerPage,

@@ -12,15 +12,23 @@ import Pagination from "@/components/ui/Pagination";
 
 const getCategories = async () => {
   return await db.category.findMany({
-    where: { level: 1 },
-    include: { childCategories: true },
+    where: { active: true },
+    include: {
+      childCategories: {
+        where: { active: true },
+      },
+    },
   });
 };
 
 const getCurrentCategory = async (slug: string) => {
   return await db.category.findUnique({
-    where: { level: 1, slug: slug },
-    include: { childCategories: true },
+    where: { slug: slug, active: true },
+    include: {
+      childCategories: {
+        where: { active: true },
+      },
+    },
   });
 };
 
@@ -31,13 +39,12 @@ const getProducts = async (currentPage: number, categorySlug: string) => {
     where: {
       active: true,
       slug: categorySlug,
-      level: 1,
     },
   });
 
   const { _count } = await db.product.aggregate({
     _count: true,
-    where: { active: true, mainCategoryId: mainCategory?.id },
+    where: { active: true, mainCategoryId: mainCategory!.id },
   });
 
   const products = await db.product.findMany({
