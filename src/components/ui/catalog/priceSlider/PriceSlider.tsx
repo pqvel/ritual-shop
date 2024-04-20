@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import "./styles.scss";
 import { NumberInput, TextInput } from "../../formItems/Input";
-
+import { useDeferredValue } from "react";
 type Props = {
   min: number;
   max: number;
@@ -101,7 +101,7 @@ const PriceSlider: FC<Props> = ({ min, max, onChange }) => {
           value={getMinPrice(minVal, min)}
           onChange={handleChangeMinPrice}
           className="thumb thumb--left"
-          style={{ zIndex: minVal > max - 100 && "5" }}
+          style={{ zIndex: minVal > max - 100 ? "5" : undefined }}
         />
         <input
           type="range"

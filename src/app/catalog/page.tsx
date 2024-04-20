@@ -1,17 +1,14 @@
 import React, { FC } from "react";
-import db from "../../../db/db";
-import { Grid, Container, Aside, CatalogGrid } from "@/components/ui/Wrappers";
+import { Container, CatalogGrid } from "@/components/ui/Wrappers";
 import ProductCart from "@/components/ui/cards/ProductCard";
-import Separator from "@/components/ui/Separator";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import CatalogTitle from "@/components/catalog/CatalogTitle";
 import CatalogSection from "@/components/catalog/CatalogSection";
-import { AsideLinks } from "@/components/ui/catalog";
 import Pagination from "@/components/ui/Pagination";
 import MainLayout from "@/components/layouts/MainLayout";
-import Loading from "./loading";
-// import Pagination from "@/components/ui/Pagination";
-import Catalog from "@/components/catalog/Catalog";
+import db from "../../../db/db";
+import CatalogAside from "@/components/catalog/CatalogAside";
+
 const getCategories = async () => {
   return await db.category.findMany({
     where: { level: 1 },
@@ -19,11 +16,22 @@ const getCategories = async () => {
   });
 };
 
-const getProducts = async (pageNumber: number, offsetItems: number) => {
-  return await db.product.findMany({
-    take: offsetItems,
-    skip: pageNumber,
+const getProducts = async (currentPage: number) => {
+  const countItemsPerPage = 1;
+  const { _count } = await db.portfolioProduct.aggregate({ _count: true });
+
+  const products = await db.product.findMany({
+    take: countItemsPerPage,
+    skip: (currentPage - 1) * countItemsPerPage,
+    where: {
+      active: true,
+    },
   });
+
+  return {
+    products,
+    countPages: Math.ceil(_count / countItemsPerPage),
+  };
 };
 
 type Props = {
@@ -32,14 +40,11 @@ type Props = {
   };
 };
 
-const CatalogpPage: FC<Props> = async ({ searchParams }) => {
-  const pageNumber = Number(searchParams.page ?? 1);
-  const numberOfItems = 12;
-  const offsetItems = (pageNumber - 1) * numberOfItems;
-
-  const [categories, products] = await Promise.all([
+const CatalogpPage: FC<Props> = async ({ searchParams: { page = "1" } }) => {
+  const currentPage = Number(page);
+  const [categories, { countPages, products }] = await Promise.all([
     getCategories(),
-    getProducts(pageNumber, offsetItems),
+    getProducts(currentPage),
   ]);
 
   return (
@@ -52,58 +57,26 @@ const CatalogpPage: FC<Props> = async ({ searchParams }) => {
               { title: "Каталог", href: "/catalog" },
             ]}
           />
-          <CatalogTitle>Памятники</CatalogTitle>
-          {/* <div className="flex items-start">
-            <Aside className=" mr-4"> */}
-          {/* {categories.map((category) => (
-                <>
-                  <AsideLinks
-                    title="Памятники"
-                    href={`/catalog/${category.slug}`}
-                    links={category.childCategories.map(({ title, slug }) => ({
-                      title,
-                      href: `/catalog/${category.slug}/${slug}`,
-                    }))}
-                  />
-                  <Separator />
-                </>
-              ))} */}
-          {/* <form className="flex flex-col">
-                <input type="number" name="price" />
-                <input type="checkbox" name="value" />
-                <button type="submit">submit</button>
-              </form>
-            </Aside>
-            <div className=" flex flex-col items-center w-full">
+          <CatalogTitle>Каталог</CatalogTitle>
+          <div className="flex items-start">
+            <CatalogAside categories={categories} />
+            <div className="flex flex-col items-center w-full">
               <CatalogGrid>
                 {products.map((product) => (
                   <ProductCart
-                    product={product}
                     href={`/goods/${product.slug}`}
                     key={product.id}
+                    product={product}
                   />
                 ))}
               </CatalogGrid>
-
-              <Loading />
-              <Pagination href="/catalog/" currentPage={2} countPages={5} />
+              <Pagination
+                href="/catalog/"
+                currentPage={currentPage}
+                countPages={countPages}
+              />
             </div>
-          </div> */}
-          <Catalog
-            categoriesChildren={categories.map((category) => (
-              <>
-                <AsideLinks
-                  title="Памятники"
-                  href={`/catalog/${category.slug}`}
-                  links={category.childCategories.map(({ title, slug }) => ({
-                    title,
-                    href: `/catalog/${category.slug}/${slug}`,
-                  }))}
-                />
-                <Separator />
-              </>
-            ))}
-          />
+          </div>
         </Container>
       </CatalogSection>
     </MainLayout>

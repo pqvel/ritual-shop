@@ -8,6 +8,8 @@ type Props = {
 };
 
 const Pagination: FC<Props> = ({ currentPage, countPages, href }) => {
+  if (countPages === 1) return null;
+
   return (
     <ul className="flex justify-center items-center list-style-none mt-10">
       {currentPage !== 1 && (
