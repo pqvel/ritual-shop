@@ -8,11 +8,9 @@ import { User } from "@prisma/client";
 async function getUser(email: string): Promise<User | null> {
   try {
     const user = db.user.findUnique({ where: { email: email } });
-
     if (!user) {
       throw new Error(`Неправильный логин или пароль`);
     }
-
     return user;
   } catch (error: unknown) {
     console.log(error);
