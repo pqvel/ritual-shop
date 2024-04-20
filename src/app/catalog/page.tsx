@@ -57,7 +57,7 @@ const CatalogpPage: FC<Props> = async ({ searchParams: { page = "1" } }) => {
               { title: "Каталог", href: "/catalog" },
             ]}
           />
-          <CatalogTitle>Каталог</CatalogTitle>
+          <CatalogTitle>Вся продукция</CatalogTitle>
           <div className="flex items-start">
             <CatalogAside categories={categories} />
             <div className="flex flex-col items-center w-full">
