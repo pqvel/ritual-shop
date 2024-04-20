@@ -38,7 +38,7 @@ model Product {
   mainCategoryId  Int
   active          Boolean                 @default(false)
   price           Float                   @default(0)
-  category        Category                @relation(fields: [categoryId], references: [id])
+  category        Category                @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   characteristics ProductCharacteristic[]
 }
 
@@ -47,7 +47,7 @@ model ProductCharacteristic {
   productId Int
   title     String
   variants  String[]
-  product   Product  @relation(fields: [productId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model PortfolioProduct {
