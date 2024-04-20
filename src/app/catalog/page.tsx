@@ -70,11 +70,13 @@ const CatalogpPage: FC<Props> = async ({ searchParams: { page = "1" } }) => {
                   />
                 ))}
               </CatalogGrid>
-              <Pagination
-                href="/catalog/"
-                currentPage={currentPage}
-                countPages={countPages}
-              />
+              {countPages !== 1 && (
+                <Pagination
+                  href="/catalog/"
+                  currentPage={currentPage}
+                  countPages={countPages}
+                />
+              )}
             </div>
           </div>
         </Container>

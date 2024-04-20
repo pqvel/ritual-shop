@@ -103,11 +103,13 @@ const CatalogLvl2Page: FC<Props> = async ({
                   />
                 ))}
               </CatalogGrid>
-              <Pagination
-                href={`/catalog/${mainCategory!.slug}`}
-                currentPage={currentPage}
-                countPages={countPages}
-              />
+              {countPages !== 1 && (
+                <Pagination
+                  href={`/catalog/${mainCategory!.slug}`}
+                  currentPage={currentPage}
+                  countPages={countPages}
+                />
+              )}
             </div>
           </div>
         </Container>

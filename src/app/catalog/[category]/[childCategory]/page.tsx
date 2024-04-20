@@ -121,7 +121,9 @@ const CatalogLvl2Page: FC<Props> = async ({
               },
             ]}
           />
-          <CatalogTitle>{currentCategories!.title}</CatalogTitle>
+          <CatalogTitle>
+            {currentCategories!.childCategories[0].title}
+          </CatalogTitle>
           <div className="flex items-start">
             <CatalogAside categories={categories} />
             <div className="flex flex-col items-center w-full">
@@ -134,14 +136,15 @@ const CatalogLvl2Page: FC<Props> = async ({
                   />
                 ))}
               </CatalogGrid>
-
-              <Pagination
-                href={`/catalog/${currentCategories!.slug}/${
-                  currentCategories?.childCategories[0].slug
-                }`}
-                currentPage={currentPage}
-                countPages={countPages}
-              />
+              {countPages !== 1 && (
+                <Pagination
+                  href={`/catalog/${currentCategories!.slug}/${
+                    currentCategories?.childCategories[0].slug
+                  }`}
+                  currentPage={currentPage}
+                  countPages={countPages}
+                />
+              )}
             </div>
           </div>
         </Container>
