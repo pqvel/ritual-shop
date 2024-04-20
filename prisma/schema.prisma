@@ -35,6 +35,7 @@ model Product {
   vendorCode      String
   image           String
   categoryId      Int
+  mainCategoryId  Int
   active          Boolean                 @default(false)
   price           Float                   @default(0)
   category        Category                @relation(fields: [categoryId], references: [id], onDelete: Cascade)
