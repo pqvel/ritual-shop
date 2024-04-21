@@ -4,10 +4,12 @@ import { z } from "zod";
 import { authConfig } from "./config/auth.config";
 import db from "../db/db";
 import { User } from "@prisma/client";
-import bcrypt from 'bcrypt'
-
+import CryptoJS from "crypto-js";
 
 async function getUser(email: string): Promise<User | null> {
+  const hashPassword = CryptoJS.SHA256("admin123").toString()
+ 
+console.log(hashPassword)
   try {
     const user = db.user.findUnique({ where: { email: email } });
     if (!user) {
@@ -34,9 +36,11 @@ export const { auth, signIn, signOut } = NextAuth({
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
           if (!user) return null;
-          const passwordsMatch = await bcrypt.compare(password, user.password);
+          const hashPassword = CryptoJS.SHA256(password).toString()
  
-          if (!passwordsMatch) return user;
+          console.log(hashPassword)
+          
+          if (hashPassword === user.password) return user;
         }
  
         console.log('Invalid credentials');
