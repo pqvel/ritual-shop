@@ -4,7 +4,7 @@ import { z } from "zod";
 import { authConfig } from "./config/auth.config";
 import db from "../db/db";
 import { User } from "@prisma/client";
-import bcrypt from 'bcrypt'
+// import bcrypt from 'bcrypt'
 
 
 async function getUser(email: string): Promise<User | null> {
@@ -39,9 +39,9 @@ export const { auth, signIn, signOut } = NextAuth({
           const user = await getUser(email);
           if (!user) return null;
 
-          const passwordsMatch = await bcrypt.compare(password, user.password);
+          // const passwordsMatch = await bcrypt.compare(password, user.password);
           
-          if (passwordsMatch) return user;
+          // if (passwordsMatch) return user;
 
         }
 
