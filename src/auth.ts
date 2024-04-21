@@ -4,7 +4,7 @@ import { z } from "zod";
 import { authConfig } from "./config/auth.config";
 import db from "../db/db";
 import { User } from "@prisma/client";
-// import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt'
 
 
 async function getUser(email: string): Promise<User | null> {
@@ -20,10 +20,6 @@ async function getUser(email: string): Promise<User | null> {
   }
 }
 
-// ( async () => {
-//   const d = await bcrypt.hash("admin123", 10);
-//   console.log(d)
-// })()
 
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -38,13 +34,12 @@ export const { auth, signIn, signOut } = NextAuth({
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
           if (!user) return null;
-
-          // const passwordsMatch = await bcrypt.compare(password, user.password);
-          
-          // if (passwordsMatch) return user;
-
+          const passwordsMatch = await bcrypt.compare(password, user.password);
+ 
+          if (!passwordsMatch) return user;
         }
-
+ 
+        console.log('Invalid credentials');
         return null;
       },
     }),
