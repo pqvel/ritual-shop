@@ -1,11 +1,11 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/ui/Wrappers";
 import HoverSelect from "@/components/ui/HoverSelect";
 import db from "../../../db/db";
 import BurgerMenu from "./BurgerMenu";
-import { AsideLinks } from "../ui/catalog";
+import BurgerMenuSelect from "./BurgerMenuSelect";
 
 const getCategories = async () => {
   return await db.category.findMany({
@@ -68,28 +68,48 @@ const Header: FC = async () => {
         </ul>
 
         <BurgerMenu>
-          <div className="grid grid-cols-1 md:grid-cols-2">
+          <ul className="flex flex-col items-center">
+            <BurgerMenuLink href="/catalog">Каталог</BurgerMenuLink>
             {categories.map((category) => (
-              <AsideLinks
-                key={category.id}
-                title={category.title}
-                href={`/catalog/${category.slug}`}
-                links={category.childCategories.map(({ title, slug }) => ({
-                  title: title,
-                  href: `/catalog/${category.slug}/${slug}`,
-                }))}
+              <BurgerMenuSelect
+                category={category}
+                childCategories={category.childCategories}
               />
             ))}
-          </div>
+            <BurgerMenuLink href="/portfolio">Наши работы</BurgerMenuLink>
+            <BurgerMenuLink href="/contacts">Контакты</BurgerMenuLink>
+            <li>
+              <ul className="flex items-center flex-col py-6">
+                <li className="flex">
+                  <a
+                    className="px-2 py-1 text-lg text-gray-600"
+                    href="tel:+375297542545"
+                  >
+                    А1 +375 (29) 754-25-45
+                  </a>
+                </li>
+                <li className="flex">
+                  <a
+                    className="px-2 py-1 text-lg text-gray-600"
+                    href="tel:+375297542545"
+                  >
+                    МТС: +375 (29) 754-25-45
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <button className="bg-cyan-700 text-white py-3 px-8 rounded-[30px] text-lg shadow-lg lg:hover:bg-cyan-800 transition">
+                Заказать звонок
+              </button>
+            </li>
+          </ul>
         </BurgerMenu>
       </Container>
 
       <nav className="w-full bg-cyan-900 py-1 text-white text-lg font-medium hidden lg:flex">
         <Container className="flex justify-between">
           <div className="flex items-center">
-            <Link href="/catalog" className="inline-block py-1 px-2 mr-3">
-              Каталог
-            </Link>
             <div className=" h-7 w-0.5 bg-white mr-3"></div>
             {categories.map((category) => (
               <>
@@ -142,3 +162,19 @@ const Header: FC = async () => {
 };
 
 export default Header;
+
+type BurgerMenuLinkProps = {
+  href: string;
+  children: ReactNode;
+};
+
+const BurgerMenuLink: FC<BurgerMenuLinkProps> = ({ href, children }) => (
+  <li className="flex mb-1">
+    <Link
+      className="py-1 px-2 w-full cursor-pointer font-medium text-xl text-gray-950"
+      href={href}
+    >
+      {children}
+    </Link>
+  </li>
+);

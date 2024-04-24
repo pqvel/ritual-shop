@@ -14,7 +14,7 @@ const getCategories = async () => {
     where: { active: true },
     include: {
       childCategories: {
-        where: { active: true },
+        where: { active: true, level: 2 },
       },
     },
   });

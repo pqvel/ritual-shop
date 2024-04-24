@@ -7,13 +7,9 @@ import {
   SectionTitle,
   SectionTitleGroup,
 } from "@/components/ui/Section";
-import ProductCard from "@/components/ui/cards/ProductCard";
 import { Grid } from "@/components/ui/Wrappers";
-
 import Image from "next/image";
 import CategoryCard from "@/components/ui/cards/CategoryCard";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
 import "swiper/css";
 import { FC } from "react";
 import { Label } from "@/components/ui/formItems/Label";
@@ -23,7 +19,6 @@ import {
   TextInput,
 } from "@/components/ui/formItems/Input";
 
-// import FeedbackPopup from "@/components/popups/FeedbackPopup";
 import db from "../../db/db";
 import ProductsSwiper from "@/components/ui/ProductsSwiper";
 import MainLayout from "@/components/layouts/MainLayout";

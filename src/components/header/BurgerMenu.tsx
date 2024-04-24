@@ -71,7 +71,7 @@ const BurgerMenu: FC<Props> = ({ children }) => {
 
       <nav
         className={classNames(
-          `flex flex-col lg:hidden fixed top-0 right-0 w-full h-full bg-white p-5 overflow-y-auto transition-all duration-300`,
+          `flex flex-col items-center justify-center lg:hidden fixed top-0 right-0 w-full h-full bg-white p-5 overflow-y-auto transition-all duration-300`,
           {
             "translate-x-full": !active,
           }
