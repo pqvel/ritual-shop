@@ -8,8 +8,6 @@ type Props = {
 };
 
 const Pagination: FC<Props> = ({ currentPage, countPages, href }) => {
-  console.log(countPages);
-  // console.log(countPages === 1);
   if (countPages === 1 || countPages === 0) return null;
 
   return (

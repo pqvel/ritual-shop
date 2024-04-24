@@ -21,12 +21,36 @@ const Header: FC = async () => {
     <header className="h-20 fixed top-0 left-0 w-full bg-white z-10 border-b border-b-gray-20 shadow-sm lg:border-none lg:h-[146px]">
       <Container className="flex justify-between items-center">
         <Link className="flex py-2" href="/">
-          <Image
+          {/* <Image
             className=" lg:w-[377px] lg:h-[86px]"
             src="/images/logo.png"
             alt="Логотип"
             width={280}
             height={64}
+            priority
+          /> */}
+          <Image
+            className=""
+            src="/images/XwI7.gif"
+            alt="Логотип"
+            width={60}
+            height={60}
+            priority
+          />
+          <Image
+            className=""
+            src="/images/XwI7.gif"
+            alt="Логотип"
+            width={60}
+            height={60}
+            priority
+          />
+          <Image
+            className=""
+            src="/images/XwI7.gif"
+            alt="Логотип"
+            width={60}
+            height={60}
             priority
           />
         </Link>
@@ -68,7 +92,7 @@ const Header: FC = async () => {
         </ul>
 
         <BurgerMenu>
-          <ul className="flex flex-col items-center">
+          <ul className="flex flex-col items-center my-auto">
             <BurgerMenuLink href="/catalog">Каталог</BurgerMenuLink>
             {categories.map((category) => (
               <BurgerMenuSelect
@@ -110,6 +134,12 @@ const Header: FC = async () => {
       <nav className="w-full bg-cyan-900 py-1 text-white text-lg font-medium hidden lg:flex">
         <Container className="flex justify-between">
           <div className="flex items-center">
+            <Link
+              className="inline-block mr-3 hover:underline hover:underline-offset-4 p-1 rounded-md"
+              href="/catalog"
+            >
+              Каталог
+            </Link>
             <div className=" h-7 w-0.5 bg-white mr-3"></div>
             {categories.map((category) => (
               <>
@@ -171,7 +201,7 @@ type BurgerMenuLinkProps = {
 const BurgerMenuLink: FC<BurgerMenuLinkProps> = ({ href, children }) => (
   <li className="flex mb-1">
     <Link
-      className="py-1 px-2 w-full cursor-pointer font-medium text-xl text-gray-950"
+      className="py-1 px-2 w-full cursor-pointer font-medium text-xl text-gray-950 text-center"
       href={href}
     >
       {children}

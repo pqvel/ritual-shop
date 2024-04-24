@@ -29,7 +29,7 @@ const BurgerMenuSelect: FC<Props> = ({ category, childCategories }) => {
           {childCategories.map((childCategory) => (
             <li className="flex" key={childCategory.id}>
               <Link
-                className=" text-lg text-gray-600"
+                className=" text-lg text-gray-600 text-center"
                 href={`/catalog/${category.slug}/${childCategory.slug}`}
               >
                 {childCategory.title}
