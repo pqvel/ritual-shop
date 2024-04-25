@@ -13,7 +13,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body>{children}</body>
+      <body>
+        {children}
+        <div id="popups"></div>
+      </body>
     </html>
   );
 }

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import { Container } from "@/components/ui/Wrappers";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import CatalogTitle from "@/components/catalog/CatalogTitle";
@@ -9,10 +9,13 @@ import { CatalogGrid } from "@/components/ui/Wrappers";
 import Pagination from "@/components/ui/Pagination";
 import ProductCart from "@/components/ui/cards/ProductCard";
 import MainLayout from "@/components/layouts/MainLayout";
+import Link from "next/link";
+import Separator from "@/components/ui/Separator";
+import { declensionTextByNumber } from "@/utils/desclensionTextByNumber";
 
 const getCategories = async () => {
   return await db.category.findMany({
-    where: { active: true },
+    where: { active: true, level: 1 },
     include: {
       childCategories: {
         where: { active: true, level: 2 },
@@ -85,6 +88,7 @@ const getProducts = async (
   return {
     products,
     countPages: Math.ceil(_count / countItemsPerPage),
+    countProducts: _count,
   };
 };
 type Props = {
@@ -102,12 +106,15 @@ const CatalogLvl2Page: FC<Props> = async ({
   searchParams: { page = "1" },
 }) => {
   const currentPage = Number(page);
-  const [categories, currentCategories, { products, countPages }] =
-    await Promise.all([
-      getCategories(),
-      getCurrentCategories(category, childCategory),
-      getProducts(currentPage, category, childCategory),
-    ]);
+  const [
+    categories,
+    currentCategories,
+    { products, countPages, countProducts },
+  ] = await Promise.all([
+    getCategories(),
+    getCurrentCategories(category, childCategory),
+    getProducts(currentPage, category, childCategory),
+  ]);
   return (
     <MainLayout>
       <CatalogSection>
@@ -131,8 +138,42 @@ const CatalogLvl2Page: FC<Props> = async ({
           <CatalogTitle>
             {currentCategories!.childCategories[0].title}
           </CatalogTitle>
-          <div className="flex items-start">
-            <CatalogAside categories={categories} />
+          <div className="flex flex-col lg:flex-row items-start">
+            <div className="flex flex-col justify-between items-end mb-4 sm:flex-row w-full lg:w-auto">
+              <span className="text-slate-400 mb-2 sm:mb-0 lg:hidden">
+                {declensionTextByNumber(countProducts, [
+                  `Найдено 0 товаров`,
+                  `Найдено ${countProducts} товара`,
+                  `Найден ${countProducts} товаров`,
+                ])}
+              </span>
+              <CatalogAside>
+                {categories.map((category, i) => (
+                  <Fragment key={category.id}>
+                    <Link
+                      className=" font-bold text-xl mb-2 transition lg:hover:underline underline-offset-2"
+                      href={`/catalog/${category.slug}`}
+                      key={category.id}
+                    >
+                      {category.title}
+                    </Link>
+                    <ul className="grid grid-cols-1 gap-1.5">
+                      {category.childCategories.map((childCategory) => (
+                        <li className="flex" key={childCategory.id}>
+                          <Link
+                            className=" text-gray-600 transition lg:hover:text-gray-700 lg:hover:underline underline-offset-2"
+                            href={`/catalog/${category.slug}/${childCategory.slug}`}
+                          >
+                            {childCategory.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    {i !== categories.length - 1 && <Separator />}
+                  </Fragment>
+                ))}
+              </CatalogAside>
+            </div>
             <div className="flex flex-col items-center w-full">
               <CatalogGrid>
                 {products.map((product) => (
@@ -146,7 +187,7 @@ const CatalogLvl2Page: FC<Props> = async ({
               {countPages !== 1 && (
                 <Pagination
                   href={`/catalog/${currentCategories!.slug}/${
-                    currentCategories?.childCategories[0].slug
+                    currentCategories!.childCategories[0].slug
                   }`}
                   currentPage={currentPage}
                   countPages={countPages}

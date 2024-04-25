@@ -22,7 +22,7 @@ import {
 import db from "../../db/db";
 import ProductsSwiper from "@/components/ui/ProductsSwiper";
 import MainLayout from "@/components/layouts/MainLayout";
-import FeedbackPopup from "@/components/popups/FeedbackPopup";
+import OrderPopup from "@/components/popups/OrderPopup";
 
 const getCategories = async () => {
   return await db.category.findMany({
@@ -62,12 +62,7 @@ const Home: FC = async () => {
               Закажите свой памятник прямо сейчас
             </p>
 
-            <Link
-              className="bg-cyan-700 text-white py-3 px-8 rounded-[30px] text-lg shadow-lg lg:hover:bg-cyan-800 transition"
-              href="/?show=true"
-            >
-              Заказть звонок
-            </Link>
+            <OrderPopup />
           </div>
           <div className="hidden md:flex w-1/3">
             <Image
@@ -135,7 +130,6 @@ const Home: FC = async () => {
           </div>
         </Container>
       </Section>
-      {/* <FeedbackPopup /> */}
     </MainLayout>
   );
 };

@@ -96,6 +96,7 @@ const Header: FC = async () => {
             <BurgerMenuLink href="/catalog">Каталог</BurgerMenuLink>
             {categories.map((category) => (
               <BurgerMenuSelect
+                key={category.id}
                 category={category}
                 childCategories={category.childCategories}
               />

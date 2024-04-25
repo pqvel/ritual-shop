@@ -204,3 +204,22 @@ input[type="number"]:focus {
 label + input[type="checkbox"]:checked ~ ul {
   display: flex;
 }
+
+.popup-exit-done {
+  display: none;
+}
+
+.popup-enter {
+  opacity: 0;
+}
+.popup-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.popup-exit {
+  opacity: 1;
+}
+.popup-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}

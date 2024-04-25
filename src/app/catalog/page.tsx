@@ -14,7 +14,7 @@ import { declensionTextByNumber } from "@/utils/desclensionTextByNumber";
 
 const getCategories = async () => {
   return await db.category.findMany({
-    where: { active: true },
+    where: { active: true, level: 1 },
     include: {
       childCategories: {
         where: { active: true, level: 2 },
@@ -68,7 +68,7 @@ const CatalogpPage: FC<Props> = async ({ searchParams: { page = "1" } }) => {
           />
           <CatalogTitle>Вся продукция</CatalogTitle>
           <div className="flex flex-col lg:flex-row items-start">
-            <div className="flex flex-col justify-between items-end w-full mb-4 sm:flex-row">
+            <div className="flex flex-col justify-between items-end mb-4 sm:flex-row w-full lg:w-auto">
               <span className="text-slate-400 mb-2 sm:mb-0 lg:hidden">
                 {declensionTextByNumber(countProducts, [
                   `Найдено 0 товаров`,

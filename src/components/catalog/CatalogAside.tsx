@@ -29,13 +29,13 @@ const CatalogAside: FC<Props> = ({ children }) => {
       ></div>
       <aside
         className={classNames(
-          "fixed left-0 top-0 z-10 h-full flex flex-col bg-white w-full max-w-80 mr-4 transtition duration-300 lg:relative lg:rounded-lg lg:-translate-x-0 lg:z-0",
+          "fixed left-0 top-0 z-10 h-full flex flex-col bg-white min-w-72 max-w-72 mr-4 transtition duration-300 lg:relative lg:rounded-lg lg:-translate-x-0 lg:z-0",
           {
             "-translate-x-full": !active,
           }
         )}
       >
-        <div className="relative p-4 text-center font-semibold text-xl border-b border-gray-200">
+        <div className="relative p-4 text-center font-semibold text-2xl border-b border-gray-200">
           Категории
           <button
             onClick={togglePopup}
