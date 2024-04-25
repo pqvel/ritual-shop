@@ -23,6 +23,7 @@ import db from "../../db/db";
 import ProductsSwiper from "@/components/ui/ProductsSwiper";
 import MainLayout from "@/components/layouts/MainLayout";
 import OrderPopup from "@/components/popups/OrderPopup";
+import Details from "@/components/ui/Details";
 
 const getCategories = async () => {
   return await db.category.findMany({
@@ -115,7 +116,7 @@ const Home: FC = async () => {
                 <TextInput placeholder="Иван" />
               </Label>
               <Label text="Номер телефона:" required>
-                <PhoneInput placeholder="+375 (29) 754-25-45" />
+                <PhoneInput />
               </Label>
             </div>
             <div className="w-full">
@@ -128,6 +129,19 @@ const Home: FC = async () => {
               Отправить
             </button>
           </div>
+        </Container>
+      </Section>
+      <Section>
+        <Container>
+          <SectionTitleGroup>
+            <SectionTitle>Часто задаваемые вопросы</SectionTitle>
+          </SectionTitleGroup>
+          <Details title="Какие сроки изготовления памятников">
+            Стандартные памятники из гранита от 15 до 30 дней Памятники из
+            цветного гранита от 4 до 6 недель Эксклюзивные памятники от 6 до 8
+            недель Цоколь из гранита 7-14 дней Гравировка изображения и текста
+            от 1 до 3 недель
+          </Details>
         </Container>
       </Section>
     </MainLayout>

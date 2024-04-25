@@ -16,19 +16,27 @@ const OrderPopup = () => {
       </button>
       <Popup closePopup={togglePopup} isOpen={active}>
         <form>
-          <h2 className=" text-2xl font-semibold text-black mb-4">
+          <div className=" text-2xl font-semibold text-black mb-4">
             Заказать звонок
-          </h2>
+          </div>
           <Label text="Ваше имя:" required>
-            <TextInput placeholder="Иван" />
+            <TextInput placeholder="Иван" maxLength={30} />
           </Label>
           <Label text="Номер телефона:" required>
-            <PhoneInput placeholder="+375 (29) 754-25-45" />
+            <PhoneInput />
           </Label>
           <Label text="Оставьте сообщение:">
-            <TextArea placeholder="Комментарий" />
+            <TextArea maxLength={500} placeholder="Комментарий" />
           </Label>
-          {/* <Button onClick={router.back}>Заказать</Button> */}
+
+          <div className="flex justify-end">
+            <button
+              className="text-white bg-cyan-800 py-2 px-6 rounded-lg transition lg:hover:bg-cyan-900 lg:hover:shadow-sm"
+              type="submit"
+            >
+              Отправить
+            </button>
+          </div>
         </form>
       </Popup>
     </>

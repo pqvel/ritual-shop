@@ -11,10 +11,10 @@ export const usePopup = (): UsePopupReturn => {
   const [active, setActive] = useState<boolean>(false);
   // const scrollBarWidth = getScrollBarWidth();
 
-  useEffect(() => {
-    document.body.style.overflow = active ? "hidden" : "auto";
-    // document.body.style.marginRight = active ? `${scrollBarWidth}px` : "0px";
-  }, [active]);
+  // useEffect(() => {
+  //   document.body.style.paddingRight = active ? `calc(100vw - 100%)` : "unset";
+  //   document.body.style.overflow = active ? "hidden" : "auto";
+  // }, [active]);
 
   const togglePopup = () => {
     setActive((active) => !active);

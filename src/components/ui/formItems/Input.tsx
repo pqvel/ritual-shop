@@ -1,10 +1,12 @@
-import React, { ChangeEvent, FocusEvent, FC } from "react";
+"use client";
+import { ChangeEvent, FocusEvent, FC, useState } from "react";
+import { IMaskInput } from "react-imask";
 
 type Props = {
   className?: string;
   placeholder?: string;
   name?: string;
-  value?: string | number;
+  maxLength?: number;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 };
@@ -17,15 +19,26 @@ export const NumberInput: FC<Props> = (props) => (
   <input {...props} className={`input ${props.className}`} type="number" />
 );
 
-export const PhoneInput: FC<Props> = (props) => (
-  <input {...props} className={`input ${props.className}`} type="tel" />
-);
+export const PhoneInput: FC = () => {
+  return (
+    <IMaskInput
+      className="input"
+      mask="+375 (00) 000-00-00"
+      radix="_"
+      value="123"
+      unmask={true} // true|false|'typed'
+      onAccept={(value, mask) => console.log(value)}
+      placeholder="+375 (00) 000-00-00"
+    />
+  );
+};
 
 type PropsTextarea = {
   className?: string;
   placeholder?: string;
   name?: string;
   value?: string | number;
+  maxLength?: number;
   onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onBlur?: (e: FocusEvent<HTMLTextAreaElement>) => void;
 };

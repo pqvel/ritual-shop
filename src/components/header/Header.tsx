@@ -174,7 +174,7 @@ const Header: FC = async () => {
           <div className=" flex items-center">
             <Link
               className="inline-block mr-3 hover:underline hover:underline-offset-4 p-1 rounded-md"
-              href="/"
+              href="/contacts"
             >
               Контакты
             </Link>

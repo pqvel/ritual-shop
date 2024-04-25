@@ -223,3 +223,41 @@ label + input[type="checkbox"]:checked ~ ul {
   opacity: 0;
   transition: opacity 200ms;
 }
+
+summary::marker {
+  display: none;
+}
+
+span:hover {
+  cursor: pointer;
+}
+
+span::before {
+  content: "►";
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+  transition: rotate 200ms 400ms ease-out;
+}
+
+div.content {
+  box-sizing: border-box;
+  max-width: 500px;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 10px;
+  border: 2px solid transparent;
+  transition: max-height 400ms ease-out, border 0ms 400ms linear;
+}
+
+details[open] + div.content {
+  max-height: 800px; /* Set a max-height value enough to show all the content */
+  border-color: #888;
+  transition: max-height 400ms ease-out, border 0ms linear;
+}
+
+details[open] span::before {
+  rotate: 90deg;
+  transition: rotate 200ms ease-out;
+}
