@@ -6,7 +6,13 @@ import { AppProps } from "next/app";
 export default function App({ Component, pageProps }: AppProps) {
   const [progress, setProgress] = useState(0);
   const router = useRouter();
-
+  console.log("app");
+  console.log("app");
+  console.log("app");
+  console.log("app");
+  console.log("app");
+  console.log("app");
+  console.log("app");
   useEffect(() => {
     console.log("app");
     router.events.on("routeChangeStart", () => {
