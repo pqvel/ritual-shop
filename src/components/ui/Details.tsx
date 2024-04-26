@@ -21,7 +21,11 @@ const Details: FC<Props> = ({ title, children }) => {
           </span>
         </summary>
       </details>
-      <div role="definition" id="pure-css" className="content">
+      <div
+        role="definition"
+        id="pure-css"
+        className="content max-h-0 overflow-hidden px-3 transition-all"
+      >
         {children}
       </div>
     </>
