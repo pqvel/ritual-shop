@@ -79,8 +79,8 @@ const ProductPage: FC<Props> = async ({ params }) => {
             ]}
           />
           <CatalogTitle>{product!.title}</CatalogTitle>
-          <div className="flex flex-col md:flex-row mb-8">
-            <div className="flex relative bg-white mr-6 w-full md:w-1/2 xl:w-2/5 pt-[40%] shadow">
+          <div className="flex mb-8">
+            <div className="flex relative bg-white mr-6 w-2/5 pt-[40%] shadow">
               <Image
                 className="absolute top-0 left-0 w-full h-full object-cover"
                 src={product!.image}
@@ -90,22 +90,42 @@ const ProductPage: FC<Props> = async ({ params }) => {
               />
             </div>
 
-            <div className="flex flex-col items-center bg-white w-full md:w-1/2 xl:w-3/5 p-6 justify-center shadow">
-              <h2 className=" font-semibold text-2xl text-center mb-5">
+            <div className="flex flex-col bg-white w-3/5 p-6 justify-around shadow">
+              <h2 className=" font-semibold text-3xl text-center">
                 Закажите сейчас от{" "}
                 <strong className=" text-cyan-700">{product!.price}</strong>{" "}
                 руб.
               </h2>
+              <div className="flex items-center font-semibold text-xl">
+                Узнать о:
+                <ul className="flex font-normal text-base text-gray-500 ml-4">
+                  <li className="flex mr-3 lg:hover:underline lg:hover:text-gray-600 underline-offset-2 transition">
+                    <Link href="/">Способы оплаты</Link>
+                  </li>
+                  <li className="flex mr-3 lg:hover:underline lg:hover:text-gray-600 underline-offset-2 transition">
+                    <Link href="/">Доставки</Link>
+                  </li>
+                  <li className="flex lg:hover:underline lg:hover:text-gray-600 underline-offset-2 transition">
+                    <Link href="/">Рассрочки</Link>
+                  </li>
+                </ul>
+              </div>
+              <div className="flex flex-col items-start">
+                <div className="grid sm:grid-cols-2 sm:gap-4 w-full">
+                  <Label text="Ваше имя:" required>
+                    <TextInput placeholder="Иван" />
+                  </Label>
+                  <Label text="Номер телефона:" required>
+                    <PhoneInput placeholder="+375 (29) 754-25-45" />
+                  </Label>
+                </div>
+                <div className="w-full mb-2">
+                  <Label text="Оставьте сообщение:">
+                    <TextArea placeholder="Комментарий" />
+                  </Label>
+                </div>
 
-              <div className="flex flex-col w-full max-w-96">
-                <Label text="Ваше имя:" required>
-                  <TextInput placeholder="Иван" />
-                </Label>
-                <Label text="Номер телефона:" required>
-                  <PhoneInput />
-                </Label>
-
-                <button className=" mt-2 text-white py-2 px-6 bg-cyan-700 lg:hover:bg-cyan-800 rounded font-medium transition">
+                <button className=" text-white py-2 px-6 bg-cyan-700 lg:hover:bg-cyan-800 rounded font-medium transition">
                   Отправить
                 </button>
               </div>

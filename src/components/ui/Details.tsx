@@ -10,23 +10,30 @@ const Details: FC<Props> = ({ title, children }) => {
   const id = uuid();
   return (
     <>
-      <details className=" overflow-hidden">
-        <summary>
+      <details className="overflow-hidden shadow-sm text-lg">
+        <summary className="relative flex items-center justify-between bg-white p-3 md:p-5 marker:hidden cursor-pointer font-medium rounded">
           <span
-            className="relative flex items-center pl-4 bg-gray-200 text-cyan-800 h-16"
+            className="text-black mr-4"
             role="term"
-            aria-details="pure-css"
+            aria-details={`pure-css-${id}`}
           >
-            Click to open and close smoothly with pure CSS
+            {title}
           </span>
+          <svg
+            className="transition-all min-w-7 min-h-7"
+            width={28}
+            height={28}
+          >
+            <use href="/images/sprites.svg#icon-arrow"></use>
+          </svg>
         </summary>
       </details>
       <div
         role="definition"
-        id="pure-css"
-        className="content max-h-0 overflow-hidden px-3 transition-all"
+        id={`pure-css-${id}`}
+        className="content max-h-0 overflow-hidden transition-all bg-white box-border py-0 shadow-sm rounded"
       >
-        {children}
+        <div className="p-3 md:p-5">{children}</div>
       </div>
     </>
   );

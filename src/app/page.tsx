@@ -102,13 +102,13 @@ const Home: FC = async () => {
           </Grid>
         </Container>
       </Section>
-      <Section className=" bg-violet-100">
+      <Section>
         <Container>
           <SectionTitleGroup className=" justify-center">
             <SectionTitle>Свяжитесь с нами прямо сейчас</SectionTitle>
           </SectionTitleGroup>
 
-          <div className="flex flex-col items-start bg-white border border-gray-200 shadow p-8 rounded">
+          <div className="flex flex-col items-start bg-white border border-gray-200 shadow p-5 lg:p-8 rounded">
             <div className="grid sm:grid-cols-2 sm:gap-4 w-full">
               <Label text="Ваше имя:" required>
                 <TextInput placeholder="Иван" />
@@ -129,17 +129,45 @@ const Home: FC = async () => {
           </div>
         </Container>
       </Section>
-      <Section>
+      <Section className=" bg-cyan-900">
         <Container>
-          <SectionTitleGroup>
+          <SectionTitleGroup className="text-white">
             <SectionTitle>Часто задаваемые вопросы</SectionTitle>
           </SectionTitleGroup>
-          <Details title="Какие сроки изготовления памятников">
-            Стандартные памятники из гранита от 15 до 30 дней Памятники из
-            цветного гранита от 4 до 6 недель Эксклюзивные памятники от 6 до 8
-            недель Цоколь из гранита 7-14 дней Гравировка изображения и текста
-            от 1 до 3 недель
-          </Details>
+          <ul>
+            <li>
+              <Details title="Какие сроки изготовления памятников">
+                Стандартные памятники из гранита от 15 до 30 дней Памятники из
+                цветного гранита от 4 до 6 недель Эксклюзивные памятники от 6 до
+                8 недель Цоколь из гранита 7-14 дней Гравировка изображения и
+                текста от 1 до 3 недель
+              </Details>
+            </li>
+            <li className="mt-3">
+              <Details title="Какие сроки изготовления памятников">
+                Стандартные памятники из гранита от 15 до 30 дней Памятники из
+                цветного гранита от 4 до 6 недель Эксклюзивные памятники от 6 до
+                8 недель Цоколь из гранита 7-14 дней Гравировка изображения и
+                текста от 1 до 3 недель
+              </Details>
+            </li>
+            <li className="mt-3">
+              <Details title="Какие сроки изготовления памятников">
+                Стандартные памятники из гранита от 15 до 30 дней Памятники из
+                цветного гранита от 4 до 6 недель Эксклюзивные памятники от 6 до
+                8 недель Цоколь из гранита 7-14 дней Гравировка изображения и
+                текста от 1 до 3 недель
+              </Details>
+            </li>
+            <li className="mt-3">
+              <Details title="Какие сроки изготовления памятников">
+                Стандартные памятники из гранита от 15 до 30 дней Памятники из
+                цветного гранита от 4 до 6 недель Эксклюзивные памятники от 6 до
+                8 недель Цоколь из гранита 7-14 дней Гравировка изображения и
+                текста от 1 до 3 недель
+              </Details>
+            </li>
+          </ul>
         </Container>
       </Section>
     </MainLayout>

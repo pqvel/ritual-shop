@@ -17,7 +17,7 @@ const ContactsPage: FC = () => {
             ]}
           />
           <CatalogTitle>Контакты</CatalogTitle>
-          <div className="bg-white p-4 rounded-lg grid grid-cols-[2fr,1fr] gap-20">
+          <div className="bg-white p-4 rounded-lg grid grid-cols-[2fr,1fr] gap-20 shadow-sm">
             <div className="flex flex-col">
               <p className="">
                 Ritual-sculpture.by - Мы изготавливаем памятники, ограды и

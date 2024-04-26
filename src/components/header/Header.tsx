@@ -132,7 +132,7 @@ const Header: FC = async () => {
         </BurgerMenu>
       </Container>
 
-      <nav className="w-full bg-cyan-900 py-1 text-white text-lg font-medium hidden lg:flex">
+      <nav className="w-full bg-cyan-900 py-1 text-white xl:text-lg font-medium hidden lg:flex">
         <Container className="flex justify-between">
           <div className="flex items-center">
             <Link
@@ -169,6 +169,30 @@ const Header: FC = async () => {
                 <div className=" h-7 w-0.5 bg-white mr-3"></div>
               </>
             ))}
+            <HoverSelect
+              className="mr-3 hover:cursor-pointer"
+              header={
+                <Link href={`/services`} className="inline-block py-1 px-2">
+                  Услуги
+                </Link>
+              }
+              body={
+                <>
+                  <Link
+                    className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
+                    href={`/services`}
+                  >
+                    Установка
+                  </Link>
+                  <Link
+                    className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
+                    href={`/services`}
+                  >
+                    Демонтаж
+                  </Link>
+                </>
+              }
+            />
           </div>
 
           <div className=" flex items-center">
@@ -180,10 +204,17 @@ const Header: FC = async () => {
             </Link>
             <div className=" h-7 w-0.5 bg-white mr-3"></div>
             <Link
-              className="inline-block hover:underline hover:underline-offset-4 p-1 rounded-md"
+              className="inline-block mr-3 hover:underline hover:underline-offset-4 p-1 rounded-md"
               href="/portfolio"
             >
               Наши работы
+            </Link>
+            <div className=" h-7 w-0.5 bg-white mr-3"></div>
+            <Link
+              className="inline-block hover:underline hover:underline-offset-4 p-1 rounded-md"
+              href="/articles"
+            >
+              Статьи
             </Link>
           </div>
         </Container>
@@ -202,7 +233,7 @@ type BurgerMenuLinkProps = {
 const BurgerMenuLink: FC<BurgerMenuLinkProps> = ({ href, children }) => (
   <li className="flex mb-1">
     <Link
-      className="py-1 px-2 w-full cursor-pointer font-medium text-xl text-gray-950 text-center"
+      className="py-1 px-2 w-full cursor-pointer font-medium xl:text-xl text-gray-950 text-center"
       href={href}
     >
       {children}
