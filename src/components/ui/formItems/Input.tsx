@@ -25,9 +25,8 @@ export const PhoneInput: FC = () => {
       className="input"
       mask="+375 (00) 000-00-00"
       radix="_"
-      value="123"
-      unmask={true} // true|false|'typed'
-      onAccept={(value, mask) => console.log(value)}
+      name="phone"
+      unmask={true}
       placeholder="+375 (00) 000-00-00"
     />
   );

@@ -80,14 +80,16 @@ const ProductPage: FC<Props> = async ({ params }) => {
           />
           <CatalogTitle>{product!.title}</CatalogTitle>
           <div className="flex flex-col md:flex-row mb-8">
-            <div className="flex relative bg-white mr-6 w-full md:w-1/2 xl:w-2/5 pt-[40%] shadow">
-              <Image
-                className="absolute top-0 left-0 w-full h-full object-cover"
-                src={product!.image}
-                width={800}
-                height={800}
-                alt={product!.title}
-              />
+            <div className=" w-full mb-4 md:mb-0 md:w-1/2 xl:w-2/5 md:mr-6">
+              <div className="flex relative bg-white w-full pt-[100%] shadow">
+                <Image
+                  className="absolute top-0 left-0 w-full h-full object-cover"
+                  src={product!.image}
+                  width={800}
+                  height={800}
+                  alt={product!.title}
+                />
+              </div>
             </div>
 
             <div className="flex flex-col items-center bg-white w-full md:w-1/2 xl:w-3/5 p-6 justify-center shadow">
@@ -115,19 +117,21 @@ const ProductPage: FC<Props> = async ({ params }) => {
             <SectionTitleGroup>
               <SectionTitle>Информация о товаре</SectionTitle>
             </SectionTitleGroup>
-            <table className="">
-              {product!.characteristics.map(({ title, variants }) => (
-                <tr
-                  className="border-y cursor-pointer hover:bg-gray-50"
-                  key={title}
-                >
-                  <td className="py-5 px-2 text-lg font-medium">{title}:</td>
-                  <td className="py-5 px-2 text-lg">{variants[0]}</td>
-                  <td className="py-5 px-2 text-lg">{variants[1]}</td>
-                  <td className="py-5 px-2 text-lg">{variants[2]}</td>
-                </tr>
-              ))}
-            </table>
+            <div className=" w-full overflow-x-auto">
+              <table className="w-full">
+                {product!.characteristics.map(({ title, variants }) => (
+                  <tr
+                    className="border-y cursor-pointer hover:bg-gray-50"
+                    key={title}
+                  >
+                    <td className="py-5 px-2 text-lg font-medium">{title}:</td>
+                    <td className="py-5 px-2 text-lg">{variants[0]}</td>
+                    <td className="py-5 px-2 text-lg">{variants[1]}</td>
+                    <td className="py-5 px-2 text-lg">{variants[2]}</td>
+                  </tr>
+                ))}
+              </table>
+            </div>
           </div>
           <SectionTitleGroup>
             <SectionTitle>Похожие товары</SectionTitle>

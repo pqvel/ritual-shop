@@ -21,15 +21,23 @@ const Header: FC = async () => {
     <header className="h-20 fixed top-0 left-0 w-full bg-white z-10 border-b border-b-gray-20 shadow-sm lg:border-none lg:h-[146px]">
       <Container className="flex justify-between items-center">
         <Link className="flex py-2" href="/">
-          {/* <Image
+          <Image
             className=" lg:w-[377px] lg:h-[86px]"
             src="/images/logo.png"
             alt="Логотип"
             width={280}
             height={64}
             priority
+          />
+          {/* <Image
+            className=""
+            src="/images/XwI7.gif"
+            alt="Логотип"
+            width={60}
+            height={60}
+            priority
           /> */}
-          <Image
+          {/* <Image
             className=""
             src="/images/XwI7.gif"
             alt="Логотип"
@@ -44,15 +52,7 @@ const Header: FC = async () => {
             width={60}
             height={60}
             priority
-          />
-          <Image
-            className=""
-            src="/images/XwI7.gif"
-            alt="Логотип"
-            width={60}
-            height={60}
-            priority
-          />
+          /> */}
         </Link>
 
         <ul className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-x-3 lg:gap-x-8 gap-y-1 pl-20 lg:pl-0">
@@ -132,7 +132,7 @@ const Header: FC = async () => {
         </BurgerMenu>
       </Container>
 
-      <nav className="w-full bg-cyan-900 py-1 text-white xl:text-lg font-medium hidden lg:flex">
+      <nav className="w-full bg-cyan-900 py-1 text-white xl:text-lg font-medium hidden lg:flex h-11">
         <Container className="flex justify-between">
           <div className="flex items-center">
             <Link
