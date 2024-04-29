@@ -8,9 +8,13 @@ import BurgerMenu from "./BurgerMenu";
 import BurgerMenuSelect from "./BurgerMenuSelect";
 import OrderPopup from "../popups/OrderPopup";
 
-export const revalidate = 3600; // 1 hour
+// const dynamic = "force-static"; // force static
+// const revalidate = 3600; // 1 hour
+// const dunamicParams = false;
+// const fetchCache = "default-cahce";
 
 const getCategories = async () => {
+  console.log("no-cache");
   return await db.category.findMany({
     where: { level: 1, active: true },
     include: { childCategories: true },

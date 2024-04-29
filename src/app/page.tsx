@@ -23,7 +23,7 @@ import MainLayout from "@/components/layouts/MainLayout";
 import OrderPopup from "@/components/popups/OrderPopup";
 import Details from "@/components/ui/Details";
 
-export const revalidate = 3600; // 1 hour
+const revalidate = 3600; // 1 hour
 
 const getCategories = async () => {
   return await db.category.findMany({
