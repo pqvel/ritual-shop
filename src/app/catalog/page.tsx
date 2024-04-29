@@ -2,7 +2,6 @@ import { FC, Fragment } from "react";
 import { Container, CatalogGrid } from "@/components/ui/Wrappers";
 import ProductCart from "@/components/ui/cards/ProductCard";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import CatalogTitle from "@/components/catalog/CatalogTitle";
 import CatalogSection from "@/components/catalog/CatalogSection";
 import Pagination from "@/components/ui/Pagination";
 import MainLayout from "@/components/layouts/MainLayout";
@@ -11,6 +10,9 @@ import CatalogAside from "@/components/catalog/CatalogAside";
 import Link from "next/link";
 import Separator from "@/components/ui/Separator";
 import { declensionTextByNumber } from "@/utils/desclensionTextByNumber";
+import { Title } from "@/components/ui/Typography";
+
+export const revalidate = 3600; // 1 hour
 
 const getCategories = async () => {
   return await db.category.findMany({
@@ -24,7 +26,7 @@ const getCategories = async () => {
 };
 
 const getProducts = async (currentPage: number) => {
-  const countItemsPerPage = 1;
+  const countItemsPerPage = 12;
   const { _count } = await db.product.aggregate({
     _count: true,
     where: { active: true },
@@ -66,7 +68,8 @@ const CatalogpPage: FC<Props> = async ({ searchParams: { page = "1" } }) => {
               { title: "Каталог", href: "/catalog" },
             ]}
           />
-          <CatalogTitle>Вся продукция</CatalogTitle>
+
+          <Title level={1}>Вся продукция</Title>
           <div className="flex flex-col lg:flex-row items-start">
             <div className="flex flex-col justify-between items-end mb-4 sm:flex-row w-full lg:w-auto">
               <span className="text-slate-400 mb-2 sm:mb-0 lg:hidden">

@@ -15,6 +15,9 @@ const Header: FC = () => {
         <Link href="/admin/portfolio" className="text-white hover:underline">
           Портфолио
         </Link>
+        <Link href="/admin/articles" className="text-white hover:underline">
+          Статьи
+        </Link>
         <form
           action={async () => {
             "use server";

@@ -6,6 +6,9 @@ import HoverSelect from "@/components/ui/HoverSelect";
 import db from "../../../db/db";
 import BurgerMenu from "./BurgerMenu";
 import BurgerMenuSelect from "./BurgerMenuSelect";
+import OrderPopup from "../popups/OrderPopup";
+
+export const revalidate = 3600; // 1 hour
 
 const getCategories = async () => {
   return await db.category.findMany({
@@ -55,10 +58,10 @@ const Header: FC = async () => {
           /> */}
         </Link>
 
-        <ul className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-x-3 lg:gap-x-8 gap-y-1 pl-20 lg:pl-0">
-          <li className=" relative flex lg:flex-col items-center lg:items-start">
-            <span className="block text-gray-400 text-sm lg:text-base uppercase w-16 absolute -left-[70px] lg:static top-1/2 -translate-y-1/2 lg:translate-y-0">
-              ВЕЛКОМ:
+        <ul className="hidden lg:flex flex-col items-end">
+          <li className="relative flex items-center">
+            <span className="block text-gray-400 text-sm lg:text-base uppercase mr-2">
+              МТС:
             </span>
             <a
               className="text-black text-base lg:text-lg lg:hover:underline transition"
@@ -67,20 +70,10 @@ const Header: FC = async () => {
               +375 (29) 677-74-00
             </a>
           </li>
-          <li className=" relative flex lg:flex-col items-center lg:items-start">
-            <span className="text-gray-400 text-sm lg:text-base uppercase hidden lg:inline absolute -left-[70px] lg:static top-1/2 -translate-y-1/2 lg:translate-y-0">
+
+          <li className="relative flex items-center">
+            <span className="block text-gray-400 text-sm lg:text-base uppercase mr-2">
               ВЕЛКОМ:
-            </span>
-            <a
-              className="text-black text-base lg:text-lg lg:hover:underline transition"
-              href="tel:+375293351010"
-            >
-              +375 (29) 335-10-10
-            </a>
-          </li>
-          <li className="relative flex lg:flex-col items-center lg:items-start">
-            <span className="block text-gray-400 text-sm lg:text-base uppercase w-16 absolute -left-[70px] lg:static top-1/2 -translate-y-1/2 lg:translate-y-0">
-              МТС:
             </span>
             <a
               className="text-black text-base lg:text-lg lg:hover:underline transition"
@@ -101,8 +94,10 @@ const Header: FC = async () => {
                 childCategories={category.childCategories}
               />
             ))}
+
             <BurgerMenuLink href="/portfolio">Наши работы</BurgerMenuLink>
             <BurgerMenuLink href="/contacts">Контакты</BurgerMenuLink>
+            <BurgerMenuLink href="/articles">Статьи</BurgerMenuLink>
             <li>
               <ul className="flex items-center flex-col py-6">
                 <li className="flex">
@@ -124,9 +119,10 @@ const Header: FC = async () => {
               </ul>
             </li>
             <li>
-              <button className="bg-cyan-700 text-white py-3 px-8 rounded-[30px] text-lg shadow-lg lg:hover:bg-cyan-800 transition">
+              {/* <button className="bg-cyan-700 text-white py-3 px-8 rounded-[30px] text-lg shadow-lg lg:hover:bg-cyan-800 transition">
                 Заказать звонок
-              </button>
+              </button> */}
+              <OrderPopup />
             </li>
           </ul>
         </BurgerMenu>
@@ -233,7 +229,7 @@ type BurgerMenuLinkProps = {
 const BurgerMenuLink: FC<BurgerMenuLinkProps> = ({ href, children }) => (
   <li className="flex mb-1">
     <Link
-      className="py-1 px-2 w-full cursor-pointer font-medium xl:text-xl text-gray-950 text-center"
+      className="py-1 px-2 w-full cursor-pointer font-medium text-xl text-gray-950 text-center"
       href={href}
     >
       {children}

@@ -23,6 +23,8 @@ import MainLayout from "@/components/layouts/MainLayout";
 import OrderPopup from "@/components/popups/OrderPopup";
 import Details from "@/components/ui/Details";
 
+export const revalidate = 3600; // 1 hour
+
 const getCategories = async () => {
   return await db.category.findMany({
     where: { level: 2, active: true },
@@ -51,12 +53,12 @@ const Home: FC = async () => {
         className={`flex flex-col bg-[url('/images/mramor_bg.jpg')] min-h-[460px] sm:min-h-[500px]`}
       >
         <Container className="flex flex-col md:flex-row items-center justify-center flex-1">
-          <div className="w-full md:w-2/3 md:mr-8">
-            <h1 className=" text-3xl sm:text-4xl lg:text-[42px] w-full md:w-auto font-semibold mb-5">
+          <div className="flex flex-col items-center sm:items-start w-full md:w-2/3 md:mr-8">
+            <h1 className=" text-3xl text-center sm:text-start sm:text-4xl lg:text-[42px] w-full md:w-auto font-semibold mb-5">
               Памятники из гранита.
               <br /> Вечная память в каждой детали
             </h1>
-            <p className="text-base lg:text-lg text-gray-500 mb-6 max-w-[560px] ">
+            <p className="text-base text-center sm:text-start lg:text-lg text-gray-500 mb-6 max-w-[560px] ">
               Уникальные мемориальные памятники для сохранения памяти о близких.
               Закажите свой памятник прямо сейчас
             </p>

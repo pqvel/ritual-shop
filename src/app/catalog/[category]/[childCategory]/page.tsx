@@ -1,7 +1,6 @@
 import { FC, Fragment } from "react";
 import { Container } from "@/components/ui/Wrappers";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import CatalogTitle from "@/components/catalog/CatalogTitle";
 import CatalogSection from "@/components/catalog/CatalogSection";
 import db from "../../../../../db/db";
 import CatalogAside from "@/components/catalog/CatalogAside";
@@ -10,8 +9,11 @@ import Pagination from "@/components/ui/Pagination";
 import ProductCart from "@/components/ui/cards/ProductCard";
 import MainLayout from "@/components/layouts/MainLayout";
 import Link from "next/link";
+import { Title } from "@/components/ui/Typography";
 import Separator from "@/components/ui/Separator";
 import { declensionTextByNumber } from "@/utils/desclensionTextByNumber";
+
+export const revalidate = 3600; // 1 hour
 
 const getCategories = async () => {
   return await db.category.findMany({
@@ -43,7 +45,7 @@ const getProducts = async (
   categorySlug: string,
   childCategorySlug: string
 ) => {
-  const countItemsPerPage = 1;
+  const countItemsPerPage = 12;
 
   const category = await db.category.findUnique({
     where: {
@@ -135,9 +137,8 @@ const CatalogLvl2Page: FC<Props> = async ({
               },
             ]}
           />
-          <CatalogTitle>
-            {currentCategories!.childCategories[0].title}
-          </CatalogTitle>
+          <Title level={1}>{currentCategories!.childCategories[0].title}</Title>
+
           <div className="flex flex-col lg:flex-row items-start">
             <div className="flex flex-col justify-between items-end mb-4 sm:flex-row w-full lg:w-auto">
               <span className="text-slate-400 mb-2 sm:mb-0 lg:hidden">

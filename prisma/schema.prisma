@@ -57,6 +57,15 @@ model PortfolioProduct {
   active    Boolean  @default(false)
 }
 
+model Article {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String   // markdown
+  image     String
+  createdAt DateTime @default(now())
+  active    Boolean  @default(false)
+}
+
 enum Role {
   ADMIN
   USER

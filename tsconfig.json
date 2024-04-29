@@ -32,7 +32,8 @@
     "src/app/actions/products.ts",
     "src/app/admin/_components/forms/ProductForm.jsx",
     "src/app/actions/portfolio.js",
-    "src/app/actions/email.js"
+    "src/app/actions/email.js",
+    "src/auth.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,10 +1,9 @@
 import MainLayout from "@/components/layouts/MainLayout";
-import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Wrappers";
 import { FC } from "react";
+import { Title } from "@/components/ui/Typography";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import CatalogSection from "@/components/catalog/CatalogSection";
-import CatalogTitle from "@/components/catalog/CatalogTitle";
 const ContactsPage: FC = () => {
   return (
     <MainLayout>
@@ -16,7 +15,7 @@ const ContactsPage: FC = () => {
               { title: "Контакты", href: "/contacts" },
             ]}
           />
-          <CatalogTitle>Контакты</CatalogTitle>
+          <Title level={1}>Контакты</Title>
           <div className="bg-white p-4 rounded-lg grid grid-cols-[2fr,1fr] gap-20 shadow-sm">
             <div className="flex flex-col">
               <p className="">

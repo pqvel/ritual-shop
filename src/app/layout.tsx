@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Montserrat } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.scss";
 
@@ -11,6 +12,11 @@ export const metadata: Metadata = {
   },
 };
 
+const montserrat = Montserrat({
+  subsets: ["cyrillic"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -18,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body>
+      <body className={montserrat.className}>
         <NextTopLoader showSpinner={false} />
         {children}
         <div id="popups"></div>

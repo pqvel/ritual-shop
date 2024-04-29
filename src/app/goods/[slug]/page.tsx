@@ -2,7 +2,6 @@ import { FC } from "react";
 import Image from "next/image";
 import CatalogSection from "@/components/catalog/CatalogSection";
 import { Container, Grid } from "@/components/ui/Wrappers";
-import CatalogTitle from "@/components/catalog/CatalogTitle";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import ProductCart from "@/components/ui/cards/ProductCard";
 import { SectionTitle, SectionTitleGroup } from "@/components/ui/Section";
@@ -10,9 +9,11 @@ import db from "../../../../db/db";
 import MainLayout from "@/components/layouts/MainLayout";
 import { TextInput } from "@/components/ui/formItems/Input";
 import Button from "@/components/ui/formItems/Button";
+import { Title } from "@/components/ui/Typography";
 import { Label } from "@/components/ui/formItems/Label";
 import { PhoneInput, TextArea } from "@/components/ui/formItems/Input";
-import Link from "next/link";
+
+export const revalidate = 3600; // 1 hour
 
 const getData = async (slug: string) => {
   const product = await db.product.findFirst({
@@ -78,7 +79,7 @@ const ProductPage: FC<Props> = async ({ params }) => {
               },
             ]}
           />
-          <CatalogTitle>{product!.title}</CatalogTitle>
+          <Title level={1}>{product!.title}</Title>
           <div className="flex flex-col md:flex-row mb-8">
             <div className=" w-full mb-4 md:mb-0 md:w-1/2 xl:w-2/5 md:mr-6">
               <div className="flex relative bg-white w-full pt-[100%] shadow">
@@ -92,7 +93,7 @@ const ProductPage: FC<Props> = async ({ params }) => {
               </div>
             </div>
 
-            <div className="flex flex-col items-center bg-white w-full md:w-1/2 xl:w-3/5 p-6 justify-center shadow">
+            <div className="flex flex-col items-center bg-white w-full md:w-1/2 xl:w-3/5 p-4 md:p-6 justify-center shadow">
               <h2 className=" font-semibold text-2xl text-center mb-5">
                 Закажите сейчас от{" "}
                 <strong className=" text-cyan-700">{product!.price}</strong>{" "}
@@ -113,7 +114,7 @@ const ProductPage: FC<Props> = async ({ params }) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col bg-white p-8 mb-8 shadow">
+          <div className="flex flex-col p-4 md:p-8 bg-white mb-8 shadow">
             <SectionTitleGroup>
               <SectionTitle>Информация о товаре</SectionTitle>
             </SectionTitleGroup>

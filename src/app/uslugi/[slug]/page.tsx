@@ -2,11 +2,11 @@ import { FC } from "react";
 import Image from "next/image";
 import CatalogSection from "@/components/catalog/CatalogSection";
 import { Container, Grid } from "@/components/ui/Wrappers";
-import CatalogTitle from "@/components/catalog/CatalogTitle";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import ProductCart from "@/components/ui/cards/ProductCard";
 import { SectionTitle, SectionTitleGroup } from "@/components/ui/Section";
 import db from "../../../../db/db";
+import { Title } from "@/components/ui/Typography";
 import MainLayout from "@/components/layouts/MainLayout";
 import { TextInput } from "@/components/ui/formItems/Input";
 import Button from "@/components/ui/formItems/Button";
@@ -78,7 +78,7 @@ const ProductPage: FC<Props> = async ({ params }) => {
               },
             ]}
           />
-          <CatalogTitle>{product!.title}</CatalogTitle>
+          <Title level={1}>{product!.title}</Title>
           <div className="flex mb-8">
             <div className="flex relative bg-white mr-6 w-2/5 pt-[40%] shadow">
               <Image
@@ -116,7 +116,7 @@ const ProductPage: FC<Props> = async ({ params }) => {
                     <TextInput placeholder="Иван" />
                   </Label>
                   <Label text="Номер телефона:" required>
-                    <PhoneInput placeholder="+375 (29) 754-25-45" />
+                    <PhoneInput />
                   </Label>
                 </div>
                 <div className="w-full mb-2">

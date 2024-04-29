@@ -47,7 +47,7 @@ export const SectionLink: FC<PropsSectionLink> = ({ children, href }) => {
   return (
     <Link
       href={href}
-      className="flex justify-between items-center text-blue-600 lg:hover:text-blue-800"
+      className="hidden md:flex justify-between items-center text-blue-600 lg:hover:text-blue-800"
     >
       {children}
     </Link>

@@ -5,11 +5,13 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import { Container } from "@/components/ui/Wrappers";
 import Pagination from "@/components/ui/Pagination";
 import CatalogSection from "@/components/catalog/CatalogSection";
-import CatalogTitle from "@/components/catalog/CatalogTitle";
+import { Title } from "@/components/ui/Typography";
 import db from "../../../db/db";
 
+export const revalidate = 3600; // 1 hour
+
 const getPortfolioProducts = async (currentPage: number) => {
-  const countItemsPerPage = 3;
+  const countItemsPerPage = 12;
   const { _count } = await db.portfolioProduct.aggregate({ _count: true });
 
   const items = await db.portfolioProduct.findMany({
@@ -46,7 +48,7 @@ const PortfolioPage: FC<Props> = async ({ searchParams: { page = "1" } }) => {
               { title: "Наши работы", href: "/portfolio" },
             ]}
           />
-          <CatalogTitle>Наши работы</CatalogTitle>
+          <Title level={1}>Наши работы</Title>
           <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
             {items.map((product) => (
               <Image
@@ -59,7 +61,6 @@ const PortfolioPage: FC<Props> = async ({ searchParams: { page = "1" } }) => {
               />
             ))}
           </div>
-
           {countPages > 1 && (
             <Pagination
               href="/portfolio/"

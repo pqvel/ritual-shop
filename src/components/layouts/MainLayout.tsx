@@ -10,7 +10,7 @@ const MainLayout: FC<Props> = ({ children }) => {
   return (
     <>
       <Header />
-      <main className="pt-[80px] lg:pt-[146px] bg-gray-100 flex-1">
+      <main className="flex flex-col pt-[80px] lg:pt-[146px] bg-gray-100 flex-1">
         {children}
       </main>
       <footer className=" bg-black bg-opacity-80 py-10 text-white">

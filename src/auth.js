@@ -3,10 +3,9 @@ import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import db from "../db/db";
-import { User } from "@prisma/client";
 import CryptoJS from "crypto-js";
 
-const getUser = async (email: string): Promise<User | undefined> => {
+const getUser = async (email) => {
   try {
     const user = await db.user.findFirst({
       where: {

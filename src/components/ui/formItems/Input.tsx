@@ -7,6 +7,7 @@ type Props = {
   placeholder?: string;
   name?: string;
   maxLength?: number;
+  value?: string | number;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 };
