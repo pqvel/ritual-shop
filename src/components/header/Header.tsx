@@ -14,7 +14,6 @@ import OrderPopup from "../popups/OrderPopup";
 // const fetchCache = "default-cahce";
 
 const getCategories = async () => {
-  console.log("no-cache");
   return await db.category.findMany({
     where: { level: 1, active: true },
     include: { childCategories: true },

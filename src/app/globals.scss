@@ -227,14 +227,14 @@ label + input[type="checkbox"]:checked ~ ul {
 }
 .popup-enter-active {
   opacity: 1;
-  transition: opacity 200ms;
+  transition: opacity 300ms;
 }
 .popup-exit {
   opacity: 1;
 }
 .popup-exit-active {
   opacity: 0;
-  transition: opacity 200ms;
+  transition: opacity 300ms;
 }
 
 details[open] + div.content {
