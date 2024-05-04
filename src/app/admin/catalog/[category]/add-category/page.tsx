@@ -3,7 +3,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 
 import db from "../../../../../../db/db";
 import { redirect } from "next/navigation";
-import CategoryForm from "@/app/admin/_components/forms/CategoryForm";
+// import CategoryForm from "@/app/admin/_components/forms/CategoryForm";
 
 type Props = {
   params: { category: string };
@@ -41,7 +41,7 @@ const AddCategoryPage: FC<Props> = async ({ params }) => {
           },
         ]}
       />
-      <CategoryForm level={2} parentId={parentCategory.id} />
+      {/* <CategoryForm level={2} parentId={parentCategory.id} /> */}
     </>
   );
 };
