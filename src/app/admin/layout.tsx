@@ -1,11 +1,32 @@
 import "../globals.scss";
 import Header from "@/app/admin/_components/Header";
+import { getServerSession } from "next-auth";
+import { Metadata } from "next";
+import { useRouter } from "next/navigation";
 
-export default function RootLayout({
+export const metadata: Metadata = {
+  title: "Admin",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession();
+
+  if (!session) {
+    return (
+      <html lang="ru">
+        <body></body>
+      </html>
+    );
+  }
+
   return (
     <html lang="ru">
       <body>
@@ -14,7 +35,6 @@ export default function RootLayout({
           <main className="min-h-full">{children}</main>
         </div>
       </body>
-      <footer></footer>
     </html>
   );
 }

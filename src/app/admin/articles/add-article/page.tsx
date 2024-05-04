@@ -2,7 +2,7 @@ import { FC } from "react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import ArticleForm from "../../_components/forms/ArticleForm";
 
-const AddArticlePage: FC = () => {
+const AddArticlePage: FC = async () => {
   return (
     <>
       <Breadcrumb
