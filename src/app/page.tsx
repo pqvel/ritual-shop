@@ -22,6 +22,7 @@ import ProductsSwiper from "@/components/ui/ProductsSwiper";
 import MainLayout from "@/components/layouts/MainLayout";
 import OrderPopup from "@/components/popups/OrderPopup";
 import Details from "@/components/ui/Details";
+import OrderForm from "@/components/forms/orderForm/OrderForm";
 
 const revalidate = 3600; // 1 hour
 
@@ -109,26 +110,7 @@ const Home: FC = async () => {
           <SectionTitleGroup className=" justify-center">
             <SectionTitle>Свяжитесь с нами прямо сейчас</SectionTitle>
           </SectionTitleGroup>
-
-          <div className="flex flex-col items-start bg-white border border-gray-200 shadow p-5 lg:p-8 rounded">
-            <div className="grid sm:grid-cols-2 sm:gap-4 w-full">
-              <Label text="Ваше имя:" required>
-                <TextInput placeholder="Иван" />
-              </Label>
-              <Label text="Номер телефона:" required>
-                <PhoneInput />
-              </Label>
-            </div>
-            <div className="w-full">
-              <Label text="Оставьте сообщение:">
-                <TextArea placeholder="Комментарий" />
-              </Label>
-            </div>
-
-            <button className=" text-white py-2 px-6 bg-cyan-700 lg:hover:bg-cyan-800 rounded font-medium transition">
-              Отправить
-            </button>
-          </div>
+          <OrderForm />
         </Container>
       </Section>
       <Section className=" bg-cyan-900">

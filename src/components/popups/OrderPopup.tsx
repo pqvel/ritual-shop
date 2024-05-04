@@ -1,14 +1,12 @@
 "use client";
-import { Label } from "../ui/formItems/Label";
-import { TextInput, PhoneInput, TextArea } from "../ui/formItems/Input";
+import { FC } from "react";
 import Popup from "@/components/ui/Popup";
+import PopupOrderForm from "@/components/forms/orderForm/PopupOrderForm";
 import { usePopup } from "@/hooks/usePopup";
-import { useFormState } from "react-dom";
-import { sendEmail } from "@/app/actions/email";
 
-const OrderPopup = () => {
+const OrderPopup: FC = () => {
   const { active, togglePopup } = usePopup();
-  const [state, action] = useFormState(sendEmail, {});
+
   return (
     <>
       <button
@@ -18,35 +16,10 @@ const OrderPopup = () => {
         Заказть звонок
       </button>
       <Popup closePopup={togglePopup} isOpen={active}>
-        <form action={action}>
-          <div className=" text-2xl font-semibold text-black mb-4">
-            Заказать звонок
-          </div>
-          <Label text="Ваше имя:" required>
-            <TextInput name="name" placeholder="Иван" maxLength={30} />
-          </Label>
-          <Label text="Номер телефона:" required>
-            <PhoneInput />
-          </Label>
-          <Label text="Оставьте сообщение:">
-            <TextArea
-              name="message"
-              maxLength={500}
-              placeholder="Комментарий"
-            />
-          </Label>
-
-          <div className="flex justify-end">
-            <button
-              className="text-white bg-cyan-800 py-2 px-6 rounded-lg transition lg:hover:bg-cyan-900 lg:hover:shadow-sm"
-              type="submit"
-            >
-              Отправить
-            </button>
-          </div>
-        </form>
+        <PopupOrderForm />
       </Popup>
     </>
   );
 };
+
 export default OrderPopup;
