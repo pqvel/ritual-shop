@@ -36,6 +36,6 @@ yarn-error.log*
 next-env.d.ts
 
 # public
-public/categoris/*
+public/categories/*
 public/products/*
 public/portfolio/*
