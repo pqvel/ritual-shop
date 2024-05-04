@@ -12,7 +12,16 @@ import Button from "@/components/ui/formItems/Button";
 import { Title } from "@/components/ui/Typography";
 import { Label } from "@/components/ui/formItems/Label";
 import { PhoneInput, TextArea } from "@/components/ui/formItems/Input";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "",
+  description: "Памятники",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 export const revalidate = 3600; // 1 hour
 
 const getData = async (slug: string) => {

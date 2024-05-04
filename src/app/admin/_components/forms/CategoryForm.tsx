@@ -1,5 +1,6 @@
 "use client";
-import { FC, useState } from "react";
+import { FC } from "react";
+// import Image from "next/image";
 import { Card, CardHeader, CardContent } from "@/components/ui/shadcn-ui/card";
 import { Label } from "@/components/ui/shadcn-ui/label";
 import { Input } from "@/components/ui/shadcn-ui/input";
@@ -10,9 +11,13 @@ import { createCategory } from "@/app/actions/categories";
 type Props = {
   parentId?: number;
   level: number;
+  initialValues: {
+    title: string;
+    image: string;
+  };
 };
 
-const CategoryForm: FC<Props> = ({ parentId, level }) => {
+const CategoryForm: FC<Props> = ({ parentId, level, initialValues }) => {
   const [formState, action] = useFormState<ReturnType<typeof createCategory>>(
     createCategory,
     {}
@@ -27,7 +32,11 @@ const CategoryForm: FC<Props> = ({ parentId, level }) => {
         <CardContent>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Название</div>
-            <Input placeholder="Двойные памятники" name="title" />
+            <Input
+              placeholder="Двойные памятники"
+              name="title"
+              defaultValue={initialValues.title}
+            />
           </Label>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Изображение</div>
@@ -37,6 +46,7 @@ const CategoryForm: FC<Props> = ({ parentId, level }) => {
               type="file"
               accept="image/jpeg"
             />
+            {/* {initialValues.image && <Image />} */}
           </Label>
 
           <details className="mb-4 cursor-pointer">

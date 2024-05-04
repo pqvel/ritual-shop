@@ -59,14 +59,16 @@ export const sendEmail = async (state, formData) => {
 
   if (result.success === false) return result.error.formErrors.fieldErrors;
 
-  console.log(result.data);
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
-    port: 587,
-    secure: false,
+    port: 465,
+    secure: true,
     auth: {
       user: process.env.SENDER_EMAIL,
       pass: process.env.SENDER_PASSWORD,
+    },
+    tls: {
+      rejectUnauthorized: false,
     },
   });
 
@@ -82,7 +84,5 @@ export const sendEmail = async (state, formData) => {
     `,
   };
 
-  const info = await transporter.sendMail(mailOptions);
-
-  return info;
+  return await transporter.sendMail(mailOptions);
 };
