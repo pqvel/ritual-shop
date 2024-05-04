@@ -13,10 +13,8 @@ export const createPortfolioProduct = async (state, formData) => {
   if (result.success === false) return result.error.formErrors.fieldErrors;
 
   const data = result.data;
-  await fs.mkdir("public/images/portfolio", { recursive: true });
-  const imagePath = `/images/portfolio/${crypto.randomUUID()}-${
-    data.image.name
-  }`;
+  await fs.mkdir("public/portfolio", { recursive: true });
+  const imagePath = `/portfolio/${crypto.randomUUID()}-${data.image.name}`;
 
   await fs.writeFile(
     `public${imagePath}`,
