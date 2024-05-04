@@ -1,3 +1,4 @@
+import { title } from "process";
 import { z } from "zod";
 
 const fileSchema = z.instanceof(File, { message: "Required" });
@@ -39,4 +40,10 @@ export const productSchema: Zod.Schema = z.object({
     .string()
     .min(1)
     .transform((val) => parseInt(val, 10)),
+});
+
+export const articleShema: Zod.Schema = z.object({
+  title: z.string().min(1),
+  content: z.string().min(1),
+  image: imageSchema.refine((file: any) => file.size > 0, "Required"),
 });
