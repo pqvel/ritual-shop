@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-// import CategoryForm from "@/app/admin/_components/forms/CategoryForm";
+import CategoryForm from "@/app/admin/_components/forms/CategoryForm";
 
 const AddCategoryPage: FC = () => {
   return (
@@ -18,7 +18,7 @@ const AddCategoryPage: FC = () => {
           },
         ]}
       />
-      {/* <CategoryForm level={1} /> */}
+      <CategoryForm level={1} />
     </>
   );
 };
