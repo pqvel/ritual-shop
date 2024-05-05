@@ -8,7 +8,7 @@ import CatalogSection from "@/components/catalog/CatalogSection";
 import { Title } from "@/components/ui/Typography";
 import db from "../../../db/db";
 
-export const revalidate = 3600; // 1 hour
+// export const revalidate = 3600; // 1 hour
 
 const getPortfolioProducts = async (currentPage: number) => {
   const countItemsPerPage = 12;

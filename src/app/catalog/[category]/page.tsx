@@ -14,7 +14,7 @@ import { declensionTextByNumber } from "@/utils/desclensionTextByNumber";
 import Link from "next/link";
 import Separator from "@/components/ui/Separator";
 
-export const revalidate = 3600; // 1 hour
+// export const revalidate = 3600; // 1 hour
 
 const getCategories = async () => {
   return await db.category.findMany({

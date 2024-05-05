@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { Container } from "@/components/ui/Wrappers";
 import {
   Section,
@@ -9,13 +10,6 @@ import { Grid } from "@/components/ui/Wrappers";
 import Image from "next/image";
 import CategoryCard from "@/components/ui/cards/CategoryCard";
 import "swiper/css";
-import { FC } from "react";
-import { Label } from "@/components/ui/formItems/Label";
-import {
-  PhoneInput,
-  TextArea,
-  TextInput,
-} from "@/components/ui/formItems/Input";
 
 import db from "../../db/db";
 import ProductsSwiper from "@/components/ui/ProductsSwiper";
@@ -25,7 +19,7 @@ import Details from "@/components/ui/Details";
 import OrderForm from "@/components/forms/orderForm/OrderForm";
 import { l } from "./actions/creteateAdmin";
 
-const revalidate = 3600; // 1 hour
+// const revalidate = 3600; // 1 hour
 
 const getCategories = async () => {
   return await db.category.findMany({

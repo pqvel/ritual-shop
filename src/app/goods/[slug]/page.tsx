@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     follow: false,
   },
 };
-export const revalidate = 3600; // 1 hour
+// export const revalidate = 3600; // 1 hour
 
 const getData = async (slug: string) => {
   const product = await db.product.findFirst({
