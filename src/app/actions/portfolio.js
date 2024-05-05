@@ -27,12 +27,13 @@ export const createPortfolioProduct = async (state, formData) => {
     },
   });
 
-  revalidatePath("/admin/portfolio");
+  revalidatePath("/", "page");
+  revalidatePath("/", "layout");
   redirect("/admin/portfolio");
 };
 
 export const changePortfolioProductActive = async (id, isActive) => {
-  return await db.portfolioProduct.update({
+  await db.portfolioProduct.update({
     where: {
       id,
     },
@@ -40,6 +41,8 @@ export const changePortfolioProductActive = async (id, isActive) => {
       active: isActive,
     },
   });
+  revalidatePath("/", "page");
+  revalidatePath("/", "layout");
 };
 
 export const deletePortfolioProduct = async (id) => {
@@ -50,6 +53,7 @@ export const deletePortfolioProduct = async (id) => {
   });
 
   await fs.unlink(`public${product.image}`);
-
+  revalidatePath("/", "page");
+  revalidatePath("/", "layout");
   return product;
 };

@@ -56,13 +56,13 @@ export const createProduct = async (state, formData) => {
       productId: product.id,
     })),
   });
-
-  revalidatePath("/admin/catalog");
+  revalidatePath("/", "page");
+  revalidatePath("/", "layout");
   redirect("/admin/catalog");
 };
 
 export const changeProductActive = async (id, isActive) => {
-  return await db.product.update({
+  await db.product.update({
     where: {
       id,
     },
@@ -70,6 +70,8 @@ export const changeProductActive = async (id, isActive) => {
       active: isActive,
     },
   });
+  revalidatePath("/", "page");
+  revalidatePath("/", "layout");
 };
 
 export const deleteProduct = async (id) => {
@@ -80,6 +82,7 @@ export const deleteProduct = async (id) => {
   });
 
   await fs.unlink(`public${product.image}`);
-
+  revalidatePath("/", "page");
+  revalidatePath("/", "layout");
   return product;
 };

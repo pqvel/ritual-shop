@@ -48,7 +48,9 @@ export const createCategory = async (state, formData) => {
     },
   });
 
-  revalidatePath("/admin/catalog");
+  revalidatePath("/", "page");
+  revalidatePath("/", "layout");
+
   redirect("/admin/catalog");
 };
 
@@ -61,6 +63,9 @@ export const changeCategoryActive = async (id, isActive) => {
       active: isActive,
     },
   });
+
+  revalidatePath("/", "page");
+  revalidatePath("/", "layout");
 };
 
 export const deleteCategory = async (id) => {
@@ -71,6 +76,7 @@ export const deleteCategory = async (id) => {
   });
 
   await fs.unlink(`public${category.image}`);
-
+  revalidatePath("/", "page");
+  revalidatePath("/", "layout");
   return category;
 };
