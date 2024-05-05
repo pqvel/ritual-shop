@@ -2,6 +2,7 @@
 import db from "../../../db/db";
 
 export async function l() {
+  console.log("l");
   const a = await db.user.create({
     data: {
       email: "ritual-sculpture@mail.ru",

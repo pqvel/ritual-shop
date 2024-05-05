@@ -43,8 +43,13 @@ const getProducts = async () => {
   });
 };
 
-const BN = () => {
-  return <button onClick={l}>create</button>;
+const BN = async () => {
+  "use server";
+  return (
+    <form action={l}>
+      <button type="submit">create</button>
+    </form>
+  );
 };
 
 const Home: FC = async () => {
