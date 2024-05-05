@@ -17,7 +17,6 @@ import MainLayout from "@/components/layouts/MainLayout";
 import OrderPopup from "@/components/popups/OrderPopup";
 import Details from "@/components/ui/Details";
 import OrderForm from "@/components/forms/orderForm/OrderForm";
-import { l } from "./actions/creteateAdmin";
 
 // const revalidate = 3600; // 1 hour
 
@@ -37,15 +36,6 @@ const getProducts = async () => {
   });
 };
 
-const BN = async () => {
-  "use server";
-  return (
-    <form action={l}>
-      <button type="submit">create</button>
-    </form>
-  );
-};
-
 const Home: FC = async () => {
   const [categories, products] = await Promise.all([
     getCategories(),
@@ -57,7 +47,6 @@ const Home: FC = async () => {
       <Section
         className={`flex flex-col bg-[url('/images/mramor_bg.jpg')] min-h-[460px] sm:min-h-[500px]`}
       >
-        <BN></BN>
         <Container className="flex flex-col md:flex-row items-center justify-center flex-1">
           <div className="flex flex-col items-center sm:items-start w-full md:w-2/3 md:mr-8">
             <h1 className=" text-3xl text-center sm:text-start sm:text-4xl lg:text-[42px] w-full md:w-auto font-semibold mb-5">
