@@ -2,7 +2,7 @@
 import db from "../../../db/db";
 
 export async function l() {
-  db.user.create({
+  const a = await db.user.create({
     data: {
       email: "ritual-sculpture@mail.ru",
       password:
@@ -10,4 +10,7 @@ export async function l() {
       role: "ADMIN",
     },
   });
+
+  console.log(a);
+  return a;
 }
