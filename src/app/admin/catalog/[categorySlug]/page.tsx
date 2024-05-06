@@ -6,7 +6,6 @@ import {
   CardTitle,
   CardContent,
 } from "@/components/ui/shadcn-ui/card";
-import db from "../../../../../db/db";
 import Link from "next/link";
 import {
   Table,
@@ -18,11 +17,14 @@ import {
 } from "@/components/ui/shadcn-ui/table";
 import { redirect } from "next/navigation";
 import CategoryItem from "../../_components/category/CategoryItem";
+import db from "@/db";
+
 type Props = {
   params: {
-    category: string;
+    categorySlug: string;
   };
 };
+
 const getCategories = async (slug: string) => {
   const data = await db.category.findUnique({
     where: { slug },
@@ -33,12 +35,11 @@ const getCategories = async (slug: string) => {
 
   if (!data) return redirect("/admin/catalog");
 
-  return data;
+  return { category: data, childCategories: data.childCategories };
 };
 
-const CategoryPage: FC<Props> = async ({ params }) => {
-  const parentCategory = await getCategories(params.category);
-  // console.log(category);
+const CategoryPage: FC<Props> = async ({ params: { categorySlug } }) => {
+  const { category, childCategories } = await getCategories(categorySlug);
   return (
     <>
       <Breadcrumb
@@ -49,18 +50,18 @@ const CategoryPage: FC<Props> = async ({ params }) => {
             href: "/admin/catalog",
           },
           {
-            title: parentCategory.title,
-            href: `/admin/catalog/${parentCategory.slug}`,
+            title: category.title,
+            href: `/admin/catalog/${category.slug}`,
           },
         ]}
       />
       <Card>
         <CardHeader>
-          <CardTitle className=" mb-4">{parentCategory.title}</CardTitle>
+          <CardTitle className=" mb-4">{category.title}</CardTitle>
           <div className="flex flex-wrap justify-between  gap-2">
             <Link
               className="flex items-center justify-center px-4 py-2 text-sm rounded-lg border border-black"
-              href={`/admin/catalog/${parentCategory.slug}/add-category`}
+              href={`/admin/catalog/${category.slug}/add-category`}
             >
               Добавить категорию
             </Link>
@@ -81,11 +82,11 @@ const CategoryPage: FC<Props> = async ({ params }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {parentCategory.childCategories.map((category) => (
+              {childCategories.map((childCategory) => (
                 <CategoryItem
-                  category={category}
-                  link={`/admin/catalog/${parentCategory.slug}/${category.slug}`}
-                  key={category.id}
+                  category={childCategory}
+                  link={`/admin/catalog/${category.slug}/${childCategory.slug}`}
+                  key={childCategory.id}
                 />
               ))}
             </TableBody>

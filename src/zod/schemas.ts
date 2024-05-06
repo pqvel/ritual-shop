@@ -2,7 +2,7 @@ import { title } from "process";
 import { z } from "zod";
 
 const fileSchema = z.instanceof(File, { message: "Required" });
-const imageSchema = fileSchema.refine(
+export const imageSchema = fileSchema.refine(
   (file) => file.size === 0 || file.type.startsWith("image/")
 );
 
@@ -16,7 +16,7 @@ export const categorySchema: Zod.Schema = z.object({
   parentId: z
     .string()
     .optional()
-    .transform((val) => (val ? parseInt(val, 10) : undefined)),
+    .transform((val) => val && parseInt(val, 10)),
   level: z.string().transform((val) => parseInt(val, 10)),
 });
 

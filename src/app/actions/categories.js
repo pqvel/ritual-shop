@@ -1,6 +1,7 @@
 "use server";
 import fs from "fs/promises";
-import { categorySchema } from "@/zod/schemas";
+import { z } from "zod";
+import { categorySchema, imageSchema } from "@/zod/schemas";
 import db from "../../../db/db";
 import slugify from "slugify";
 import { revalidatePath } from "next/cache";
@@ -55,7 +56,7 @@ export const createCategory = async (state, formData) => {
 };
 
 export const changeCategoryActive = async (id, isActive) => {
-  return await db.category.update({
+  await db.category.update({
     where: {
       id,
     },
@@ -79,4 +80,48 @@ export const deleteCategory = async (id) => {
   revalidatePath("/", "page");
   revalidatePath("/", "layout");
   return category;
+};
+
+export const changeCategory = async (state, formData) => {
+  const schema = z.object({
+    title: z.string(),
+    image: imageSchema.optional(),
+    id: z
+      .string()
+      .optional()
+      .transform((val) => val && parseInt(val, 10)),
+  });
+
+  const result = schema.safeParse(Object.fromEntries(formData.entries()));
+
+  if (result.success === false) return result.error.formErrors.fieldErrors;
+
+  const { title, image, id } = result.data;
+
+  const category = await db.category.findUnique({
+    where: {
+      id: id,
+    },
+  });
+
+  if (image) {
+    // change image
+
+    await fs.unlink(`public${category.image}`);
+  }
+
+  if (title !== category.title) {
+    await db.category.update({
+      where: {
+        id: id,
+      },
+      data: {
+        title,
+        slug: slugify(title, {
+          locale: "ru",
+          lower: true,
+        }),
+      },
+    });
+  }
 };

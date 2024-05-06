@@ -1,13 +1,8 @@
 import { FC } from "react";
-import Breadcrumb from "@/components/ui/Breadcrumb";
-
-import db from "../../../../../../db/db";
 import { redirect } from "next/navigation";
-import CategoryForm from "@/app/admin/_components/forms/CategoryForm";
-
-type Props = {
-  params: { category: string };
-};
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import CreateCategoryForm from "@/app/admin/_components/forms/category/CreateCategoryForm";
+import db from "@/db";
 
 const getCategories = async (slug: string) => {
   const data = await db.category.findUnique({
@@ -16,11 +11,15 @@ const getCategories = async (slug: string) => {
 
   if (!data) return redirect("/admin/catalog");
 
-  return data;
+  return { category: data };
 };
 
-const AddCategoryPage: FC<Props> = async ({ params }) => {
-  const parentCategory = await getCategories(params.category);
+type Props = {
+  params: { categorySlug: string };
+};
+
+const AddCategoryPage: FC<Props> = async ({ params: { categorySlug } }) => {
+  const { category } = await getCategories(categorySlug);
 
   return (
     <>
@@ -32,16 +31,16 @@ const AddCategoryPage: FC<Props> = async ({ params }) => {
             href: "/admin/catalog",
           },
           {
-            title: parentCategory.title,
-            href: `/admin/catalog/${parentCategory.slug}`,
+            title: category.title,
+            href: `/admin/catalog/${category.slug}`,
           },
           {
             title: "Добавить категорию",
-            href: `/admin/catalog/${parentCategory.slug}/add-category`,
+            href: `/admin/catalog/${category.slug}/add-category`,
           },
         ]}
       />
-      <CategoryForm level={2} parentId={parentCategory.id} />
+      <CreateCategoryForm level={2} parentId={category.id} />
     </>
   );
 };

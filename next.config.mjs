@@ -7,7 +7,6 @@ const nextConfig = {
     SERVER_URL: process.env.SERVER_URL,
   },
   images: {
-    // domains: [process.env.SERVER_URL],
     minimumCacheTTL: 60,
   },
 };

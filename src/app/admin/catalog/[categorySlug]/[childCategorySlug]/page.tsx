@@ -15,18 +15,18 @@ import {
   TableRow,
 } from "@/components/ui/shadcn-ui/table";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import db from "../../../../../../db/db";
 import ProductItem from "@/app/admin/_components/product/ProductItem";
+import db from "@/db";
 
-const getData = async (categorySlug: string, productSlug: string) => {
-  return await db.category.findUnique({
+const getData = async (categorySlug: string, childCategorySlug: string) => {
+  const data = await db.category.findUnique({
     where: {
       slug: categorySlug,
     },
     include: {
       childCategories: {
         where: {
-          slug: productSlug,
+          slug: childCategorySlug,
         },
         include: {
           products: {
@@ -38,17 +38,28 @@ const getData = async (categorySlug: string, productSlug: string) => {
       },
     },
   });
+
+  return {
+    category: data,
+    childCategory: data!.childCategories[0],
+    products: data!.childCategories[0].products,
+  };
 };
 
 type Props = {
   params: {
-    category: string;
-    products: string;
+    categorySlug: string;
+    childCategorySlug: string;
   };
 };
 
-const ProductsPage: FC<Props> = async ({ params: { category, products } }) => {
-  const mainCategory = await getData(category, products);
+const ProductsPage: FC<Props> = async ({
+  params: { categorySlug, childCategorySlug },
+}) => {
+  const { category, childCategory, products } = await getData(
+    categorySlug,
+    childCategorySlug
+  );
 
   return (
     <>
@@ -60,14 +71,12 @@ const ProductsPage: FC<Props> = async ({ params: { category, products } }) => {
             href: "/admin/catalog",
           },
           {
-            title: mainCategory!.title,
-            href: `/admin/catalog/${mainCategory!.slug}`,
+            title: category!.title,
+            href: `/admin/catalog/${category!.slug}`,
           },
           {
-            title: mainCategory!.childCategories[0].title,
-            href: `/admin/catalog/${mainCategory!.slug}/${
-              mainCategory!.childCategories[0].slug
-            }`,
+            title: childCategory.title,
+            href: `/admin/catalog/${category!.slug}/${childCategory.slug}`,
           },
         ]}
       />
@@ -77,8 +86,8 @@ const ProductsPage: FC<Props> = async ({ params: { category, products } }) => {
           <div className="flex flex-wrap justify-between  gap-2">
             <Link
               className="flex items-center justify-center px-4 py-2 text-sm rounded-lg border border-black"
-              href={`/admin/catalog/${mainCategory!.slug}/${
-                mainCategory!.childCategories[0].slug
+              href={`/admin/catalog/${category!.slug}/${
+                childCategory.slug
               }/add-product`}
             >
               Добавить товар
@@ -101,7 +110,7 @@ const ProductsPage: FC<Props> = async ({ params: { category, products } }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {mainCategory!.childCategories[0].products.map((product) => (
+              {products.map((product) => (
                 <ProductItem
                   product={product}
                   productCharacteristics={product.characteristics}

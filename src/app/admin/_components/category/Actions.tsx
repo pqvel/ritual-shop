@@ -29,5 +29,9 @@ export const DeleteCategory: FC<{ categoryId: number }> = ({ categoryId }) => {
     deleteCategory(categoryId);
     revalidatePath("/admin/catalog");
   };
-  return <Button onClick={handleDelete}>Удалить</Button>;
+  return (
+    <Button variant="destructive" onClick={handleDelete}>
+      Удалить
+    </Button>
+  );
 };

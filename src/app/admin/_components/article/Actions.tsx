@@ -24,5 +24,9 @@ export const ToggleActiveCheckbox: FC<ToggleActiveCheckboxProps> = ({
 };
 
 export const DeleteCategory: FC<{ categoryId: number }> = ({ categoryId }) => {
-  return <Button onClick={() => deleteCategory(categoryId)}>Удалить</Button>;
+  return (
+    <Button variant="destructive" onClick={() => deleteCategory(categoryId)}>
+      Удалить
+    </Button>
+  );
 };

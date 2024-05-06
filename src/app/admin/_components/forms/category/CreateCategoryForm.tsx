@@ -1,6 +1,5 @@
 "use client";
 import { FC } from "react";
-import Image from "next/image";
 import { Card, CardHeader, CardContent } from "@/components/ui/shadcn-ui/card";
 import { Label } from "@/components/ui/shadcn-ui/label";
 import { Input } from "@/components/ui/shadcn-ui/input";
@@ -9,15 +8,11 @@ import { useFormState, useFormStatus } from "react-dom";
 import { createCategory } from "@/app/actions/categories";
 
 type Props = {
-  parentId?: number;
   level: number;
-  initialValues?: {
-    title?: string;
-    image?: string;
-  };
+  parentId?: number;
 };
 
-const CategoryForm: FC<Props> = ({ parentId, level, initialValues }) => {
+const CreateCategoryForm: FC<Props> = ({ parentId, level }) => {
   const [formState, action] = useFormState<ReturnType<typeof createCategory>>(
     createCategory,
     {}
@@ -32,11 +27,7 @@ const CategoryForm: FC<Props> = ({ parentId, level, initialValues }) => {
         <CardContent>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Название</div>
-            <Input
-              placeholder="Двойные памятники"
-              name="title"
-              defaultValue={initialValues?.title}
-            />
+            <Input placeholder="Двойные памятники" name="title" />
           </Label>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Изображение</div>
@@ -46,10 +37,6 @@ const CategoryForm: FC<Props> = ({ parentId, level, initialValues }) => {
               type="file"
               accept="image/jpeg"
             />
-            {initialValues?.image}
-            {initialValues?.image && (
-              <Image src="" width={500} height={500} alt="" />
-            )}
           </Label>
 
           <details className="mb-4 cursor-pointer">
@@ -86,23 +73,4 @@ const SubmitButton: FC = () => {
   );
 };
 
-export default CategoryForm;
-
-// const CategoryForm: FC<Props> = ({ parentId, level }) => {
-//   const [formState, action] = useFormState<ReturnType<typeof createCategory>>(
-//     createCategory,
-//     {}
-//   );
-
-//   const onSubmit = (e: any) => {
-//     console.log(e);
-//     console.log(formState);
-//     alert("");
-//   };
-//   return (
-//     <form action={onSubmit}>
-//       <input name="title" />
-//       <button type="submit">add</button>
-//     </form>
-//   );
-// };
+export default CreateCategoryForm;

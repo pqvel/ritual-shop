@@ -10,8 +10,22 @@ import {
 } from "@/components/ui/shadcn-ui/dropdown-menu";
 import { Button } from "@/components/ui/shadcn-ui/button";
 import { DeleteCategory } from "./Actions";
+import Link from "next/link";
 
-const Dropdowm: FC<{ categoryId: number }> = ({ categoryId }) => {
+type Props = {
+  categoryId: number;
+  categorySlug: string;
+  childCategorySLug?: string;
+};
+
+const Dropdowm: FC<Props> = ({
+  categoryId,
+  categorySlug,
+  childCategorySLug,
+}) => {
+  const EditLinkHref = childCategorySLug
+    ? `/amin/catalog/${categorySlug}/${childCategorySLug}/change-category`
+    : `/amin/catalog/${categorySlug}/change-category`;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -23,7 +37,9 @@ const Dropdowm: FC<{ categoryId: number }> = ({ categoryId }) => {
         <DropdownMenuItem>
           <DeleteCategory categoryId={categoryId} />
         </DropdownMenuItem>
-        <DropdownMenuItem>Редактировать</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href={EditLinkHref}>Редактировать</Link>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

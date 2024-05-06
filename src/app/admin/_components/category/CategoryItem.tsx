@@ -44,7 +44,7 @@ const CategoryItem: FC<Props> = ({
         </Link>
       </TableCell>
       <TableCell className="text-right">
-        <Dropdowm categoryId={id} />
+        <Dropdowm categoryId={id} categorySlug={slug} />
       </TableCell>
     </TableRow>
   );

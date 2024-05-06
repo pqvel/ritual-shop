@@ -2,10 +2,12 @@
 import { FC, FormEvent } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-const LoginForm = () => {
+import { Label, Input, Button } from "@/components/ui/formItems";
+
+const LoginForm: FC = () => {
   const router = useRouter();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -23,11 +25,26 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="email" name="email" />
-      <input type="password" name="password" />
-      <button>login</button>
-    </form>
+    <div className="flex items-center justify-center flex-1">
+      <form
+        action={handleSubmit}
+        name="login"
+        className="flex flex-col items-start bg-white border border-gray-200 shadow p-5 lg:p-8 rounded"
+      >
+        <h3 className=" text-2xl font-semibold mb-4">Вход</h3>
+        <Label text="Ваш email:" required>
+          <Input.TextInput name="email" placeholder="email" maxLength={30} />
+        </Label>
+        <Label text="Ваш пароль:" required>
+          <Input.PasswordInput
+            name="password"
+            placeholder="email"
+            maxLength={30}
+          />
+        </Label>
+        <Button>Войти</Button>
+      </form>
+    </div>
   );
 };
 

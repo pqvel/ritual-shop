@@ -20,6 +20,10 @@ export const NumberInput: FC<Props> = (props) => (
   <input {...props} className={`input ${props.className}`} type="number" />
 );
 
+export const PasswordInput: FC<Props> = (props) => (
+  <input {...props} className={`input ${props.className}`} type="password" />
+);
+
 export const PhoneInput: FC = () => {
   return (
     <IMaskInput
