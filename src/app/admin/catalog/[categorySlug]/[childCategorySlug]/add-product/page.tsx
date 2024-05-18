@@ -1,8 +1,7 @@
 import { FC } from "react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-
-import db from "../../../../../../../db/db";
-import ProductForm from "@/app/admin/_components/forms/ProductForm";
+import ProductForm from "@/app/admin/_components/forms/product/ProductForm";
+import db from "@/db";
 
 const getData = async (categorySlug: string, childCategorySLug: string) => {
   const data = await db.category.findUnique({

@@ -10,8 +10,21 @@ import {
 } from "@/components/ui/shadcn-ui/dropdown-menu";
 import { Button } from "@/components/ui/shadcn-ui/button";
 import { DeleteProduct } from "./Actions";
+import Link from "next/link";
 
-const Dropdowm: FC<{ productId: number }> = ({ productId }) => {
+type Props = {
+  productId: number;
+  categorySlug: string;
+  childCategorySlug: string;
+  productSlug: string;
+};
+
+const Dropdowm: FC<Props> = ({
+  productId,
+  categorySlug,
+  childCategorySlug,
+  productSlug,
+}) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -23,7 +36,13 @@ const Dropdowm: FC<{ productId: number }> = ({ productId }) => {
         <DropdownMenuItem>
           <DeleteProduct productId={productId} />
         </DropdownMenuItem>
-        <DropdownMenuItem>Редактировать</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link
+            href={`/admin/catalog/${categorySlug}/${childCategorySlug}/${productSlug}/change-product`}
+          >
+            Редактировать
+          </Link>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

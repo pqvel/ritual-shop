@@ -1,9 +1,7 @@
 "use client";
 import { FC, ChangeEvent, useState } from "react";
-// import { Checkbox } from "@/components/ui/shadcn-ui/checkbox";
 import { changeCategoryActive, deleteCategory } from "@/app/actions/categories";
 import { Button } from "@/components/ui/shadcn-ui/button";
-import { revalidatePath } from "next/cache";
 
 type ToggleActiveCheckboxProps = {
   isActive: boolean;
@@ -27,7 +25,6 @@ export const ToggleActiveCheckbox: FC<ToggleActiveCheckboxProps> = ({
 export const DeleteCategory: FC<{ categoryId: number }> = ({ categoryId }) => {
   const handleDelete = () => {
     deleteCategory(categoryId);
-    revalidatePath("/admin/catalog");
   };
   return (
     <Button variant="destructive" onClick={handleDelete}>

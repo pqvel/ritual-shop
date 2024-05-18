@@ -1,9 +1,9 @@
 "use server";
-import db from "../../../db/db";
-import { portfolioProduct } from "@/zod/schemas";
-import fs from "fs/promises";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { portfolioProduct } from "@/zod/schemas";
+import { s3Service } from "@/services/s3";
+import db from "@/db";
 
 export const createPortfolioProduct = async (state, formData) => {
   const result = portfolioProduct.safeParse(
@@ -12,23 +12,23 @@ export const createPortfolioProduct = async (state, formData) => {
 
   if (result.success === false) return result.error.formErrors.fieldErrors;
 
-  const data = result.data;
-  await fs.mkdir("public/portfolio", { recursive: true });
-  const imagePath = `/portfolio/${crypto.randomUUID()}-${data.image.name}`;
+  const { image } = result.data;
 
-  await fs.writeFile(
-    `public${imagePath}`,
-    Buffer.from(await data.image.arrayBuffer())
-  );
+  const fileExtension = image.type.split("/")[1];
+  const buffer = Buffer.from(await image.arrayBuffer());
+  const fileName = `portfolio/${Date.now()}.${fileExtension}`;
+  const baseUrl = `${process.env.AWS_ENDPOINT_URL}/${process.env.AWS_BUCKET_NAME}`;
+  const uploadImageUrl = `${baseUrl}/${fileName}`;
+
+  await s3Service.uploadImage(buffer, fileName);
 
   await db.portfolioProduct.create({
     data: {
-      image: imagePath,
+      image: uploadImageUrl,
     },
   });
 
-  revalidatePath("/", "page");
-  revalidatePath("/", "layout");
+  revalidatePath("/");
   redirect("/admin/portfolio");
 };
 
@@ -41,8 +41,7 @@ export const changePortfolioProductActive = async (id, isActive) => {
       active: isActive,
     },
   });
-  revalidatePath("/", "page");
-  revalidatePath("/", "layout");
+  revalidatePath("/");
 };
 
 export const deletePortfolioProduct = async (id) => {
@@ -52,8 +51,7 @@ export const deletePortfolioProduct = async (id) => {
     },
   });
 
-  await fs.unlink(`public${product.image}`);
-  revalidatePath("/", "page");
-  revalidatePath("/", "layout");
-  return product;
+  await s3Service.deleteImage(product.image);
+  revalidatePath("/");
+  redirect("/admin/portfolio");
 };

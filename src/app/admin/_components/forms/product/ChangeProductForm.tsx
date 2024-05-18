@@ -1,11 +1,11 @@
 "use client";
 import { FC, useState } from "react";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
+import { Product, ProductCharacteristic } from "@prisma/client";
 import { Card, CardHeader, CardContent } from "@/components/ui/shadcn-ui/card";
 import { Label } from "@/components/ui/shadcn-ui/label";
 import { Input } from "@/components/ui/shadcn-ui/input";
 import { Button } from "@/components/ui/shadcn-ui/button";
-import { useFormStatus } from "react-dom";
 import { createProduct } from "@/app/actions/products";
 import {
   Table,
@@ -16,32 +16,42 @@ import {
   TableCell,
   TableFooter,
 } from "@/components/ui/shadcn-ui/table";
-import { v4 as uuid } from "uuid";
 
 type Props = {
-  categoryId: string;
-  childCategoryId: string;
+  productId: number;
+  initialValues: { product: Product; characteristics: ProductCharacteristic[] };
 };
 
-const ChangeProductForm: FC<Props> = ({ categoryId, childCategoryId }) => {
+const ChangeProductForm: FC<Props> = ({
+  productId,
+  initialValues: { product, characteristics },
+}) => {
   const [formState, action] = useFormState(createProduct, {});
 
-  const [characteristics, setCharacteristics] = useState([]);
+  const [chars, setCharacteristics] = useState([characteristics]);
 
   return (
-    <form>
+    <form action={action}>
       <Card>
         <CardHeader>
-          <h1 className=" text-2xl font-semibold">Создание нового товара</h1>
+          <h1 className=" text-2xl font-semibold">Изменить товар</h1>
         </CardHeader>
         <CardContent>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Название</div>
-            <Input placeholder="Памятник вертикальный гранитный" name="title" />
+            <Input
+              placeholder="Памятник вертикальный гранитный"
+              name="title"
+              defaultValue={product.title}
+            />
           </Label>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Артикул</div>
-            <Input placeholder="А-16" name="vendorCode" />
+            <Input
+              placeholder="А-16"
+              name="vendorCode"
+              defaultValue={product.vendorCode}
+            />
           </Label>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Изображение</div>
@@ -55,7 +65,12 @@ const ChangeProductForm: FC<Props> = ({ categoryId, childCategoryId }) => {
 
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Цена</div>
-            <Input placeholder="1200" name="price" type="number" />
+            <Input
+              placeholder="1200"
+              name="price"
+              type="number"
+              defaultValue={product.price}
+            />
           </Label>
 
           <Table className="bg-white">
@@ -68,18 +83,18 @@ const ChangeProductForm: FC<Props> = ({ categoryId, childCategoryId }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {characteristics.map(({ title, id, values }) => (
+              {/* {chars.map(({ title, id, values }) => (
                 <TableRow key={id}>
                   <TableCell className="font-medium">
                     <Input
                       placeholder="Материал"
                       value={title}
-                      // onChange={(e) =>
-                      //   changeCaracteristicTitle(e.target.value, id)
-                      // }
+                      onChange={(e) =>
+                        changeCaracteristicTitle(e.target.value, id)
+                      }
                     />
                   </TableCell>
-                  {/* {values.map((val) => (
+                  {values.map((val) => (
                     <TableCell key={val.id}>
                       <Input
                         value={val.value}
@@ -89,9 +104,17 @@ const ChangeProductForm: FC<Props> = ({ categoryId, childCategoryId }) => {
                         placeholder="Гранит"
                       />
                     </TableCell>
-                  ))} */}
+                  ))}
+                   <TableCell>
+                    <Button
+                      onClick={() => deleteCharacteristic(id)}
+                      variant="destructive"
+                    >
+                      <TrashIcon width={24} height={24} />
+                    </Button>
+                  </TableCell>
                 </TableRow>
-              ))}
+              ))} */}
             </TableBody>
             <TableFooter>
               <TableCell>
@@ -116,12 +139,8 @@ const ChangeProductForm: FC<Props> = ({ categoryId, childCategoryId }) => {
               последствиям!!! Не стоит менять вообще эти данные
             </div>
             <Label className="block mb-4">
-              <div className="mb-2 text-lg">ID Главной категории</div>
-              <Input name="mainCategoryId" value={categoryId} />
-            </Label>
-            <Label className="block mb-4">
-              <div className="mb-2 text-lg">ID категории</div>
-              <Input name="categoryId" value={childCategoryId} />
+              <div className="mb-2 text-lg">ID продукта</div>
+              <Input name="id" value={productId} />
             </Label>
           </details>
 

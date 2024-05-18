@@ -44,9 +44,7 @@ const EditCategoryForm: FC<Props> = ({ id, initialValues }) => {
               name="image"
               type="file"
               accept="image/jpeg"
-              src={initialValues.image}
             />
-            <Image width={200} height={200} src={initialValues.image} alt="" />
           </Label>
 
           <details className="mb-4 cursor-pointer">
@@ -72,7 +70,7 @@ const SubmitButton: FC = () => {
   const status = useFormStatus();
   return (
     <Button className="w-auto" type="submit" disabled={status.pending}>
-      {status.pending ? "loading.." : "Создать"}
+      {status.pending ? "loading.." : "Соханить"}
     </Button>
   );
 };

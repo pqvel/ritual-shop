@@ -17,10 +17,10 @@ import {
   TableFooter,
 } from "@/components/ui/shadcn-ui/table";
 import { v4 as uuid } from "uuid";
+import { TrashIcon } from "@radix-ui/react-icons";
 
 const ProductForm = ({ categoryId, mainCategoryId }) => {
-  console.log(categoryId);
-  const [formState, action] = useFormState(createProduct, {});
+  const [__, action] = useFormState(createProduct, {});
 
   const [characteristics, setCharacteristics] = useState([]);
 
@@ -66,9 +66,14 @@ const ProductForm = ({ categoryId, mainCategoryId }) => {
     );
   };
 
+  const deleteCharacteristic = (id) => {
+    setCharacteristics((characteristics) =>
+      characteristics.filter((char) => char.id !== id)
+    );
+  };
+
   const onSubmit = (formData) => {
     formData.append("characteristics", JSON.stringify(characteristics));
-    // @ts-ignore
     action(formData);
   };
 
@@ -109,6 +114,7 @@ const ProductForm = ({ categoryId, mainCategoryId }) => {
                 <TableHead>Значение</TableHead>
                 <TableHead>Значение</TableHead>
                 <TableHead>Значение</TableHead>
+                <TableHead>Удалить</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -134,6 +140,14 @@ const ProductForm = ({ categoryId, mainCategoryId }) => {
                       />
                     </TableCell>
                   ))}
+                  <TableCell>
+                    <Button
+                      onClick={() => deleteCharacteristic(id)}
+                      variant="destructive"
+                    >
+                      <TrashIcon width={24} height={24} />
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -182,7 +196,7 @@ const SubmitButton = () => {
   const status = useFormStatus();
   return (
     <Button className="w-auto" type="submit" disabled={status.pending}>
-      {status.pending ? "loading.." : "Создать"}
+      {status.pending ? "Загрузка.." : "Создать"}
     </Button>
   );
 };

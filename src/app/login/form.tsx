@@ -1,22 +1,23 @@
 "use client";
-import { FC, FormEvent } from "react";
+import { FC, FormEvent, useRef } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Label, Input, Button } from "@/components/ui/formItems";
 
 const LoginForm: FC = () => {
   const router = useRouter();
+  const form = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
+    const formData = new FormData(form.current as HTMLFormElement);
 
-    const formData = new FormData(e.currentTarget);
-
-    const response = await signIn("credentials", {
+    const options = {
       email: formData.get("email"),
       password: formData.get("password"),
       redirect: false,
-    });
+    };
+
+    const response = await signIn("credentials", options);
 
     if (!response?.error) {
       router.push("/admin");
@@ -29,6 +30,7 @@ const LoginForm: FC = () => {
       <form
         action={handleSubmit}
         name="login"
+        ref={form}
         className="flex flex-col items-start bg-white border border-gray-200 shadow p-5 lg:p-8 rounded"
       >
         <h3 className=" text-2xl font-semibold mb-4">Вход</h3>

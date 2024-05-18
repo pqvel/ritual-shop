@@ -10,11 +10,15 @@ import Dropdowm from "./Dropdowm";
 type Props = {
   product: Product;
   productCharacteristics: ProductCharacteristic[];
+  categorySlug: string;
+  childCategorySlug: string;
 };
 
 const ProductItem: FC<Props> = ({
   product: { id, active, slug, image, title, categoryId, vendorCode },
   productCharacteristics,
+  categorySlug,
+  childCategorySlug,
 }) => {
   const [isShowCharacteristics, setShowCharacteristics] =
     useState<boolean>(false);
@@ -35,7 +39,12 @@ const ProductItem: FC<Props> = ({
           </Link>
         </TableCell>
         <TableCell className="text-right">
-          <Dropdowm productId={id} />
+          <Dropdowm
+            categorySlug={categorySlug}
+            childCategorySlug={childCategorySlug}
+            productSlug={slug}
+            productId={id}
+          />
         </TableCell>
       </TableRow>
       {productCharacteristics.length > 0 && (

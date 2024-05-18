@@ -112,6 +112,8 @@ const ProductsPage: FC<Props> = async ({
             <TableBody>
               {products.map((product) => (
                 <ProductItem
+                  categorySlug={categorySlug}
+                  childCategorySlug={childCategorySlug}
                   product={product}
                   productCharacteristics={product.characteristics}
                   key={product.id}

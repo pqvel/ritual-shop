@@ -8,6 +8,13 @@ const nextConfig = {
   },
   images: {
     minimumCacheTTL: 60,
+    remotePatterns: [
+      {
+        hostname: "io.activecloud.com",
+        protocol: "https",
+        pathname: "/**",
+      },
+    ],
   },
 };
 

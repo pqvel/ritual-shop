@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { redirect } from "next/navigation";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import ProductForm from "@/app/admin/_components/forms/ProductForm";
+import ChangeProductForm from "@/app/admin/_components/forms/product/ChangeProductForm";
 import db from "@/db";
 
 const getData = async (
@@ -38,6 +38,8 @@ const getData = async (
     category: data,
     childCategory: data!.childCategories[0],
     product: data!.childCategories[0].products[0],
+    productCharacteristics:
+      data?.childCategories[0].products[0].characteristics,
   };
 };
 
@@ -52,11 +54,8 @@ type Props = {
 const ChangeProductPhage: FC<Props> = async ({
   params: { categorySlug, childCategorySlug, productSlug },
 }) => {
-  const { category, childCategory, product } = await getData(
-    categorySlug,
-    childCategorySlug,
-    productSlug
-  );
+  const { category, childCategory, product, productCharacteristics } =
+    await getData(categorySlug, childCategorySlug, productSlug);
 
   return (
     <>
@@ -81,7 +80,12 @@ const ChangeProductPhage: FC<Props> = async ({
           },
         ]}
       />
-      <ProductForm mainCategoryId={category.id} categoryId={childCategory.id} />
+      <ChangeProductForm
+        // mainCategoryId={category.id}
+        // categoryId={childCategory.id}
+        productId={product.id}
+        initialValues={{ product, characteristics: productCharacteristics }}
+      />
     </>
   );
 };

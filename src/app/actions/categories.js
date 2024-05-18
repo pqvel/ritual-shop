@@ -1,17 +1,15 @@
 "use server";
-import fs from "fs/promises";
-import { z } from "zod";
-import { categorySchema, imageSchema } from "@/zod/schemas";
-import db from "../../../db/db";
-import slugify from "slugify";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import slugify from "slugify";
+import { z } from "zod";
+import { categorySchema, imageSchema } from "@/zod/schemas";
+import { s3Service } from "@/services/s3";
 
 export const getCategories = async () => {
   return await db.category.findMany({ where: { level: 1 } });
 };
 
-/* tslint:disable */
 export const createCategory = async (state, formData) => {
   const result = categorySchema.safeParse(
     Object.fromEntries(formData.entries())
@@ -21,24 +19,26 @@ export const createCategory = async (state, formData) => {
 
   const { title, image, parentId, level } = result.data;
 
-  const data = result.data;
-  await fs.mkdir("public/categories", { recursive: true });
-  const imagePath = `/categories/${crypto.randomUUID()}-${data.image.name}`;
-  await fs.writeFile(
-    `public${imagePath}`,
-    Buffer.from(await data.image.arrayBuffer())
-  );
+  const slug = slugify(title, {
+    locale: "ru",
+    lower: true,
+  });
+
+  const fileExtension = image.type.split("/")[1];
+  const buffer = Buffer.from(await image.arrayBuffer());
+  const fileName = `categories/${slug}.${Date.now()}.${fileExtension}`;
+  const baseUrl = `${process.env.AWS_ENDPOINT_URL}/${process.env.AWS_BUCKET_NAME}`;
+  const uploadImageUrl = `${baseUrl}/${fileName}`;
+
+  await s3Service.uploadImage(buffer, fileName);
 
   await db.category.create({
     data: {
       title,
-      slug: slugify(title, {
-        locale: "ru",
-        lower: true,
-      }),
-      image: imagePath,
+      slug,
       parentId,
       level,
+      image: uploadImageUrl,
     },
     include: {
       parent: {
@@ -49,9 +49,7 @@ export const createCategory = async (state, formData) => {
     },
   });
 
-  revalidatePath("/", "page");
-  revalidatePath("/", "layout");
-
+  revalidatePath("/");
   redirect("/admin/catalog");
 };
 
@@ -65,8 +63,7 @@ export const changeCategoryActive = async (id, isActive) => {
     },
   });
 
-  revalidatePath("/", "page");
-  revalidatePath("/", "layout");
+  revalidatePath("/");
 };
 
 export const deleteCategory = async (id) => {
@@ -76,10 +73,10 @@ export const deleteCategory = async (id) => {
     },
   });
 
-  await fs.unlink(`public${category.image}`);
-  revalidatePath("/", "page");
-  revalidatePath("/", "layout");
-  return category;
+  await s3Service.deleteImage(category.image);
+
+  revalidatePath("/");
+  redirect("/admin/catalog");
 };
 
 export const changeCategory = async (state, formData) => {
@@ -95,7 +92,6 @@ export const changeCategory = async (state, formData) => {
   const result = schema.safeParse(Object.fromEntries(formData.entries()));
 
   if (result.success === false) return result.error.formErrors.fieldErrors;
-
   const { title, image, id } = result.data;
 
   const category = await db.category.findUnique({
@@ -105,9 +101,29 @@ export const changeCategory = async (state, formData) => {
   });
 
   if (image) {
-    // change image
+    await s3Service.deleteImage(category.image);
 
-    await fs.unlink(`public${category.image}`);
+    const slug = slugify(title, {
+      locale: "ru",
+      lower: true,
+    });
+
+    const fileExtension = image.type.split("/")[1];
+    const buffer = Buffer.from(await image.arrayBuffer());
+    const fileName = `categories/${slug}.${Date.now()}.${fileExtension}`;
+    const baseUrl = `${process.env.AWS_ENDPOINT_URL}/${process.env.AWS_BUCKET_NAME}`;
+    const uploadImageUrl = `${baseUrl}/${fileName}`;
+
+    await s3Service.uploadImage(buffer, fileName);
+
+    await db.category.update({
+      where: {
+        id: id,
+      },
+      data: {
+        image: uploadImageUrl,
+      },
+    });
   }
 
   if (title !== category.title) {
@@ -124,4 +140,7 @@ export const changeCategory = async (state, formData) => {
       },
     });
   }
+
+  revalidatePath("/");
+  redirect("/admin/catalog");
 };

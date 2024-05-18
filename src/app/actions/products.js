@@ -1,18 +1,16 @@
 "use server";
-import db from "../../../db/db";
-import { productSchema } from "@/zod/schemas";
-import fs from "fs/promises";
-import path, { join } from "path";
 import slugify from "slugify";
+import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-// import { Product } from "@prisma/client";
+import { productSchema, imageSchema } from "@/zod/schemas";
+import { s3Service } from "@/services/s3";
+import db from "@/db";
+
 export const createProduct = async (state, formData) => {
   const result = productSchema.safeParse(
     Object.fromEntries(formData.entries())
   );
-
-  console.log(result.error);
 
   if (result.success === false) return result.error.formErrors.fieldErrors;
 
@@ -26,22 +24,24 @@ export const createProduct = async (state, formData) => {
     price,
   } = result.data;
 
-  const data = result.data;
-  await fs.mkdir("public/products", { recursive: true });
-  const imagePath = `/products/${crypto.randomUUID()}-${data.image.name}`;
-  await fs.writeFile(
-    `public${imagePath}`,
-    Buffer.from(await data.image.arrayBuffer())
-  );
+  const slug = slugify(`${title}-${vendorCode}`, {
+    locale: "ru",
+    lower: true,
+  });
+
+  const fileExtension = image.type.split("/")[1];
+  const buffer = Buffer.from(await image.arrayBuffer());
+  const fileName = `products/${slug}.${Date.now()}.${fileExtension}`;
+  const baseUrl = `${process.env.AWS_ENDPOINT_URL}/${process.env.AWS_BUCKET_NAME}`;
+  const uploadImageUrl = `${baseUrl}/${fileName}`;
+
+  await s3Service.uploadImage(buffer, fileName);
 
   const product = await db.product.create({
     data: {
       title,
-      slug: slugify(`${title}-${vendorCode}`, {
-        locale: "ru",
-        lower: true,
-      }),
-      image: imagePath,
+      slug,
+      image: uploadImageUrl,
       categoryId,
       vendorCode,
       mainCategoryId,
@@ -56,8 +56,8 @@ export const createProduct = async (state, formData) => {
       productId: product.id,
     })),
   });
-  revalidatePath("/", "page");
-  revalidatePath("/", "layout");
+
+  revalidatePath("/");
   redirect("/admin/catalog");
 };
 
@@ -70,8 +70,8 @@ export const changeProductActive = async (id, isActive) => {
       active: isActive,
     },
   });
-  revalidatePath("/", "page");
-  revalidatePath("/", "layout");
+
+  revalidatePath("/");
 };
 
 export const deleteProduct = async (id) => {
@@ -81,8 +81,102 @@ export const deleteProduct = async (id) => {
     },
   });
 
-  await fs.unlink(`public${product.image}`);
-  revalidatePath("/", "page");
-  revalidatePath("/", "layout");
-  return product;
+  await s3Service.deleteImage(product.image);
+
+  revalidatePath("/");
+  redirect("/admin/catalog");
 };
+
+// export const changeProduct = async (state, formData) => {
+//   const schema = z.object({
+//     id: z
+//       .string()
+//       .optional()
+//       .transform((val) => val && parseInt(val, 10)),
+//     title: z.string().min(1),
+//     vendorCode: z.string().min(1),
+//     image: imageSchema.optional(),
+//     categoryId: z
+//       .string()
+//       .min(1)
+//       .transform((val) => parseInt(val, 10)),
+//     mainCategoryId: z
+//       .string()
+//       .min(1)
+//       .transform((val) => parseInt(val, 10)),
+//     characteristics: z
+//       .string()
+//       .min(1)
+//       .transform((str) => JSON.parse(str)),
+//     price: z
+//       .string()
+//       .min(1)
+//       .transform((val) => parseInt(val, 10)),
+//   });
+
+//   const result = schema.safeParse(Object.fromEntries(formData.entries()));
+
+//   if (result.success === false) return result.error.formErrors.fieldErrors;
+
+//   const {
+//     id,
+//     title,
+//     vendorCode,
+//     image,
+//     categoryId,
+//     mainCategoryId,
+//     characteristics,
+//     price,
+//   } = result.data;
+
+//   const product = await db.product.findUnique({
+//     where: {
+//       id: id,
+//     },
+//   });
+
+//   if (image) {
+//     await s3Service.deleteImage(product.image);
+
+//     const slug = slugify(`${title}-${vendorCode}`, {
+//       locale: "ru",
+//       lower: true,
+//     });
+
+//     const fileExtension = image.type.split("/")[1];
+//     const buffer = Buffer.from(await image.arrayBuffer());
+//     const fileName = `products/${slug}.${Date.now()}.${fileExtension}`;
+//     const baseUrl = `${process.env.AWS_ENDPOINT_URL}/${process.env.AWS_BUCKET_NAME}`;
+//     const uploadImageUrl = `${baseUrl}/${fileName}`;
+
+//     await s3Service.uploadImage(buffer, fileName);
+
+//     await db.product.update({
+//       where: {
+//         id: id,
+//       },
+//       data: {
+//         image: uploadImageUrl,
+//       },
+//     });
+//   }
+
+//   db.product.update({
+//     where: {
+//       id: id,
+//     },
+//     data: {
+//       title,
+//       vendorCode,
+//       price,
+//     },
+//     include: {
+//       category: {
+//         where: {
+//           productId: id
+//         },
+
+//       }
+//     }
+//   });
+// };

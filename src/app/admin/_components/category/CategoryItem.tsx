@@ -40,7 +40,7 @@ const CategoryItem: FC<Props> = ({
       </TableCell>
       <TableCell>
         <Link className="flex" href={image} target="_blank">
-          <Image width={100} height={100} src={image} alt={title} />
+          <img width={100} height={100} src={image} alt={title} />
         </Link>
       </TableCell>
       <TableCell className="text-right">

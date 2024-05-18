@@ -9,7 +9,7 @@ const NotFound: FC = () => {
       <Container className="flex justify-center items-center m-auto">
         <div className="flex flex-col items-center justify-center bg-white p-5 max-w-96 rounded-lg shadow-sm">
           <div className="font-semibold text-2xl text-center mb-4">
-            Произогла ошибка
+            Произошла ошибка
           </div>
           <div className=" text-center text-gray-600 mb-5">
             Такой страницы не существует либо она была перенесана на другой

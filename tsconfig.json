@@ -21,7 +21,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/db": ["./db/db"]
+      "@/db": ["./db/db"],
+      "@/s3": ["./db/s3"]
     }
   },
   "include": [
@@ -31,7 +32,7 @@
     ".next/types/**/*.ts",
     "src/app/actions/categories.js",
     "src/app/actions/products.ts",
-    "src/app/admin/_components/forms/ProductForm.jsx",
+    "src/app/admin/_components/forms/product/ProductForm.jsx",
     "src/app/actions/portfolio.js",
     "src/app/actions/email.js",
     "src/auth.js",
