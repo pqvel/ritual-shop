@@ -12,6 +12,7 @@ import MainLayout from "@/components/layouts/MainLayout";
 import ProductsSwiper from "@/components/swiper/ProductsSwiper";
 import CatalogSection from "@/components/catalog/CatalogSection";
 import db from "@/db";
+import ProductPageOrderForm from "@/components/forms/orderForm/ProductPageOrderForm";
 
 export const metadata: Metadata = {
   title: "",
@@ -115,18 +116,11 @@ const ProductPage: FC<Props> = async ({ params }) => {
                 руб.
               </h2>
 
-              <div className="flex flex-col w-full max-w-96">
-                <Label text="Ваше имя:" required>
-                  <TextInput placeholder="Иван" />
-                </Label>
-                <Label text="Номер телефона:" required>
-                  <PhoneInput />
-                </Label>
-
-                <button className=" mt-2 text-white py-2 px-6 bg-cyan-700 lg:hover:bg-cyan-800 rounded font-medium transition">
-                  Отправить
-                </button>
-              </div>
+              <ProductPageOrderForm
+                message={`Пользователь хочет заказать ${
+                  product?.title
+                } по ссылку /goods/${product!.slug}`}
+              />
             </div>
           </div>
           <div className="flex flex-col p-4 md:p-8 bg-white mb-8 shadow">
