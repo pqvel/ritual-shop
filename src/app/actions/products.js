@@ -87,96 +87,93 @@ export const deleteProduct = async (id) => {
   redirect("/admin/catalog");
 };
 
-// export const changeProduct = async (state, formData) => {
-//   const schema = z.object({
-//     id: z
-//       .string()
-//       .optional()
-//       .transform((val) => val && parseInt(val, 10)),
-//     title: z.string().min(1),
-//     vendorCode: z.string().min(1),
-//     image: imageSchema.optional(),
-//     categoryId: z
-//       .string()
-//       .min(1)
-//       .transform((val) => parseInt(val, 10)),
-//     mainCategoryId: z
-//       .string()
-//       .min(1)
-//       .transform((val) => parseInt(val, 10)),
-//     characteristics: z
-//       .string()
-//       .min(1)
-//       .transform((str) => JSON.parse(str)),
-//     price: z
-//       .string()
-//       .min(1)
-//       .transform((val) => parseInt(val, 10)),
-//   });
+export const changeProduct = async (state, formData) => {
+  const schema = z.object({
+    id: z
+      .string()
+      .optional()
+      .transform((val) => val && parseInt(val, 10)),
+    title: z.string().min(1),
+    vendorCode: z.string().min(1),
+    image: imageSchema.optional(),
+    characteristics: z
+      .string()
+      .min(1)
+      .transform((str) => JSON.parse(str)),
+    price: z
+      .string()
+      .min(1)
+      .transform((val) => parseInt(val, 10)),
+  });
 
-//   const result = schema.safeParse(Object.fromEntries(formData.entries()));
+  const result = schema.safeParse(Object.fromEntries(formData.entries()));
 
-//   if (result.success === false) return result.error.formErrors.fieldErrors;
+  if (result.success === false) return result.error.formErrors.fieldErrors;
 
-//   const {
-//     id,
-//     title,
-//     vendorCode,
-//     image,
-//     categoryId,
-//     mainCategoryId,
-//     characteristics,
-//     price,
-//   } = result.data;
+  const { id, title, vendorCode, image, characteristics, price } = result.data;
 
-//   const product = await db.product.findUnique({
-//     where: {
-//       id: id,
-//     },
-//   });
+  const product = await db.product.findUnique({
+    where: {
+      id: id,
+    },
+  });
 
-//   if (image) {
-//     await s3Service.deleteImage(product.image);
+  if (image.size !== 0) {
+    await s3Service.deleteImage(product.image);
 
-//     const slug = slugify(`${title}-${vendorCode}`, {
-//       locale: "ru",
-//       lower: true,
-//     });
+    const slug = slugify(`${title}-${vendorCode}`, {
+      locale: "ru",
+      lower: true,
+    });
 
-//     const fileExtension = image.type.split("/")[1];
-//     const buffer = Buffer.from(await image.arrayBuffer());
-//     const fileName = `products/${slug}.${Date.now()}.${fileExtension}`;
-//     const baseUrl = `${process.env.AWS_ENDPOINT_URL}/${process.env.AWS_BUCKET_NAME}`;
-//     const uploadImageUrl = `${baseUrl}/${fileName}`;
+    const fileExtension = image.type.split("/")[1];
+    const buffer = Buffer.from(await image.arrayBuffer());
+    const fileName = `products/${slug}.${Date.now()}.${fileExtension}`;
+    const baseUrl = `${process.env.AWS_ENDPOINT_URL}/${process.env.AWS_BUCKET_NAME}`;
+    const uploadImageUrl = `${baseUrl}/${fileName}`;
 
-//     await s3Service.uploadImage(buffer, fileName);
+    await s3Service.uploadImage(buffer, fileName);
 
-//     await db.product.update({
-//       where: {
-//         id: id,
-//       },
-//       data: {
-//         image: uploadImageUrl,
-//       },
-//     });
-//   }
+    await db.product.update({
+      where: {
+        id: id,
+      },
+      data: {
+        image: uploadImageUrl,
+      },
+    });
+  }
 
-//   db.product.update({
-//     where: {
-//       id: id,
-//     },
-//     data: {
-//       title,
-//       vendorCode,
-//       price,
-//     },
-//     include: {
-//       category: {
-//         where: {
-//           productId: id
-//         },
+  await db.productCharacteristic.deleteMany({
+    where: {
+      productId: id,
+    },
+  });
 
-//       }
-//     }
-//   });
-// };
+  const chars = characteristics.map((char) => ({
+    title: char.title,
+    variants: char.values.map(({ value }) => value),
+    productId: id,
+  }));
+
+  console.log(chars);
+  console.log(title);
+
+  await db.productCharacteristic.createMany({
+    data: chars,
+  });
+
+  await db.product.update({
+    where: {
+      id: id,
+    },
+    data: {
+      title,
+      vendorCode,
+      price,
+    },
+  });
+
+  revalidatePath("/");
+  redirect("/admin/catalog");
+};

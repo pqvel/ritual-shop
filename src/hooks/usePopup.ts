@@ -12,8 +12,9 @@ export const usePopup = (): UsePopupReturn => {
   // const scrollBarWidth = getScrollBarWidth();
 
   // useEffect(() => {
-  //   document.body.style.paddingRight = active ? `calc(100vw - 100%)` : "unset";
-  //   document.body.style.overflow = active ? "hidden" : "auto";
+  //   // document.body.style.paddingRight = active ? `calc(100vw - 100%)` : "unset";
+  //   // document.body.style.overflow = active ? "hidden" : "auto";
+  //   // return () => setActive(false);
   // }, [active]);
 
   const togglePopup = () => {

@@ -52,6 +52,7 @@ export const deletePortfolioProduct = async (id) => {
   });
 
   await s3Service.deleteImage(product.image);
+
   revalidatePath("/");
   redirect("/admin/portfolio");
 };

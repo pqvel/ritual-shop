@@ -1,9 +1,9 @@
 "use client";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ProductCard from "@/components/ui/cards/ProductCard";
 import { Navigation } from "swiper/modules";
 import { Product } from "@prisma/client";
+import ProductCard from "@/components/ui/cards/ProductCard";
 
 type Props = {
   products: Product[];
@@ -36,7 +36,7 @@ const ProductsSwiper: FC<Props> = ({ products }) => {
       }}
     >
       {products.map((product) => (
-        <SwiperSlide key={product.id}>
+        <SwiperSlide className=" max-w-2xl" key={product.id}>
           <ProductCard
             product={product}
             href={`/goods/${product.slug}`}

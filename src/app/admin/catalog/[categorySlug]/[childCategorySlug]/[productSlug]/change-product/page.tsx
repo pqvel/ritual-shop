@@ -81,10 +81,11 @@ const ChangeProductPhage: FC<Props> = async ({
         ]}
       />
       <ChangeProductForm
-        // mainCategoryId={category.id}
-        // categoryId={childCategory.id}
         productId={product.id}
-        initialValues={{ product, characteristics: productCharacteristics }}
+        initialValues={{
+          product,
+          productCharacteristics: productCharacteristics,
+        }}
       />
     </>
   );

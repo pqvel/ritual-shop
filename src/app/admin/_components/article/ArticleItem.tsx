@@ -44,7 +44,7 @@ const ArticleItem: FC<Props> = ({
         </Link>
       </TableCell>
       <TableCell className="text-right">
-        <Dropdowm categoryId={id} />
+        {/* <Dropdowm categoryId={id} /> */}
       </TableCell>
     </TableRow>
   );

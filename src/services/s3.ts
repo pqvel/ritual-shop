@@ -43,6 +43,8 @@ class S3Service {
         ``
       );
 
+      console.log(Key);
+
       const params: DeleteObjectCommandInput = {
         Bucket: process.env.AWS_BUCKET_NAME as string,
         Key,

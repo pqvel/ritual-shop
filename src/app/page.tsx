@@ -12,13 +12,11 @@ import CategoryCard from "@/components/ui/cards/CategoryCard";
 import "swiper/css";
 
 import db from "../../db/db";
-import ProductsSwiper from "@/components/ui/ProductsSwiper";
+import ProductsSwiper from "@/components/swiper/ProductsSwiper";
 import MainLayout from "@/components/layouts/MainLayout";
 import OrderPopup from "@/components/popups/OrderPopup";
 import Details from "@/components/ui/Details";
 import OrderForm from "@/components/forms/orderForm/OrderForm";
-
-// const revalidate = 3600; // 1 hour
 
 const getCategories = async () => {
   return await db.category.findMany({
@@ -30,7 +28,7 @@ const getCategories = async () => {
 const getProducts = async () => {
   return await db.product.findMany({
     where: {
-      // active: true,
+      active: true,
     },
     take: 12,
   });

@@ -15,7 +15,7 @@ type Props = {
 };
 
 const ProductItem: FC<Props> = ({
-  product: { id, active, slug, image, title, categoryId, vendorCode },
+  product: { id, active, slug, image, title, categoryId, vendorCode, price },
   productCharacteristics,
   categorySlug,
   childCategorySlug,
@@ -33,6 +33,7 @@ const ProductItem: FC<Props> = ({
         <TableCell>{title}</TableCell>
         <TableCell>{slug}</TableCell>
         <TableCell>{vendorCode}</TableCell>
+        <TableCell>{price}</TableCell>
         <TableCell>
           <Link className="flex" href={image} target="_blank">
             <Image width={100} height={100} src={image} alt={title} />

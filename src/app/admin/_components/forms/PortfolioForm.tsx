@@ -16,7 +16,7 @@ const PortfolioForm: FC = () => {
     <form action={action}>
       <Card>
         <CardHeader>
-          <h1 className=" text-2xl font-semibold">Создание новой категории</h1>
+          <h1 className=" text-2xl font-semibold">Добавить новый элемент</h1>
         </CardHeader>
         <CardContent>
           <Label className="block mb-4">

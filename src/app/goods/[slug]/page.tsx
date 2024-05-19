@@ -1,17 +1,17 @@
 import { FC } from "react";
+import { Metadata } from "next";
 import Image from "next/image";
-import CatalogSection from "@/components/catalog/CatalogSection";
-import { Container, Grid } from "@/components/ui/Wrappers";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import ProductCart from "@/components/ui/cards/ProductCard";
 import { SectionTitle, SectionTitleGroup } from "@/components/ui/Section";
-import db from "../../../../db/db";
-import MainLayout from "@/components/layouts/MainLayout";
 import { TextInput } from "@/components/ui/formItems/Input";
 import { Title } from "@/components/ui/Typography";
 import { Label } from "@/components/ui/formItems/Label";
-import { PhoneInput, TextArea } from "@/components/ui/formItems/Input";
-import { Metadata } from "next";
+import { Container } from "@/components/ui/Wrappers";
+import { PhoneInput } from "@/components/ui/formItems/Input";
+import MainLayout from "@/components/layouts/MainLayout";
+import ProductsSwiper from "@/components/swiper/ProductsSwiper";
+import CatalogSection from "@/components/catalog/CatalogSection";
+import db from "@/db";
 
 export const metadata: Metadata = {
   title: "",
@@ -21,7 +21,6 @@ export const metadata: Metadata = {
     follow: false,
   },
 };
-// export const revalidate = 3600; // 1 hour
 
 const getData = async (slug: string) => {
   const product = await db.product.findFirst({
@@ -39,7 +38,14 @@ const getData = async (slug: string) => {
       id: product!.categoryId,
     },
     include: {
-      products: true,
+      products: {
+        where: {
+          active: true,
+          id: {
+            not: product?.id,
+          },
+        },
+      },
     },
   });
 
@@ -88,6 +94,7 @@ const ProductPage: FC<Props> = async ({ params }) => {
             ]}
           />
           <Title level={1}>{product!.title}</Title>
+
           <div className="flex flex-col md:flex-row mb-8">
             <div className=" w-full mb-4 md:mb-0 md:w-1/2 xl:w-2/5 md:mr-6">
               <div className="flex relative bg-white w-full pt-[100%] shadow">
@@ -145,15 +152,7 @@ const ProductPage: FC<Props> = async ({ params }) => {
           <SectionTitleGroup>
             <SectionTitle>Похожие товары</SectionTitle>
           </SectionTitleGroup>
-          <Grid>
-            {categoryLvl2!.products.map((product) => (
-              <ProductCart
-                product={product}
-                href={`/goods/${product.slug}`}
-                key={product.id}
-              />
-            ))}
-          </Grid>
+          <ProductsSwiper products={categoryLvl2!.products} />
         </Container>
       </CatalogSection>
     </MainLayout>

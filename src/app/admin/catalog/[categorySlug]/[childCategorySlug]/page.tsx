@@ -105,6 +105,7 @@ const ProductsPage: FC<Props> = async ({
                 <TableHead>Название</TableHead>
                 <TableHead>Slug</TableHead>
                 <TableHead>Артикул</TableHead>
+                <TableHead>Цена</TableHead>
                 <TableHead>Изображение</TableHead>
                 <TableHead className="text-right">Действия</TableHead>
               </TableRow>

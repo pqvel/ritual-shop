@@ -2,7 +2,7 @@ import "../globals.scss";
 import Header from "@/app/admin/_components/Header";
 import { getServerSession } from "next-auth";
 import { Metadata } from "next";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Admin",
@@ -20,11 +20,7 @@ export default async function RootLayout({
   const session = await getServerSession();
 
   if (!session) {
-    return (
-      <html lang="ru">
-        <body></body>
-      </html>
-    );
+    redirect("/login");
   }
 
   return (
