@@ -15,8 +15,8 @@ import {
   TableRow,
   TableHead,
 } from "@/components/ui/shadcn-ui/table";
-import db from "../../../../db/db";
 import PortfolioItem from "../_components/portfolio/PortfolioItem";
+import db from "@/db";
 
 const getProtfolioProducts = async () => {
   return await db.portfolioProduct.findMany();

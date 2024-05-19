@@ -2,7 +2,7 @@
 import db from "../../../db/db";
 import { articleShema } from "@/zod/schemas";
 import fs from "fs/promises";
-import path, { join } from "path";
+
 import slugify from "slugify";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";

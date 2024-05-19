@@ -5,6 +5,7 @@ import slugify from "slugify";
 import { z } from "zod";
 import { categorySchema, imageSchema } from "@/zod/schemas";
 import { s3Service } from "@/services/s3";
+import db from "@/db";
 
 export const getCategories = async () => {
   return await db.category.findMany({ where: { level: 1 } });

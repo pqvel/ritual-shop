@@ -30,7 +30,7 @@ const PortfolioItem: FC<Props> = ({
         </TableCell>
         <TableCell className="font-medium">
           <Link className="flex" href={image} target="_blank">
-            <Image width={100} height={100} src={image} alt={""} />
+            <img width={100} height={100} src={image} alt={""} />
           </Link>
         </TableCell>
         <TableCell className="text-right">
