@@ -12,8 +12,10 @@ export const createProduct = async (state, formData) => {
     Object.fromEntries(formData.entries())
   );
 
-  if (result.success === false) return result.error.formErrors.fieldErrors;
+  console.log(result.error);
 
+  if (result.success === false) return result.error.formErrors.fieldErrors;
+  // return;
   const {
     title,
     vendorCode,
@@ -22,6 +24,7 @@ export const createProduct = async (state, formData) => {
     characteristics,
     mainCategoryId,
     price,
+    isAgreementPrice,
   } = result.data;
 
   const slug = slugify(`${title}-${vendorCode}`, {
@@ -46,6 +49,7 @@ export const createProduct = async (state, formData) => {
       vendorCode,
       mainCategoryId,
       price,
+      isAgreementPrice,
     },
   });
 
@@ -102,15 +106,25 @@ export const changeProduct = async (state, formData) => {
       .transform((str) => JSON.parse(str)),
     price: z
       .string()
-      .min(1)
+      .optional()
+      .default("0")
       .transform((val) => parseInt(val, 10)),
+    isAgreementPrice: z.any().transform(Boolean),
   });
 
   const result = schema.safeParse(Object.fromEntries(formData.entries()));
 
   if (result.success === false) return result.error.formErrors.fieldErrors;
 
-  const { id, title, vendorCode, image, characteristics, price } = result.data;
+  const {
+    id,
+    title,
+    vendorCode,
+    image,
+    characteristics,
+    price,
+    isAgreementPrice,
+  } = result.data;
 
   const product = await db.product.findUnique({
     where: {
@@ -171,6 +185,7 @@ export const changeProduct = async (state, formData) => {
       title,
       vendorCode,
       price,
+      isAgreementPrice,
     },
   });
 

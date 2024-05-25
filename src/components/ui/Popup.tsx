@@ -9,7 +9,7 @@ type Props = {
   closePopup: () => void;
 };
 
-const Popup: FC<Props> = ({ children, isOpen, closePopup }) => {
+const Popup: FC<Props> = ({ children, isOpen = false, closePopup }) => {
   const outputRef = useRef<Element | null>(null);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Popup: FC<Props> = ({ children, isOpen, closePopup }) => {
 
   return outputRef.current ? (
     createPortal(
-      <CSSTransition in={isOpen} timeout={200} classNames="popup">
+      <CSSTransition in={isOpen} timeout={200} classNames="popup" unmountOnExit>
         <div
           className="fixed top-0 left-0 w-full h-full bg-opacity-60 bg-black z-40"
           onClick={closePopup}

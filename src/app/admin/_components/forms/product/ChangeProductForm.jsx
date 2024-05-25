@@ -24,6 +24,9 @@ const ChangeProductForm = ({
   initialValues: { product, productCharacteristics },
 }) => {
   const [__, action] = useFormState(changeProduct, {});
+  const [isPriceAgreement, setAgreementPrice] = useState(
+    product.isAgreementPrice
+  );
 
   const [characteristics, setCharacteristics] = useState(
     productCharacteristics.map((characteristic) => ({
@@ -124,15 +127,28 @@ const ChangeProductForm = ({
             />
           </Label>
 
-          <Label className="block mb-4">
+          <div className="block mb-4">
             <div className="mb-2 text-lg">Цена</div>
-            <Input
-              placeholder="1200"
-              name="price"
-              type="number"
-              defaultValue={product.price}
-            />
-          </Label>
+            <div className="flex items-center">
+              <Input
+                className="mr-4 w-80"
+                placeholder="1200"
+                name="price"
+                type="number"
+                disabled={isPriceAgreement}
+              />
+              <label className="flex items-center flex-shrink-0 cursor-pointer">
+                <input
+                  className=" mr-2"
+                  type="checkbox"
+                  name="isAgreementPrice"
+                  checked={isPriceAgreement}
+                  onChange={(e) => setAgreementPrice(e.target.checked)}
+                />
+                Договорная
+              </label>
+            </div>
+          </div>
 
           <Table className="bg-white">
             <TableHeader>

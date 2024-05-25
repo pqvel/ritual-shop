@@ -110,10 +110,16 @@ const ProductPage: FC<Props> = async ({ params }) => {
             </div>
 
             <div className="flex flex-col items-center bg-white w-full md:w-1/2 xl:w-3/5 p-4 md:p-6 justify-center shadow">
-              <h2 className=" font-semibold text-2xl text-center mb-5">
-                Закажите сейчас от{" "}
-                <strong className=" text-cyan-700">{product!.price}</strong>{" "}
-                руб.
+              <h2 className=" font-semibold text-2xl text-center mb-5 max-w-sm">
+                {product?.isAgreementPrice ? (
+                  <>Узнать больше о товаре</>
+                ) : (
+                  <>
+                    Закажите сейчас от{" "}
+                    <strong className=" text-cyan-700">{product!.price}</strong>{" "}
+                    руб.
+                  </>
+                )}
               </h2>
 
               <ProductPageOrderForm

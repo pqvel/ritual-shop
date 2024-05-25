@@ -38,6 +38,7 @@ model Product {
   mainCategoryId  Int
   active          Boolean                 @default(false)
   price           Float                   @default(0)
+  isAgreementPrice Boolean                @default(false) // договорная цена
   category        Category                @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   characteristics ProductCharacteristic[]
 }

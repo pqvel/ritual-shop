@@ -9,7 +9,7 @@ type Props = {
 };
 
 const ProductCart: FC<Props> = ({
-  product: { image, title, price, vendorCode },
+  product: { image, title, price, vendorCode, isAgreementPrice },
   href,
 }) => (
   <Link
@@ -27,13 +27,20 @@ const ProductCart: FC<Props> = ({
     </div>
 
     <div className="flex flex-col p-4">
-      {/* <div className=" text-sm font-semibold">от {price} руб.</div> */}
       <p className=" h-14 text-lg font-semibold line-clamp-2">{title}</p>
       <div className="flex justify-between items-center mt-3">
-        <div className="flex text-lg font-semibold items-center">
-          от <div className=" text-2xl text-cyan-700 mx-2">{price}</div> руб
+        <div className="flex text-lg font-semibold items-center h-8">
+          {isAgreementPrice ? (
+            <>
+              <div>Договорная</div>
+            </>
+          ) : (
+            <>
+              от <div className=" text-2xl text-cyan-700 mx-2">{price}</div> руб
+            </>
+          )}
         </div>
-        <div className=" text-gray-500">{vendorCode}</div>
+        <div className="flex justify-end text-gray-500 w-16">{vendorCode}</div>
       </div>
     </div>
   </Link>

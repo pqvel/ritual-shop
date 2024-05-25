@@ -6,6 +6,8 @@ import {
   DeleteObjectCommandInput,
   HeadObjectCommand,
   HeadBucketCommandInput,
+  DeleteObjectsCommand,
+  DeleteObjectsCommandInput,
 } from "@aws-sdk/client-s3";
 import { s3 } from "@/s3";
 
@@ -59,6 +61,29 @@ class S3Service {
     }
   };
 
+  deleteImages = async (imagesUrls: string[]) => {
+    try {
+      const params: DeleteObjectsCommandInput = {
+        Bucket: process.env.AWS_BUCKET_NAME as string,
+        Delete: {
+          Objects: imagesUrls.map((url) => ({
+            Key: url.replace(
+              `${process.env.AWS_ENDPOINT_URL}/${process.env.AWS_BUCKET_NAME}/`,
+              ``
+            ),
+          })),
+        },
+      };
+
+      const command = new DeleteObjectsCommand(params);
+
+      await s3.send(command);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  };
+
   checkFileExists = async (fileName: string) => {
     try {
       const params = {
@@ -72,6 +97,7 @@ class S3Service {
     } catch (error) {
       console.log("error file not exist");
       console.log(error);
+      return error;
     }
   };
 }

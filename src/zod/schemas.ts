@@ -24,6 +24,7 @@ export const productSchema: Zod.Schema = z.object({
   title: z.string().min(1),
   vendorCode: z.string().min(1),
   image: imageSchema.refine((file: any) => file.size > 0, "Required"),
+  isAgreementPrice: z.any().transform(Boolean),
   categoryId: z
     .string()
     .min(1)
@@ -38,7 +39,8 @@ export const productSchema: Zod.Schema = z.object({
     .transform((str) => JSON.parse(str)),
   price: z
     .string()
-    .min(1)
+    .optional()
+    .default("0")
     .transform((val) => parseInt(val, 10)),
 });
 
