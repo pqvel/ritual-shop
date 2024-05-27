@@ -88,3 +88,36 @@ details[open] + div.content {
 details[open] summary svg {
   rotate: 90deg;
 }
+
+.w-md-editor {
+  height: 600px !important;
+}
+
+.markdown-content {
+  > * {
+    margin-bottom: 16px;
+  }
+
+  img {
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-top: 20px;
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  &:first-child {
+    margin-top: 0px !important;
+  }
+
+  &:last-child {
+    margin-bottom: 0px !important;
+  }
+}

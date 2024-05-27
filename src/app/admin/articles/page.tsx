@@ -15,8 +15,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn-ui/table";
+import ArticleItem from "../_components/article/ArticleItem";
+import db from "@/db";
+
+const getArticles = async () => {
+  return await db.article.findMany();
+};
 
 const ArticlePage: FC = async () => {
+  const articles = await getArticles();
   return (
     <>
       <Breadcrumb
@@ -44,14 +51,18 @@ const ArticlePage: FC = async () => {
               <TableRow>
                 <TableHead className="w-[100px]">Active</TableHead>
                 <TableHead className="w-[100px]">ID</TableHead>
-                <TableHead className="w-[100px]">Parent ID</TableHead>
+                <TableHead className="w-[100px]">Название</TableHead>
                 <TableHead>Название</TableHead>
                 <TableHead>slug</TableHead>
                 <TableHead>Изображение</TableHead>
                 <TableHead className="text-right">Действия</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody></TableBody>
+            <TableBody>
+              {articles.map((article) => (
+                <ArticleItem article={article} />
+              ))}
+            </TableBody>
           </Table>
         </CardContent>
       </Card>

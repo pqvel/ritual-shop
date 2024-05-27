@@ -47,5 +47,10 @@ export const productSchema: Zod.Schema = z.object({
 export const articleShema: Zod.Schema = z.object({
   title: z.string().min(1),
   content: z.string().min(1),
+  contentImages: z
+    .string()
+    .optional()
+    .default("[]")
+    .transform((str) => JSON.parse(str)),
   image: imageSchema.refine((file: any) => file.size > 0, "Required"),
 });

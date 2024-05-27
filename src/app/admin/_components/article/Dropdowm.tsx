@@ -9,23 +9,25 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/shadcn-ui/dropdown-menu";
 import { Button } from "@/components/ui/shadcn-ui/button";
-import { DeleteCategory } from "./Actions";
+import { DeleteArticle } from "./Actions";
 import Link from "next/link";
 
 type Props = {
-  categoryId: number;
-  categorySlug: string;
-  childCategorySLug?: string;
+  id: number;
+  // categorySlug: string;
+  // childCategorySLug?: string;
 };
 
 const Dropdowm: FC<Props> = ({
-  categoryId,
-  categorySlug,
-  childCategorySLug,
+  id,
+  // categorySlug,
+  // childCategorySLug,
 }) => {
-  const EditLinkHref = childCategorySLug
-    ? `/amin/catalog/${categorySlug}/${childCategorySLug}/change-category`
-    : `/amin/catalog/${categorySlug}/change-category`;
+  // const EditLinkHref = childCategorySLug
+  //   ? `/amin/catalog/${categorySlug}/${childCategorySLug}/change-category`
+  //   : `/amin/catalog/${categorySlug}/change-category`;
+
+  const EditLinkHref = "/";
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -35,7 +37,7 @@ const Dropdowm: FC<Props> = ({
         <DropdownMenuLabel>Действия</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <DeleteCategory categoryId={categoryId} />
+          <DeleteArticle id={id} />
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Link href={EditLinkHref}>Редактировать</Link>
