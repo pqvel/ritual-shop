@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/formItems/Label";
 import { Container } from "@/components/ui/Wrappers";
 import { PhoneInput } from "@/components/ui/formItems/Input";
 import MainLayout from "@/components/layouts/MainLayout";
-import ProductsSwiper from "@/components/swiper/ProductsSwiper";
+import ProductsSwiper from "@/components/swiper/SwiperItems";
 import CatalogSection from "@/components/catalog/CatalogSection";
 import db from "@/db";
 import ProductPageOrderForm from "@/components/forms/orderForm/ProductPageOrderForm";

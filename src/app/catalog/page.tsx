@@ -110,11 +110,7 @@ const CatalogpPage: FC<Props> = async ({ searchParams: { page = "1" } }) => {
             <div className="flex flex-col items-center w-full">
               <CatalogGrid>
                 {products.map((product) => (
-                  <ProductCart
-                    href={`/goods/${product.slug}`}
-                    key={product.id}
-                    product={product}
-                  />
+                  <ProductCart key={product.id} product={product} />
                 ))}
               </CatalogGrid>
               {countPages !== 1 && (

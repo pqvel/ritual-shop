@@ -154,11 +154,7 @@ const ProductPage: FC<Props> = async ({ params }) => {
           </SectionTitleGroup>
           <Grid>
             {categoryLvl2!.products.map((product) => (
-              <ProductCart
-                product={product}
-                href={`/goods/${product.slug}`}
-                key={product.id}
-              />
+              <ProductCart product={product} key={product.id} />
             ))}
           </Grid>
         </Container>

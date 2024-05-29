@@ -5,15 +5,13 @@ import { Product } from "@prisma/client";
 
 type Props = {
   product: Product;
-  href: string;
 };
 
 const ProductCart: FC<Props> = ({
-  product: { image, title, price, vendorCode, isAgreementPrice },
-  href,
+  product: { image, title, price, vendorCode, isAgreementPrice, slug },
 }) => (
   <Link
-    href={href}
+    href={`/goods/${slug}`}
     className="group flex flex-col w-full bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg lg:hover:-translate-y-1 will-change-transform transition overflow-hidden"
   >
     <div className="flex relative w-full pt-[100%]">

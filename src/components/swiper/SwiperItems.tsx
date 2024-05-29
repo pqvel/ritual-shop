@@ -1,15 +1,18 @@
-"use client";
-import { FC, useEffect } from "react";
+"use server";
+import { ReactNode } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import { Product } from "@prisma/client";
-import ProductCard from "@/components/ui/cards/ProductCard";
 
-type Props = {
-  products: Product[];
-};
+interface HasId {
+  id: number | string;
+}
 
-const ProductsSwiper: FC<Props> = ({ products }) => {
+interface Props<T extends HasId> {
+  items: T[];
+  renderItem: (item: T) => ReactNode;
+}
+
+const SwiperItems = <T extends HasId>({ items, renderItem }: Props<T>) => {
   return (
     <Swiper
       className="group relative"
@@ -35,13 +38,9 @@ const ProductsSwiper: FC<Props> = ({ products }) => {
         },
       }}
     >
-      {products.map((product) => (
-        <SwiperSlide className=" max-w-2xl" key={product.id}>
-          <ProductCard
-            product={product}
-            href={`/goods/${product.slug}`}
-            key={product.id}
-          />
+      {items.map((item) => (
+        <SwiperSlide className=" max-w-2xl" key={item.id}>
+          {renderItem(item)}
         </SwiperSlide>
       ))}
       <button className="prev flex lg:hidden items-center justify-center absolute w-14 h-10 top-1/2 -translate-y-1/2 -left-14 z-10  transition-[0.2s] text-white bg-black bg-opacity-70 group-hover:left-8 m-0 p-0 lg:hover:bg-opacity-80 rotate-180">
@@ -58,4 +57,4 @@ const ProductsSwiper: FC<Props> = ({ products }) => {
   );
 };
 
-export default ProductsSwiper;
+export default SwiperItems;

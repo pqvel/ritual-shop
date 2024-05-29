@@ -10,34 +10,52 @@ import { Grid } from "@/components/ui/Wrappers";
 import Image from "next/image";
 import CategoryCard from "@/components/ui/cards/CategoryCard";
 import "swiper/css";
-
+import ProductCard from "@/components/ui/cards/ProductCard";
 import db from "../../db/db";
-import ProductsSwiper from "@/components/swiper/ProductsSwiper";
+import SwiperItems from "@/components/swiper/SwiperItems";
 import MainLayout from "@/components/layouts/MainLayout";
 import OrderPopup from "@/components/popups/OrderPopup";
 import Details from "@/components/ui/Details";
 import OrderForm from "@/components/forms/orderForm/OrderForm";
+import { Article, Product } from "@prisma/client";
+import ArticleCart from "@/components/ui/cards/ArticleCard";
 
 const getCategories = async () => {
-  return await db.category.findMany({
-    where: { level: 2, active: true },
-    take: 8,
-  });
+  return (
+    (await db.category.findMany({
+      where: { level: 2, active: true },
+      take: 8,
+    })) || []
+  );
 };
 
 const getProducts = async () => {
-  return await db.product.findMany({
-    where: {
-      active: true,
-    },
-    take: 12,
-  });
+  return (
+    (await db.product.findMany({
+      where: {
+        active: true,
+      },
+      take: 12,
+    })) || []
+  );
+};
+
+const getArticles = async () => {
+  return (
+    (await db.article.findMany({
+      where: {
+        active: true,
+      },
+      take: 12,
+    })) || []
+  );
 };
 
 const Home: FC = async () => {
-  const [categories, products] = await Promise.all([
+  const [categories, products, articles] = await Promise.all([
     getCategories(),
     getProducts(),
+    getArticles(),
   ]);
 
   return (
@@ -76,7 +94,12 @@ const Home: FC = async () => {
             <SectionLink href="/catalog/pamyatniki/">Смотреть все</SectionLink>
           </SectionTitleGroup>
 
-          <ProductsSwiper products={products} />
+          <SwiperItems<Product>
+            items={products}
+            renderItem={(product) => (
+              <ProductCard product={product} key={product.id} />
+            )}
+          />
         </Container>
       </Section>
       <Section className=" bg-gray-100">
@@ -95,6 +118,20 @@ const Home: FC = async () => {
               />
             ))}
           </Grid>
+        </Container>
+      </Section>
+      <Section className=" bg-white">
+        <Container>
+          <SectionTitleGroup className=" justify-between">
+            <SectionTitle>Статьи</SectionTitle>
+            <SectionLink href="/articles">Смотреть все</SectionLink>
+          </SectionTitleGroup>
+          <SwiperItems<Article>
+            items={articles}
+            renderItem={(article) => (
+              <ArticleCart article={article} key={article.id} />
+            )}
+          />
         </Container>
       </Section>
       <Section>
