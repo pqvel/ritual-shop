@@ -20,6 +20,7 @@ import OrderForm from "@/components/forms/orderForm/OrderForm";
 
 import ArticleCart from "@/components/ui/cards/ArticleCard";
 import SwiperSkeleton from "@/components/swiper/SwiperSkeleton";
+import PortfolioCard from "@/components/ui/cards/PortfolioCard";
 
 const getCategories = async () => {
   return (
@@ -52,11 +53,23 @@ const getArticles = async () => {
   );
 };
 
+const getPortfolio = async () => {
+  return (
+    (await db.portfolioProduct.findMany({
+      where: {
+        active: true,
+      },
+      take: 12,
+    })) || []
+  );
+};
+
 const Home: FC = async () => {
-  const [categories, products, articles] = await Promise.all([
+  const [categories, products, articles, portfolio] = await Promise.all([
     getCategories(),
     getProducts(),
     getArticles(),
+    getPortfolio(),
   ]);
 
   return (
@@ -104,6 +117,7 @@ const Home: FC = async () => {
           </Suspense>
         </Container>
       </Section>
+
       <Section className=" bg-gray-100">
         <Container>
           <SectionTitleGroup className=" justify-between">
@@ -122,6 +136,7 @@ const Home: FC = async () => {
           </Grid>
         </Container>
       </Section>
+
       {articles.length > 0 && (
         <Section className=" bg-white">
           <Container>
@@ -140,12 +155,27 @@ const Home: FC = async () => {
 
       <Section>
         <Container>
+          <SectionTitleGroup className=" justify-between">
+            <SectionTitle>Наши работы</SectionTitle>
+            <SectionLink href="/portfolio">Смотреть все</SectionLink>
+          </SectionTitleGroup>
+          <SwiperItems>
+            {portfolio.map((product) => (
+              <PortfolioCard product={product} key={product.id} />
+            ))}
+          </SwiperItems>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
           <SectionTitleGroup className=" justify-center">
             <SectionTitle>Свяжитесь с нами прямо сейчас</SectionTitle>
           </SectionTitleGroup>
           <OrderForm />
         </Container>
       </Section>
+
       <Section className=" bg-cyan-900">
         <Container>
           <SectionTitleGroup className="text-white">
