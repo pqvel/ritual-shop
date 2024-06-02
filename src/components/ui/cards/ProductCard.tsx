@@ -16,8 +16,8 @@ const ProductCart: FC<Props> = ({
   >
     <div className="flex relative w-full pt-[100%]">
       <Image
-        className="absolute top-0 left-0 w-full h-full object-cover"
-        // objectFit="cover"
+        className="absolute top-0 left-0 w-full h-full"
+        objectFit="cover"
         width={300}
         height={300}
         src={image}
