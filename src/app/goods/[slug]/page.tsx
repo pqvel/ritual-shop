@@ -13,6 +13,8 @@ import ProductsSwiper from "@/components/swiper/SwiperItems";
 import CatalogSection from "@/components/catalog/CatalogSection";
 import db from "@/db";
 import ProductPageOrderForm from "@/components/forms/orderForm/ProductPageOrderForm";
+import SwiperItems from "@/components/swiper/SwiperItems";
+import ProductCart from "@/components/ui/cards/ProductCard";
 
 export const metadata: Metadata = {
   title: "",
@@ -60,6 +62,7 @@ const getData = async (slug: string) => {
     product,
     categoryLvl1,
     categoryLvl2,
+    products: categoryLvl2?.products || [],
   };
 };
 
@@ -70,7 +73,9 @@ type Props = {
 };
 
 const ProductPage: FC<Props> = async ({ params }) => {
-  const { product, categoryLvl1, categoryLvl2 } = await getData(params.slug);
+  const { product, categoryLvl1, categoryLvl2, products } = await getData(
+    params.slug
+  );
 
   return (
     <MainLayout>
@@ -149,10 +154,19 @@ const ProductPage: FC<Props> = async ({ params }) => {
               </table>
             </div>
           </div>
-          <SectionTitleGroup>
-            <SectionTitle>Похожие товары</SectionTitle>
-          </SectionTitleGroup>
-          <ProductsSwiper products={categoryLvl2!.products} />
+          {products.length > 0 && (
+            <>
+              <SectionTitleGroup>
+                <SectionTitle>Похожие товары</SectionTitle>
+              </SectionTitleGroup>
+
+              <SwiperItems>
+                {products.map((product) => (
+                  <ProductCart product={product} key={product.id} />
+                ))}
+              </SwiperItems>
+            </>
+          )}
         </Container>
       </CatalogSection>
     </MainLayout>

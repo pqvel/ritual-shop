@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Suspense } from "react";
 import { Container } from "@/components/ui/Wrappers";
 import {
   Section,
@@ -17,8 +17,9 @@ import MainLayout from "@/components/layouts/MainLayout";
 import OrderPopup from "@/components/popups/OrderPopup";
 import Details from "@/components/ui/Details";
 import OrderForm from "@/components/forms/orderForm/OrderForm";
-import { Article, Product } from "@prisma/client";
+
 import ArticleCart from "@/components/ui/cards/ArticleCard";
+import SwiperSkeleton from "@/components/swiper/SwiperSkeleton";
 
 const getCategories = async () => {
   return (
@@ -94,12 +95,13 @@ const Home: FC = async () => {
             <SectionLink href="/catalog/pamyatniki/">Смотреть все</SectionLink>
           </SectionTitleGroup>
 
-          <SwiperItems<Product>
-            items={products}
-            renderItem={(product) => (
-              <ProductCard product={product} key={product.id} />
-            )}
-          />
+          <Suspense fallback={<SwiperSkeleton />}>
+            <SwiperItems>
+              {products.map((product) => (
+                <ProductCard product={product} key={product.id} />
+              ))}
+            </SwiperItems>
+          </Suspense>
         </Container>
       </Section>
       <Section className=" bg-gray-100">
@@ -120,20 +122,22 @@ const Home: FC = async () => {
           </Grid>
         </Container>
       </Section>
-      <Section className=" bg-white">
-        <Container>
-          <SectionTitleGroup className=" justify-between">
-            <SectionTitle>Статьи</SectionTitle>
-            <SectionLink href="/articles">Смотреть все</SectionLink>
-          </SectionTitleGroup>
-          <SwiperItems<Article>
-            items={articles}
-            renderItem={(article) => (
-              <ArticleCart article={article} key={article.id} />
-            )}
-          />
-        </Container>
-      </Section>
+      {articles.length > 0 && (
+        <Section className=" bg-white">
+          <Container>
+            <SectionTitleGroup className=" justify-between">
+              <SectionTitle>Статьи</SectionTitle>
+              <SectionLink href="/articles">Смотреть все</SectionLink>
+            </SectionTitleGroup>
+            <SwiperItems>
+              {articles.map((article) => (
+                <ArticleCart article={article} key={article.id} />
+              ))}
+            </SwiperItems>
+          </Container>
+        </Section>
+      )}
+
       <Section>
         <Container>
           <SectionTitleGroup className=" justify-center">

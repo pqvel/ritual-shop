@@ -8,11 +8,14 @@ import CatalogSection from "@/components/catalog/CatalogSection";
 import { Title } from "@/components/ui/Typography";
 import db from "../../../db/db";
 
-// export const revalidate = 3600; // 1 hour
-
 const getPortfolioProducts = async (currentPage: number) => {
   const countItemsPerPage = 12;
-  const { _count } = await db.portfolioProduct.aggregate({ _count: true });
+  const { _count } = await db.portfolioProduct.aggregate({
+    _count: true,
+    where: {
+      active: true,
+    },
+  });
 
   const items = await db.portfolioProduct.findMany({
     take: countItemsPerPage,
