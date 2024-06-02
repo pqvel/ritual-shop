@@ -16,14 +16,18 @@ import ProductPageOrderForm from "@/components/forms/orderForm/ProductPageOrderF
 import SwiperItems from "@/components/swiper/SwiperItems";
 import ProductCart from "@/components/ui/cards/ProductCard";
 
-export const metadata: Metadata = {
-  title: "",
-  description: "Памятники",
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
+export async function generateMetadata({ params }: Props) {
+  const product = await db.product.findFirst({
+    where: {
+      slug: params.slug,
+    },
+  });
+
+  return {
+    title: product?.title,
+    description: product?.title,
+  };
+}
 
 const getData = async (slug: string) => {
   const product = await db.product.findFirst({

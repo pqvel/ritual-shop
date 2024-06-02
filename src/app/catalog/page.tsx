@@ -12,8 +12,6 @@ import Separator from "@/components/ui/Separator";
 import { declensionTextByNumber } from "@/utils/desclensionTextByNumber";
 import { Title } from "@/components/ui/Typography";
 
-// export const revalidate = 3600; // 1 hour
-
 const getCategories = async () => {
   return await db.category.findMany({
     where: { active: true, level: 1 },
