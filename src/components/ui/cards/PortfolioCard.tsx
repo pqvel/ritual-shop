@@ -7,7 +7,13 @@ type Props = {
 };
 
 const PortfolioCard: FC<Props> = ({ product }) => (
-  <Image src={product.image} width={400} height={500} alt="Наши работы" />
+  <Image
+    className="w-full"
+    src={product.image}
+    width={400}
+    height={500}
+    alt="Наши работы"
+  />
 );
 
 export default PortfolioCard;

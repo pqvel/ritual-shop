@@ -1,18 +1,25 @@
-import { title } from "process";
 import { z } from "zod";
 
-const fileSchema = z.instanceof(File, { message: "Required" });
+const fileSchema = z.instanceof(File, {
+  message: "Файл должен быть изображением",
+});
 export const imageSchema = fileSchema.refine(
   (file) => file.size === 0 || file.type.startsWith("image/")
 );
 
 export const portfolioProduct: Zod.Schema = z.object({
-  image: imageSchema.refine((file: any) => file.size > 0, "Required"),
+  image: imageSchema.refine(
+    (file: any) => file.size > 0,
+    "Выберите изображение"
+  ),
 });
 
 export const categorySchema: Zod.Schema = z.object({
-  title: z.string().min(1),
-  image: imageSchema.refine((file: any) => file.size > 0, "Required"),
+  title: z.string().min(1, "Заполните поле"),
+  image: imageSchema.refine(
+    (file: any) => file.size > 0,
+    "Выберите изображение"
+  ),
   parentId: z
     .string()
     .optional()
@@ -21,22 +28,22 @@ export const categorySchema: Zod.Schema = z.object({
 });
 
 export const productSchema: Zod.Schema = z.object({
-  title: z.string().min(1),
-  vendorCode: z.string().min(1),
-  image: imageSchema.refine((file: any) => file.size > 0, "Required"),
+  title: z.string().min(1, "Заполните поле"),
+  vendorCode: z.string().min(1, "Заполните поле"),
+  image: imageSchema.refine(
+    (file: any) => file.size > 0,
+    "Выберите изображение"
+  ),
   isAgreementPrice: z.any().transform(Boolean),
   categoryId: z
     .string()
-    .min(1)
+    .min(1, "Выберите изображение")
     .transform((val) => parseInt(val, 10)),
   mainCategoryId: z
     .string()
-    .min(1)
+    .min(1, "Выберите изображение")
     .transform((val) => parseInt(val, 10)),
-  characteristics: z
-    .string()
-    .min(1)
-    .transform((str) => JSON.parse(str)),
+  characteristics: z.string().transform((str) => JSON.parse(str)),
   price: z
     .string()
     .optional()
@@ -45,12 +52,15 @@ export const productSchema: Zod.Schema = z.object({
 });
 
 export const articleShema: Zod.Schema = z.object({
-  title: z.string().min(1),
-  content: z.string().min(1),
+  title: z.string().min(1, "Заполните поле"),
+  content: z.string().min(1, "Заполните поле"),
   contentImages: z
     .string()
     .optional()
     .default("[]")
     .transform((str) => JSON.parse(str)),
-  image: imageSchema.refine((file: any) => file.size > 0, "Required"),
+  image: imageSchema.refine(
+    (file: any) => file.size > 0,
+    "Выберите изображение"
+  ),
 });

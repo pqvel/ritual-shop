@@ -7,7 +7,7 @@ type Props = {
   product: Product;
 };
 
-const ProductCart: FC<Props> = ({
+const ProductCard: FC<Props> = ({
   product: { image, title, price, vendorCode, isAgreementPrice, slug },
 }) => (
   <Link
@@ -44,7 +44,7 @@ const ProductCart: FC<Props> = ({
   </Link>
 );
 
-export default ProductCart;
+export default ProductCard;
 
 import React from "react";
 

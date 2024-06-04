@@ -8,7 +8,7 @@ type Props = {
   article: Article;
 };
 
-const ArticleCart: FC<Props> = ({
+const ArticleCard: FC<Props> = ({
   article: { image, title, slug, createdAt },
 }) => (
   <Link
@@ -34,4 +34,4 @@ const ArticleCart: FC<Props> = ({
   </Link>
 );
 
-export default ArticleCart;
+export default ArticleCard;

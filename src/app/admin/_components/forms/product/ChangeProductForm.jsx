@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
+import { v4 as uuid } from "uuid";
 import { Card, CardHeader, CardContent } from "@/components/ui/shadcn-ui/card";
 import { Label } from "@/components/ui/shadcn-ui/label";
 import { Input } from "@/components/ui/shadcn-ui/input";
 import { Button } from "@/components/ui/shadcn-ui/button";
-import { useFormStatus } from "react-dom";
 import { changeProduct } from "@/app/actions/products";
 import {
   Table,
@@ -16,14 +16,13 @@ import {
   TableCell,
   TableFooter,
 } from "@/components/ui/shadcn-ui/table";
-import { v4 as uuid } from "uuid";
 import { TrashIcon } from "@radix-ui/react-icons";
 
 const ChangeProductForm = ({
   productId,
   initialValues: { product, productCharacteristics },
 }) => {
-  const [__, action] = useFormState(changeProduct, {});
+  const [state, action] = useFormState(changeProduct, {});
   const [isPriceAgreement, setAgreementPrice] = useState(
     product.isAgreementPrice
   );
@@ -108,6 +107,9 @@ const ChangeProductForm = ({
               name="title"
               defaultValue={product.title}
             />
+            {state?.title && (
+              <div className=" text-red-600 mt-2">{state.title}</div>
+            )}
           </Label>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Артикул</div>
@@ -116,6 +118,9 @@ const ChangeProductForm = ({
               name="vendorCode"
               defaultValue={product.vendorCode}
             />
+            {state?.vendorCode && (
+              <div className=" text-red-600 mt-2">{state.vendorCode}</div>
+            )}
           </Label>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Изображение</div>
@@ -125,6 +130,9 @@ const ChangeProductForm = ({
               type="file"
               accept="image/jpeg"
             />
+            {state?.image && (
+              <div className=" text-red-600 mt-2">{state.image}</div>
+            )}
           </Label>
 
           <div className="block mb-4">
@@ -219,6 +227,9 @@ const ChangeProductForm = ({
             <Label className="block mb-4">
               <div className="mb-2 text-lg">ID Главной категории</div>
               <Input name="id" value={productId} />
+              {state?.productId && (
+                <div className=" text-red-600 mt-2">{state.productId}</div>
+              )}
             </Label>
           </details>
 

@@ -13,7 +13,7 @@ type Props = {
 };
 
 const CreateCategoryForm: FC<Props> = ({ parentId, level }) => {
-  const [formState, action] = useFormState<ReturnType<typeof createCategory>>(
+  const [state, action] = useFormState<ReturnType<typeof createCategory>>(
     createCategory,
     {}
   );
@@ -28,6 +28,9 @@ const CreateCategoryForm: FC<Props> = ({ parentId, level }) => {
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Название</div>
             <Input placeholder="Двойные памятники" name="title" />
+            {state?.title && (
+              <div className=" text-red-600 mt-2">{state.title}</div>
+            )}
           </Label>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Изображение</div>
@@ -37,6 +40,9 @@ const CreateCategoryForm: FC<Props> = ({ parentId, level }) => {
               type="file"
               accept="image/jpeg"
             />
+            {state?.image && (
+              <div className=" text-red-600 mt-2">{state.image}</div>
+            )}
           </Label>
 
           <details className="mb-4 cursor-pointer">
@@ -48,11 +54,17 @@ const CreateCategoryForm: FC<Props> = ({ parentId, level }) => {
             <Label className="block mb-4">
               <div className="mb-2 text-lg">Уровень</div>
               <Input name="level" type="number" value={level} />
+              {state?.level && (
+                <div className=" text-red-600 mt-2">{state.level}</div>
+              )}
             </Label>
             {parentId && (
               <Label className="block mb-4">
                 <div className="mb-2 text-lg">parentId</div>
                 <Input name="parentId" type="number" value={parentId} />
+                {state?.parentId && (
+                  <div className=" text-red-600 mt-2">{state.parentId}</div>
+                )}
               </Label>
             )}
           </details>

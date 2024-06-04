@@ -17,7 +17,7 @@ type Props = {
 };
 
 const EditCategoryForm: FC<Props> = ({ id, initialValues }) => {
-  const [formState, action] = useFormState<ReturnType<typeof changeCategory>>(
+  const [state, action] = useFormState<ReturnType<typeof changeCategory>>(
     changeCategory,
     {}
   );
@@ -36,6 +36,9 @@ const EditCategoryForm: FC<Props> = ({ id, initialValues }) => {
               name="title"
               defaultValue={initialValues.title}
             />
+            {state?.title && (
+              <div className=" text-red-600 mt-2">{state.title}</div>
+            )}
           </Label>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Изображение</div>
@@ -45,6 +48,9 @@ const EditCategoryForm: FC<Props> = ({ id, initialValues }) => {
               type="file"
               accept="image/jpeg"
             />
+            {state?.image && (
+              <div className=" text-red-600 mt-2">{state.image}</div>
+            )}
           </Label>
 
           <details className="mb-4 cursor-pointer">
@@ -56,6 +62,9 @@ const EditCategoryForm: FC<Props> = ({ id, initialValues }) => {
             <Label className="block mb-4">
               <div className="mb-2 text-lg">id</div>
               <Input name="id" type="number" value={id} />
+              {state?.id && (
+                <div className=" text-red-600 mt-2">{state.id}</div>
+              )}
             </Label>
           </details>
 

@@ -20,7 +20,7 @@ import { v4 as uuid } from "uuid";
 import { TrashIcon } from "@radix-ui/react-icons";
 
 const ProductForm = ({ categoryId, mainCategoryId }) => {
-  const [__, action] = useFormState(createProduct, {});
+  const [state, action] = useFormState(createProduct, {});
   const [characteristics, setCharacteristics] = useState([]);
   const [isPriceAgreement, setAgreementPrice] = useState(false);
 
@@ -87,10 +87,16 @@ const ProductForm = ({ categoryId, mainCategoryId }) => {
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Название</div>
             <Input placeholder="Памятник вертикальный гранитный" name="title" />
+            {state?.title && (
+              <div className=" text-red-600 mt-2">{state.title}</div>
+            )}
           </Label>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Артикул</div>
             <Input placeholder="А-16" name="vendorCode" />
+            {state?.vendorCode && (
+              <div className=" text-red-600 mt-2">{state.vendorCode}</div>
+            )}
           </Label>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Изображение</div>
@@ -100,6 +106,9 @@ const ProductForm = ({ categoryId, mainCategoryId }) => {
               type="file"
               accept="image/jpeg"
             />
+            {state?.image && (
+              <div className=" text-red-600 mt-2">{state.image}</div>
+            )}
           </Label>
 
           <div className="block mb-4">
@@ -194,13 +203,18 @@ const ProductForm = ({ categoryId, mainCategoryId }) => {
             <Label className="block mb-4">
               <div className="mb-2 text-lg">ID Главной категории</div>
               <Input name="mainCategoryId" value={mainCategoryId} />
+              {state?.mainCategoryId && (
+                <div className=" text-red-600 mt-2">{state.mainCategoryId}</div>
+              )}
             </Label>
             <Label className="block mb-4">
               <div className="mb-2 text-lg">ID категории</div>
               <Input name="categoryId" value={categoryId} />
+              {state?.categoryId && (
+                <div className=" text-red-600 mt-2">{state.categoryId}</div>
+              )}
             </Label>
           </details>
-
           <SubmitButton />
         </CardContent>
       </Card>

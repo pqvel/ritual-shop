@@ -8,7 +8,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import { createPortfolioProduct } from "@/app/actions/portfolio";
 
 const PortfolioForm: FC = () => {
-  const [formState, action] = useFormState<
+  const [state, action] = useFormState<
     ReturnType<typeof createPortfolioProduct>
   >(createPortfolioProduct, {});
 
@@ -27,6 +27,9 @@ const PortfolioForm: FC = () => {
               type="file"
               accept="image/jpeg"
             />
+            {state?.image && (
+              <div className=" text-red-600 mt-2">{state.image}</div>
+            )}
           </Label>
 
           <SubmitButton />

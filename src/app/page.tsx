@@ -1,26 +1,24 @@
-import { FC, Suspense } from "react";
-import { Container } from "@/components/ui/Wrappers";
+import { FC } from "react";
+import Image from "next/image";
+import { Container, Grid } from "@/components/ui/Wrappers";
 import {
   Section,
   SectionLink,
   SectionTitle,
   SectionTitleGroup,
 } from "@/components/ui/Section";
-import { Grid } from "@/components/ui/Wrappers";
-import Image from "next/image";
-import CategoryCard from "@/components/ui/cards/CategoryCard";
-import "swiper/css";
-import ProductCard from "@/components/ui/cards/ProductCard";
-import db from "../../db/db";
+import {
+  ProductCard,
+  CategoryCard,
+  ArticleCard,
+  PortfolioCard,
+} from "@/components/ui/cards";
 import SwiperItems from "@/components/swiper/SwiperItems";
 import MainLayout from "@/components/layouts/MainLayout";
 import OrderPopup from "@/components/popups/OrderPopup";
 import Details from "@/components/ui/Details";
 import OrderForm from "@/components/forms/orderForm/OrderForm";
-
-import ArticleCart from "@/components/ui/cards/ArticleCard";
-import SwiperSkeleton from "@/components/swiper/SwiperSkeleton";
-import PortfolioCard from "@/components/ui/cards/PortfolioCard";
+import db from "@/db";
 
 const getCategories = async () => {
   return (
@@ -108,13 +106,11 @@ const Home: FC = async () => {
             <SectionLink href="/catalog/pamyatniki/">Смотреть все</SectionLink>
           </SectionTitleGroup>
 
-          <Suspense fallback={<SwiperSkeleton />}>
-            <SwiperItems>
-              {products.map((product) => (
-                <ProductCard product={product} key={product.id} />
-              ))}
-            </SwiperItems>
-          </Suspense>
+          <SwiperItems>
+            {products.map((product) => (
+              <ProductCard product={product} key={product.id} />
+            ))}
+          </SwiperItems>
         </Container>
       </Section>
 
@@ -146,7 +142,7 @@ const Home: FC = async () => {
             </SectionTitleGroup>
             <SwiperItems>
               {articles.map((article) => (
-                <ArticleCart article={article} key={article.id} />
+                <ArticleCard article={article} key={article.id} />
               ))}
             </SwiperItems>
           </Container>

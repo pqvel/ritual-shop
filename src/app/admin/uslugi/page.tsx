@@ -14,36 +14,39 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn-ui/table";
-import { Input } from "@/components/ui/shadcn-ui/input";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import { getCategories } from "@/app/actions/categories";
 import CategoryItem from "../_components/category/CategoryItem";
+import db from "@/db";
 
-const CategoryPage: FC = async () => {
-  const categories = await getCategories();
+const getUslugi = async () => {
+  return await db?.usluga.findMany();
+};
+
+const UslugiPage: FC = async () => {
+  const uslugi = await getUslugi();
   return (
     <>
       <Breadcrumb
         items={[
           { title: "Главная", href: "/admin" },
-          { title: "Каталог", href: "/admin/catalog" },
+          { title: "Услуги", href: "/admin/uslugi" },
         ]}
       />
       <Card>
         <CardHeader>
-          <CardTitle className=" mb-4">Категории</CardTitle>
+          <CardTitle className=" mb-4">Услуги</CardTitle>
           <div className="flex justify-between  gap-2">
             <Link
               className="flex items-center justify-center flex-shrink-0 px-4 py-1.5 text-sm rounded-lg border border-black"
               href="/admin/catalog/add-category"
             >
-              Добавить категорию
+              Добавить услугу
             </Link>
           </div>
         </CardHeader>
         <CardContent>
           <Table className="bg-white">
-            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableCaption></TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">Active</TableHead>
@@ -56,7 +59,7 @@ const CategoryPage: FC = async () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {categories.map((category) => (
+              {u.map((category) => (
                 <CategoryItem
                   category={category}
                   link={`/admin/catalog/${category.slug}`}
@@ -71,4 +74,4 @@ const CategoryPage: FC = async () => {
   );
 };
 
-export default CategoryPage;
+export default UslugiPage;

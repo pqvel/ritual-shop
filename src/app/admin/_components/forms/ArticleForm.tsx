@@ -21,7 +21,7 @@ type ContentImage = {
 };
 
 const ArticleForm: FC = () => {
-  const [formState, action] = useFormState<ReturnType<typeof createArticle>>(
+  const [state, action] = useFormState<ReturnType<typeof createArticle>>(
     createArticle,
     {}
   );
@@ -87,6 +87,10 @@ const ArticleForm: FC = () => {
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Название</div>
             <Input placeholder="Двойные памятники" name="title" />
+
+            {state?.title && (
+              <div className=" text-red-600 mt-2">{state.title}</div>
+            )}
           </Label>
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Изображение для карточки</div>
@@ -96,6 +100,9 @@ const ArticleForm: FC = () => {
               type="file"
               accept="image/jpeg"
             />
+            {state?.image && (
+              <div className=" text-red-600 mt-2">{state.image}</div>
+            )}
           </Label>
 
           <MDEditor

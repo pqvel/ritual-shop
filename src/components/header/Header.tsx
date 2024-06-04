@@ -64,7 +64,7 @@ const Header: FC = async () => {
         <ul className="hidden lg:flex flex-col items-end">
           <li className="relative flex items-center">
             <span className="block text-gray-400 text-sm lg:text-base uppercase mr-2">
-              МТС:
+              А1:
             </span>
             <a
               className="text-black text-base lg:text-lg lg:hover:underline transition"
@@ -73,16 +73,15 @@ const Header: FC = async () => {
               +375 (29) 677-74-00
             </a>
           </li>
-
           <li className="relative flex items-center">
             <span className="block text-gray-400 text-sm lg:text-base uppercase mr-2">
-              ВЕЛКОМ:
+              EMAIL:
             </span>
             <a
               className="text-black text-base lg:text-lg lg:hover:underline transition"
-              href="tel:+375295405060"
+              href="mailto:ritual-sculpture@mail.ru"
             >
-              +375 (29) 540-50-60
+              ritual-sculpture@mail.ru
             </a>
           </li>
         </ul>
