@@ -31,8 +31,8 @@ const UslugaItem: FC<Props> = ({
         <TableCell className="font-medium">{id}</TableCell>
         <TableCell>{title}</TableCell>
         <TableCell>{slug}</TableCell>
-        <TableCell>{vendorCode}</TableCell>
-        <TableCell>{price}</TableCell>
+        {/* <TableCell>{vendorCode}</TableCell>
+        <TableCell>{price}</TableCell> */}
         <TableCell>
           <Link className="flex" href={image} target="_blank">
             <Image width={100} height={100} src={image} alt={title} />
