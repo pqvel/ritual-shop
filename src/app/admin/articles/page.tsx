@@ -46,16 +46,15 @@ const ArticlePage: FC = async () => {
         </CardHeader>
         <CardContent>
           <Table className="bg-white">
-            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableCaption></TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">Active</TableHead>
                 <TableHead className="w-[100px]">ID</TableHead>
-                <TableHead className="w-[100px]">Название</TableHead>
-                <TableHead>Название</TableHead>
+                <TableHead className="">Название</TableHead>
                 <TableHead>slug</TableHead>
-                <TableHead>Изображение</TableHead>
-                <TableHead className="text-right">Действия</TableHead>
+                <TableHead className="w-[100px]">Изображение</TableHead>
+                <TableHead className="text-right w-[100px]">Действия</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

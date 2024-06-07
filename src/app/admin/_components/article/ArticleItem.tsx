@@ -27,15 +27,15 @@ const ArticleItem: FC<Props> = ({
         {title}
         {/* </Link> */}
       </TableCell>
+
       <TableCell>
-        {/* <Link
+        <Link
           className=" text-blue-500 underline underline-offset-2"
-          href={link}
+          href={slug}
         >
           {slug}
-        </Link> */}
+        </Link>
       </TableCell>
-      <TableCell>{slug}</TableCell>
       <TableCell>
         <Link className="flex" href={image} target="_blank">
           <Image width={100} height={100} src={image} alt={title} />

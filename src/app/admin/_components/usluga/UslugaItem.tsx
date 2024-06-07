@@ -3,19 +3,19 @@ import { FC, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Table, TableRow, TableCell } from "@/components/ui/shadcn-ui/table";
-import { Product, ProductCharacteristic } from "@prisma/client";
+import { Product, ProductCharacteristic, Usluga } from "@prisma/client";
 import { ToggleActiveCheckbox } from "./Actions";
 import Dropdowm from "./Dropdowm";
 
 type Props = {
-  product: Product;
+  usluga: Usluga;
   productCharacteristics: ProductCharacteristic[];
   categorySlug: string;
   childCategorySlug: string;
 };
 
 const UslugaItem: FC<Props> = ({
-  product: { id, active, slug, image, title, categoryId, vendorCode, price },
+  usluga: { id, active, slug, image, title, content, createdAt },
   productCharacteristics,
   categorySlug,
   childCategorySlug,
@@ -29,7 +29,6 @@ const UslugaItem: FC<Props> = ({
           <ToggleActiveCheckbox isActive={active} productId={id} />
         </TableCell>
         <TableCell className="font-medium">{id}</TableCell>
-        <TableCell className="font-medium">{categoryId}</TableCell>
         <TableCell>{title}</TableCell>
         <TableCell>{slug}</TableCell>
         <TableCell>{vendorCode}</TableCell>

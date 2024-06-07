@@ -17,6 +17,7 @@ import {
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import CategoryItem from "../_components/category/CategoryItem";
 import db from "@/db";
+import UslugaItem from "../_components/usluga/UslugaItem";
 
 const getUslugi = async () => {
   return await db?.usluga.findMany();
@@ -59,13 +60,13 @@ const UslugiPage: FC = async () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {u.map((category) => (
-                <CategoryItem
-                  category={category}
+              {/* {uslugi.map((category) => (
+                <UslugaItem
+                  ={category}
                   link={`/admin/catalog/${category.slug}`}
                   key={category.id}
                 />
-              ))}
+              ))} */}
             </TableBody>
           </Table>
         </CardContent>

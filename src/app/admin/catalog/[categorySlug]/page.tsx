@@ -69,7 +69,7 @@ const CategoryPage: FC<Props> = async ({ params: { categorySlug } }) => {
         </CardHeader>
         <CardContent>
           <Table className="bg-white">
-            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableCaption></TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">Active</TableHead>
