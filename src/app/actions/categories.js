@@ -8,7 +8,12 @@ import { s3Service } from "@/services/s3";
 import db from "@/db";
 
 export const getCategories = async () => {
-  return await db.category.findMany({ where: { level: 1 } });
+  return await db.category.findMany({
+    where: { level: 1 },
+    orderBy: {
+      id: "asc",
+    },
+  });
 };
 
 export const createCategory = async (state, formData) => {

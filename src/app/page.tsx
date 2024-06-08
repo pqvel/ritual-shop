@@ -54,6 +54,9 @@ const getCategories = async () => {
     (await db.category.findMany({
       where: { level: 2, active: true },
       take: 8,
+      orderBy: {
+        id: "asc",
+      },
     })) || []
   );
 };

@@ -15,11 +15,17 @@ const getCategories = async () => {
       active: true,
       level: 1,
     },
+    orderBy: {
+      id: "asc",
+    },
     include: {
       childCategories: {
         where: {
           active: true,
           level: 2,
+        },
+        orderBy: {
+          id: "asc",
         },
       },
     },
@@ -27,7 +33,7 @@ const getCategories = async () => {
 };
 
 const MainLayout: FC<Props> = async ({ children }) => {
-  const categories = await getCategories();
+  // const categories = await getCategories();
   return (
     <>
       <Header />

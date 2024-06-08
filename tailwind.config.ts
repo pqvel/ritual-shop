@@ -15,6 +15,7 @@ const config: Config = {
       md: "768px",
       lg: "1024px",
       xl: "1100px",
+      xxl: "1200px",
     },
     container: {
       center: true,

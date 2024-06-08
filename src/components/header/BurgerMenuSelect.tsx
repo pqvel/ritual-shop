@@ -4,6 +4,7 @@ import { FC, useState } from "react";
 import Link from "next/link";
 
 type Props = {
+  className?: string;
   title: string;
   items: {
     href: string;
@@ -12,7 +13,7 @@ type Props = {
   }[];
 };
 
-const BurgerMenuSelect: FC<Props> = ({ title, items }) => {
+const BurgerMenuSelect: FC<Props> = ({ className, title, items }) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const toggleSelect = () => {
@@ -20,7 +21,7 @@ const BurgerMenuSelect: FC<Props> = ({ title, items }) => {
   };
 
   return (
-    <li className="flex flex-col items-center mb-1">
+    <li className={classNames("flex flex-col items-center mb-1", className)}>
       <button
         className="relative flex items-center text-xl font-medium outline-none m-0 border-none px-2 py-1"
         onClick={toggleSelect}

@@ -19,9 +19,15 @@ import Separator from "@/components/ui/Separator";
 const getCategories = async () => {
   return await db.category.findMany({
     where: { active: true, level: 1 },
+    orderBy: {
+      id: "asc",
+    },
     include: {
       childCategories: {
         where: { active: true, level: 2 },
+        orderBy: {
+          id: "asc",
+        },
       },
     },
   });

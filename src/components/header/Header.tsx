@@ -11,7 +11,16 @@ import OrderPopup from "../popups/OrderPopup";
 const getCategories = async () => {
   return await db.category.findMany({
     where: { level: 1, active: true },
-    include: { childCategories: true },
+    orderBy: {
+      id: "asc",
+    },
+    include: {
+      childCategories: {
+        orderBy: {
+          id: "asc",
+        },
+      },
+    },
   });
 };
 
@@ -120,7 +129,7 @@ const Header: FC = async () => {
         </BurgerMenu>
       </Container>
 
-      <nav className="w-full bg-cyan-900 py-1 text-white xl:text-lg font-medium hidden lg:flex h-11">
+      <nav className="w-full bg-cyan-900 py-1 text-white text-lg font-medium hidden lg:flex h-11">
         <Container className="flex justify-between">
           <div className="flex items-center">
             <Link
@@ -172,7 +181,7 @@ const Header: FC = async () => {
           </div>
 
           <HoverSelect
-            className="mr-3 hover:cursor-pointer"
+            className="mr-3 hover:cursor-pointer  xxl:hidden"
             header={<span className="inline-block py-1 px-2">Клиенту</span>}
             body={
               <>
@@ -198,7 +207,7 @@ const Header: FC = async () => {
             }
           />
 
-          {/* <div className=" flex items-center">
+          <div className="hidden xxl:flex items-center">
             <Link
               className="inline-block mr-3 hover:underline hover:underline-offset-4 p-1 rounded-md"
               href="/contacts"
@@ -219,7 +228,7 @@ const Header: FC = async () => {
             >
               Статьи
             </Link>
-          </div> */}
+          </div>
         </Container>
       </nav>
     </header>

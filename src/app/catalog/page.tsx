@@ -15,9 +15,15 @@ import { Title } from "@/components/ui/Typography";
 const getCategories = async () => {
   return await db.category.findMany({
     where: { active: true, level: 1 },
+    orderBy: {
+      id: "asc",
+    },
     include: {
       childCategories: {
         where: { active: true, level: 2 },
+        orderBy: {
+          id: "asc",
+        },
       },
     },
   });
