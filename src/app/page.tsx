@@ -24,7 +24,7 @@ import dynamic from "next/dynamic";
 import SwiperSkeleton from "@/components/swiper/SwiperSkeleton";
 import { ArticleCardSkeleton } from "@/components/ui/cards/ArticleCard";
 import { PortfolioCardSkeleton } from "@/components/ui/cards/PortfolioCard";
-import { ADM } from "@/components/ADM";
+
 const ProductsSwiper = dynamic(
   () => import("@/components/swiper/SwiperItems"),
   {
@@ -101,7 +101,6 @@ const Home: FC = async () => {
 
   return (
     <MainLayout>
-      <ADM />
       <Section
         className={`flex flex-col bg-[url('/images/mramor_bg.jpg')] min-h-[460px] sm:min-h-[500px]`}
       >
