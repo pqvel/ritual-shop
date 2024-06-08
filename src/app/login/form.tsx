@@ -17,6 +17,8 @@ const LoginForm: FC = () => {
       redirect: false,
     };
 
+    console.log(options);
+
     const response = await signIn("credentials", options);
 
     if (!response?.error) {

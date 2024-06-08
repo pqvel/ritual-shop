@@ -21,6 +21,10 @@ const handler = NextAuth({
         const user = await db.user.findUnique({
           where: { email: credentials?.email },
         });
+        console.log("credentials");
+        console.log(credentials);
+        console.log("user");
+        console.log(user);
 
         if (!user) return null;
 
