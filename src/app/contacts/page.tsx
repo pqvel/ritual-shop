@@ -24,7 +24,7 @@ const ContactsPage: FC = () => {
           />
           <Title level={1}>Контакты</Title>
           <div className="bg-white p-4 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-10 shadow-sm">
-            <address className="flex flex-col p-4 space-y-4 bg-gray-100 rounded-lg shadow-md not-italic">
+            <address className="flex flex-col md:p-4 space-y-4 not-italic">
               <div>
                 <h2 className="text-lg font-semibold text-gray-700">
                   Телефон:
