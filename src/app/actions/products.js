@@ -194,3 +194,13 @@ export const changeProduct = async (state, formData) => {
   revalidatePath("/");
   redirect("/admin/catalog");
 };
+
+export const createUser = async () => {
+  await db.user.create({
+    data: {
+      email: "ritual-sculpture@mail.ru",
+      password: "admin123",
+      role: "ADMIN",
+    },
+  });
+};
