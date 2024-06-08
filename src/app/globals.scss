@@ -102,15 +102,39 @@ details[open] summary svg {
     margin: 0 auto;
   }
 
+  h1 {
+    @apply text-4xl font-semibold mb-5;
+  }
+
   h2 {
-    font-size: 28px;
-    font-weight: 600;
-    margin-top: 20px;
+    @apply text-3xl font-semibold mb-4;
   }
 
   h3 {
-    font-size: 22px;
-    font-weight: 600;
+    @apply text-2xl font-semibold mb-3;
+  }
+
+  h4,
+  h5,
+  h6 {
+    @apply text-xl font-semibold mb-3;
+  }
+
+  ul {
+    @apply list-disc pl-5;
+  }
+
+  ol {
+    @apply list-decimal pl-5;
+  }
+
+  a {
+    @apply text-blue-500 hover:text-blue-700;
+  }
+
+  b,
+  strong {
+    @apply font-semibold;
   }
 
   &:first-child {
