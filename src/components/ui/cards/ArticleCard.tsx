@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import classNames from "classnames";
 import { Article } from "@prisma/client";
 import { formatDate } from "@/utils/format";
 
@@ -35,3 +36,15 @@ const ArticleCard: FC<Props> = ({
 );
 
 export default ArticleCard;
+
+export const ArticleCardSkeleton: FC<{ className?: string }> = ({
+  className,
+}) => (
+  <div className={classNames("flex flex-col bg-white shadow-md", className)}>
+    <div className="skeleton w-full pt-[100%]"></div>
+    <div className="flex flex-col p-4">
+      <div className="skeleton text-lg h-6 w-full rounded"></div>
+      <div className="skeleton h-12 mt-2 w-full"></div>
+    </div>
+  </div>
+);

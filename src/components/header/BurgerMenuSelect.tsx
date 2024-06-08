@@ -1,14 +1,18 @@
 "use client";
-import { Category } from "@prisma/client";
 import classNames from "classnames";
 import { FC, useState } from "react";
 import Link from "next/link";
 
 type Props = {
-  category: Category;
-  childCategories: Category[];
+  title: string;
+  items: {
+    href: string;
+    title: string;
+    key: string | number;
+  }[];
 };
-const BurgerMenuSelect: FC<Props> = ({ category, childCategories }) => {
+
+const BurgerMenuSelect: FC<Props> = ({ title, items }) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const toggleSelect = () => {
@@ -21,18 +25,18 @@ const BurgerMenuSelect: FC<Props> = ({ category, childCategories }) => {
         className="relative flex items-center text-xl font-medium outline-none m-0 border-none px-2 py-1"
         onClick={toggleSelect}
       >
-        {category.title}
+        {title}
         <ArrowIcon open={open} />
       </button>
       {open && (
         <ul className="flex flex-col items-center">
-          {childCategories.map((childCategory) => (
-            <li className="flex" key={childCategory.id}>
+          {items.map((item) => (
+            <li className="flex" key={item.key}>
               <Link
                 className=" text-lg text-gray-600 text-center"
-                href={`/catalog/${category.slug}/${childCategory.slug}`}
+                href={item.href}
               >
-                {childCategory.title}
+                {item.title}
               </Link>
             </li>
           ))}

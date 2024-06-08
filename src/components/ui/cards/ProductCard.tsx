@@ -16,18 +16,21 @@ const ProductCard: FC<Props> = ({
   >
     <div className="flex relative w-full pt-[100%]">
       <Image
-        className="absolute top-0 left-0 w-full h-full object-cover"
-        width={300}
-        height={300}
+        className="absolute top-0 left-0 w-full h-full"
+        // width={300}
+        // height={300}
         src={image}
         alt={title}
+        fill={true}
+        layout={"fill"}
+        objectFit={"cover"}
       />
     </div>
 
     <div className="flex flex-col p-4">
       <p className=" h-14 text-lg font-semibold line-clamp-2">{title}</p>
-      <div className="flex justify-between items-center mt-3">
-        <div className="flex text-lg font-semibold items-center h-8">
+      <div className="flex justify-between items-center mt-3 h-8">
+        <div className="flex text-lg font-semibold items-center">
           {isAgreementPrice ? (
             <>
               <div>Договорная</div>
@@ -46,14 +49,16 @@ const ProductCard: FC<Props> = ({
 
 export default ProductCard;
 
-import React from "react";
+import classNames from "classnames";
 
-export const ProductCardSkeleton: FC = () => (
-  <div className="flex flex-col bg-white shadow-md">
-    <div className="loading w-full pt-[100%]"></div>
+export const ProductCardSkeleton: FC<{ className?: string }> = ({
+  className,
+}) => (
+  <div className={classNames("flex flex-col bg-white shadow-md", className)}>
+    <div className="skeleton w-full pt-[100%]"></div>
     <div className="flex flex-col p-4">
-      <div className=" loading text-lg h-14 w-full rounded"></div>
-      <div className=" loading h-9 mt-3 w-full"></div>
+      <div className="skeleton text-lg h-14 w-full rounded"></div>
+      <div className="skeleton h-9 mt-3 w-full"></div>
     </div>
   </div>
 );

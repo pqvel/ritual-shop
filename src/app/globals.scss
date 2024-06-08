@@ -155,3 +155,20 @@ details[open] summary svg {
   transition-property: transform;
   display: block;
 }
+
+.skeleton {
+  background-color: #e0e0e0;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #e0e0e0; /* Более светлый цвет */
+  }
+  50% {
+    background-color: #f0f0f0; /* Ещё светлее цвет */
+  }
+  100% {
+    background-color: #e0e0e0; /* Более светлый цвет */
+  }
+}

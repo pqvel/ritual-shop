@@ -1,8 +1,7 @@
 "use client";
-import { ReactNode, Children, FC, Suspense } from "react";
+import { ReactNode, Children, FC } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import SwiperSkeleton from "./SwiperSkeleton";
 import "swiper/css";
 
 type Props = {
@@ -11,9 +10,8 @@ type Props = {
 
 const SwiperItems: FC<Props> = ({ children }) => {
   return (
-    // <Suspense fallback={<SwiperSkeleton />}>
     <Swiper
-      className="group relative"
+      className={"group relative"}
       modules={[Navigation]}
       navigation={{
         prevEl: ".prev",
@@ -53,7 +51,6 @@ const SwiperItems: FC<Props> = ({ children }) => {
         </svg>
       </button>
     </Swiper>
-    // </Suspense>
   );
 };
 

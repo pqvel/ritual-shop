@@ -8,11 +8,6 @@ import BurgerMenu from "./BurgerMenu";
 import BurgerMenuSelect from "./BurgerMenuSelect";
 import OrderPopup from "../popups/OrderPopup";
 
-// const dynamic = "force-static"; // force static
-// const revalidate = 3600; // 1 hour
-// const dunamicParams = false;
-// const fetchCache = "default-cahce";
-
 const getCategories = async () => {
   return await db.category.findMany({
     where: { level: 1, active: true },
@@ -20,8 +15,17 @@ const getCategories = async () => {
   });
 };
 
+const getUslugi = async () => {
+  return await db.usluga.findMany({
+    where: { active: true },
+  });
+};
+
 const Header: FC = async () => {
-  const categories = await getCategories();
+  const [categories, uslugi] = await Promise.all([
+    getCategories(),
+    getUslugi(),
+  ]);
 
   return (
     <header className="h-20 fixed top-0 left-0 w-full bg-white z-10 border-b border-b-gray-20 shadow-sm lg:border-none lg:h-[146px]">
@@ -35,30 +39,6 @@ const Header: FC = async () => {
             height={64}
             priority
           />
-          {/* <Image
-            className=""
-            src="/images/XwI7.gif"
-            alt="Логотип"
-            width={60}
-            height={60}
-            priority
-          /> */}
-          {/* <Image
-            className=""
-            src="/images/XwI7.gif"
-            alt="Логотип"
-            width={60}
-            height={60}
-            priority
-          />
-          <Image
-            className=""
-            src="/images/XwI7.gif"
-            alt="Логотип"
-            width={60}
-            height={60}
-            priority
-          /> */}
         </Link>
 
         <ul className="hidden lg:flex flex-col items-end">
@@ -92,10 +72,23 @@ const Header: FC = async () => {
             {categories.map((category) => (
               <BurgerMenuSelect
                 key={category.id}
-                category={category}
-                childCategories={category.childCategories}
+                title={category.title}
+                items={category.childCategories.map((child) => ({
+                  key: category.id,
+                  title: child.title,
+                  href: `/catalog/${category.slug}/${child.slug}`,
+                }))}
               />
             ))}
+
+            <BurgerMenuSelect
+              title="Услуги"
+              items={uslugi.map((usluga) => ({
+                key: usluga.id,
+                title: usluga.title,
+                href: `/uslugi/${usluga.slug}`,
+              }))}
+            />
 
             <BurgerMenuLink href="/portfolio">Наши работы</BurgerMenuLink>
             <BurgerMenuLink href="/contacts">Контакты</BurgerMenuLink>
@@ -121,9 +114,6 @@ const Header: FC = async () => {
               </ul>
             </li>
             <li>
-              {/* <button className="bg-cyan-700 text-white py-3 px-8 rounded-[30px] text-lg shadow-lg lg:hover:bg-cyan-800 transition">
-                Заказать звонок
-              </button> */}
               <OrderPopup />
             </li>
           </ul>
@@ -169,31 +159,46 @@ const Header: FC = async () => {
             ))}
             <HoverSelect
               className="mr-3 hover:cursor-pointer"
-              header={
-                <Link href={`/services`} className="inline-block py-1 px-2">
-                  Услуги
+              header={<span className="inline-block py-1 px-2">Услуги</span>}
+              body={uslugi.map((usluga) => (
+                <Link
+                  className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
+                  href={`/uslugi/${usluga.slug}`}
+                >
+                  {usluga.title}
                 </Link>
-              }
-              body={
-                <>
-                  <Link
-                    className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
-                    href={`/services`}
-                  >
-                    Установка
-                  </Link>
-                  <Link
-                    className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
-                    href={`/services`}
-                  >
-                    Демонтаж
-                  </Link>
-                </>
-              }
+              ))}
             />
           </div>
 
-          <div className=" flex items-center">
+          <HoverSelect
+            className="mr-3 hover:cursor-pointer"
+            header={<span className="inline-block py-1 px-2">Клиенту</span>}
+            body={
+              <>
+                <Link
+                  className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
+                  href={`/contacts`}
+                >
+                  Контакты
+                </Link>
+                <Link
+                  className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
+                  href={`/portfolio`}
+                >
+                  Наши работы
+                </Link>
+                <Link
+                  className="inline-block mr-3 hover:underline hover:underline-offset-4 py-1 px-2 rounded-md font-normal flex-shrink-0"
+                  href={`/articles`}
+                >
+                  Статьи
+                </Link>
+              </>
+            }
+          />
+
+          {/* <div className=" flex items-center">
             <Link
               className="inline-block mr-3 hover:underline hover:underline-offset-4 p-1 rounded-md"
               href="/contacts"
@@ -214,7 +219,7 @@ const Header: FC = async () => {
             >
               Статьи
             </Link>
-          </div>
+          </div> */}
         </Container>
       </nav>
     </header>

@@ -3,18 +3,23 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import { SectionTitle, SectionTitleGroup } from "@/components/ui/Section";
-import { TextInput } from "@/components/ui/formItems/Input";
 import { Title } from "@/components/ui/Typography";
-import { Label } from "@/components/ui/formItems/Label";
 import { Container } from "@/components/ui/Wrappers";
-import { PhoneInput } from "@/components/ui/formItems/Input";
 import MainLayout from "@/components/layouts/MainLayout";
-import ProductsSwiper from "@/components/swiper/SwiperItems";
 import CatalogSection from "@/components/catalog/CatalogSection";
 import db from "@/db";
 import ProductPageOrderForm from "@/components/forms/orderForm/ProductPageOrderForm";
-import SwiperItems from "@/components/swiper/SwiperItems";
 import ProductCart from "@/components/ui/cards/ProductCard";
+import dynamic from "next/dynamic";
+import SwiperSkeleton from "@/components/swiper/SwiperSkeleton";
+import { ProductCardSkeleton } from "@/components/ui/cards/ProductCard";
+const ProductsSwiper = dynamic(
+  () => import("@/components/swiper/SwiperItems"),
+  {
+    ssr: false,
+    loading: () => <SwiperSkeleton Skeleton={<ProductCardSkeleton />} />,
+  }
+);
 
 export async function generateMetadata({ params }: Props) {
   const product = await db.product.findFirst({
@@ -164,11 +169,11 @@ const ProductPage: FC<Props> = async ({ params }) => {
                 <SectionTitle>Похожие товары</SectionTitle>
               </SectionTitleGroup>
 
-              <SwiperItems>
+              <ProductsSwiper>
                 {products.map((product) => (
                   <ProductCart product={product} key={product.id} />
                 ))}
-              </SwiperItems>
+              </ProductsSwiper>
             </>
           )}
         </Container>

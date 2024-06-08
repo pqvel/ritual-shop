@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Suspense } from "react";
 import Image from "next/image";
 import { Container, Grid } from "@/components/ui/Wrappers";
 import {
@@ -12,13 +12,42 @@ import {
   CategoryCard,
   ArticleCard,
   PortfolioCard,
+  ProductCardSkeleton,
 } from "@/components/ui/cards";
-import SwiperItems from "@/components/swiper/SwiperItems";
+// import SwiperItems from "@/components/swiper/SwiperItems";
 import MainLayout from "@/components/layouts/MainLayout";
 import OrderPopup from "@/components/popups/OrderPopup";
 import Details from "@/components/ui/Details";
 import OrderForm from "@/components/forms/orderForm/OrderForm";
 import db from "@/db";
+import dynamic from "next/dynamic";
+import SwiperSkeleton from "@/components/swiper/SwiperSkeleton";
+import { ArticleCardSkeleton } from "@/components/ui/cards/ArticleCard";
+import { PortfolioCardSkeleton } from "@/components/ui/cards/PortfolioCard";
+
+const ProductsSwiper = dynamic(
+  () => import("@/components/swiper/SwiperItems"),
+  {
+    ssr: false,
+    loading: () => <SwiperSkeleton Skeleton={<ProductCardSkeleton />} />,
+  }
+);
+
+const ArticlesSwiper = dynamic(
+  () => import("@/components/swiper/SwiperItems"),
+  {
+    ssr: false,
+    loading: () => <SwiperSkeleton Skeleton={<ArticleCardSkeleton />} />,
+  }
+);
+
+const PortfolioSwiper = dynamic(
+  () => import("@/components/swiper/SwiperItems"),
+  {
+    ssr: false,
+    loading: () => <SwiperSkeleton Skeleton={<PortfolioCardSkeleton />} />,
+  }
+);
 
 const getCategories = async () => {
   return (
@@ -105,12 +134,11 @@ const Home: FC = async () => {
             <SectionTitle>Популярные памятники</SectionTitle>
             <SectionLink href="/catalog/pamyatniki/">Смотреть все</SectionLink>
           </SectionTitleGroup>
-
-          <SwiperItems>
+          <ProductsSwiper>
             {products.map((product) => (
               <ProductCard product={product} key={product.id} />
             ))}
-          </SwiperItems>
+          </ProductsSwiper>
         </Container>
       </Section>
 
@@ -140,11 +168,11 @@ const Home: FC = async () => {
               <SectionTitle>Статьи</SectionTitle>
               <SectionLink href="/articles">Смотреть все</SectionLink>
             </SectionTitleGroup>
-            <SwiperItems>
+            <ArticlesSwiper>
               {articles.map((article) => (
                 <ArticleCard article={article} key={article.id} />
               ))}
-            </SwiperItems>
+            </ArticlesSwiper>
           </Container>
         </Section>
       )}
@@ -155,11 +183,11 @@ const Home: FC = async () => {
             <SectionTitle>Наши работы</SectionTitle>
             <SectionLink href="/portfolio">Смотреть все</SectionLink>
           </SectionTitleGroup>
-          <SwiperItems>
+          <PortfolioSwiper>
             {portfolio.map((product) => (
               <PortfolioCard product={product} key={product.id} />
             ))}
-          </SwiperItems>
+          </PortfolioSwiper>
         </Container>
       </Section>
 

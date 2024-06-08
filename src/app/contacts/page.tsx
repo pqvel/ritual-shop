@@ -4,6 +4,7 @@ import { FC } from "react";
 import { Title } from "@/components/ui/Typography";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import CatalogSection from "@/components/catalog/CatalogSection";
+
 const ContactsPage: FC = () => {
   return (
     <MainLayout>
@@ -42,6 +43,7 @@ const ContactsPage: FC = () => {
                 </div>
               </div>
             </div>
+            <div></div>
           </div>
         </Container>
       </CatalogSection>
