@@ -26,6 +26,9 @@ const handler = NextAuth({
         console.log("user");
         console.log(user);
 
+        console.log("password");
+        console.log(SHA256(credentials!.password).toString());
+
         if (!user) return null;
 
         if (user.password === SHA256(credentials!.password).toString()) {

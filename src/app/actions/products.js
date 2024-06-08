@@ -196,11 +196,9 @@ export const changeProduct = async (state, formData) => {
 };
 
 export const createUser = async () => {
-  await db.user.create({
-    data: {
+  await db.user.delete({
+    where: {
       email: "ritual-sculpture@mail.ru",
-      password: "admin123",
-      role: "ADMIN",
     },
   });
 };
