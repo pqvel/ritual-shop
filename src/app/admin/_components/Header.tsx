@@ -19,7 +19,7 @@ const Header: FC = async () => {
           Статьи
         </Link>
         <Link href="/admin/uslugi" className="text-white hover:underline">
-          Статьи
+          Услуги
         </Link>
 
         <LogoutForm />

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import ArticleForm from "../../_components/forms/ArticleForm";
+import ArticleForm from "../../_components/forms/article/ArticleForm";
 
 const AddArticlePage: FC = async () => {
   return (

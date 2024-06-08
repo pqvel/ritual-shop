@@ -68,7 +68,7 @@ const ArticleForm: FC = () => {
 
   useEffect(() => {
     // return () => {
-    // if (!isArticleCreated) removeAllImages();
+    //   if (!isArticleCreated) removeAllImages();
     // };
   }, []);
 
