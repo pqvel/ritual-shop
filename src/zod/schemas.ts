@@ -34,6 +34,7 @@ export const productSchema: Zod.Schema = z.object({
     (file: any) => file.size > 0,
     "Выберите изображение"
   ),
+  description: z.string().optional(),
   isAgreementPrice: z.any().transform(Boolean),
   categoryId: z
     .string()

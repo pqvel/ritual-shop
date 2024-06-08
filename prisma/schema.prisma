@@ -31,13 +31,14 @@ model Category {
 model Product {
   id              Int                     @id @default(autoincrement())
   title           String
+  description     String?
   slug            String
   vendorCode      String
   image           String
   categoryId      Int
   mainCategoryId  Int
   active          Boolean                 @default(false)
-  price           Float                   @default(0)
+  price           Float?                   @default(0)
   isAgreementPrice Boolean                @default(false) // договорная цена
   category        Category                @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   characteristics ProductCharacteristic[]

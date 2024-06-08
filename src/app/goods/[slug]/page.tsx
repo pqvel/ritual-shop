@@ -162,6 +162,9 @@ const ProductPage: FC<Props> = async ({ params }) => {
                 ))}
               </table>
             </div>
+            {product?.description && (
+              <p className=" mt-5 text-gray-500">{product.description}</p>
+            )}
           </div>
           {products.length > 0 && (
             <>

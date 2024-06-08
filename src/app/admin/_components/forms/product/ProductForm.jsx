@@ -18,6 +18,8 @@ import {
 } from "@/components/ui/shadcn-ui/table";
 import { v4 as uuid } from "uuid";
 import { TrashIcon } from "@radix-ui/react-icons";
+import { TextArea } from "@/components/ui/formItems/Input";
+import { Textarea } from "@/components/ui/textarea";
 
 const ProductForm = ({ categoryId, mainCategoryId }) => {
   const [state, action] = useFormState(createProduct, {});
@@ -109,6 +111,11 @@ const ProductForm = ({ categoryId, mainCategoryId }) => {
             {state?.image && (
               <div className=" text-red-600 mt-2">{state.image}</div>
             )}
+          </Label>
+
+          <Label className="block mb-4">
+            <div className="mb-2 text-lg">Описание</div>
+            <Textarea name="description" />
           </Label>
 
           <div className="block mb-4">

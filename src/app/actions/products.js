@@ -25,6 +25,7 @@ export const createProduct = async (state, formData) => {
     mainCategoryId,
     price,
     isAgreementPrice,
+    description,
   } = result.data;
 
   const slug = slugify(`${title}-${vendorCode}`, {
@@ -50,6 +51,7 @@ export const createProduct = async (state, formData) => {
       mainCategoryId,
       price,
       isAgreementPrice,
+      description,
     },
   });
 
@@ -98,6 +100,7 @@ export const changeProduct = async (state, formData) => {
       .optional()
       .transform((val) => val && parseInt(val, 10)),
     title: z.string().min(1),
+    description: z.string().optional(),
     vendorCode: z.string().min(1),
     image: imageSchema.optional(),
     characteristics: z
@@ -124,6 +127,7 @@ export const changeProduct = async (state, formData) => {
     characteristics,
     price,
     isAgreementPrice,
+    description,
   } = result.data;
 
   const product = await db.product.findUnique({
@@ -170,9 +174,6 @@ export const changeProduct = async (state, formData) => {
     productId: id,
   }));
 
-  console.log(chars);
-  console.log(title);
-
   await db.productCharacteristic.createMany({
     data: chars,
   });
@@ -183,6 +184,7 @@ export const changeProduct = async (state, formData) => {
     },
     data: {
       title,
+      description,
       vendorCode,
       price,
       isAgreementPrice,

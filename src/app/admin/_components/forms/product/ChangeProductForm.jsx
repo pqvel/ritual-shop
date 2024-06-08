@@ -17,6 +17,7 @@ import {
   TableFooter,
 } from "@/components/ui/shadcn-ui/table";
 import { TrashIcon } from "@radix-ui/react-icons";
+import { Textarea } from "@/components/ui/textarea";
 
 const ChangeProductForm = ({
   productId,
@@ -135,6 +136,11 @@ const ChangeProductForm = ({
             )}
           </Label>
 
+          <Label className="block mb-4">
+            <div className="mb-2 text-lg">Описание</div>
+            <Textarea name="description" defaultValue={product.description} />
+          </Label>
+
           <div className="block mb-4">
             <div className="mb-2 text-lg">Цена</div>
             <div className="flex items-center">
@@ -143,6 +149,7 @@ const ChangeProductForm = ({
                 placeholder="1200"
                 name="price"
                 type="number"
+                defaultValue={product.price}
                 disabled={isPriceAgreement}
               />
               <label className="flex items-center flex-shrink-0 cursor-pointer">
