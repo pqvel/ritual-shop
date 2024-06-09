@@ -66,6 +66,9 @@ const getProducts = async (currentPage: number, categorySlug: string) => {
       active: true,
       mainCategoryId: mainCategory!.id,
     },
+    orderBy: {
+      id: "asc",
+    },
   });
 
   return {

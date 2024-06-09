@@ -91,6 +91,9 @@ const getProducts = async (
       mainCategoryId: category!.id,
       categoryId: category!.childCategories[0].id,
     },
+    orderBy: {
+      id: "asc",
+    },
   });
 
   return {

@@ -68,6 +68,9 @@ const getProducts = async () => {
         active: true,
       },
       take: 12,
+      orderBy: {
+        id: "asc",
+      },
     })) || []
   );
 };
@@ -79,6 +82,9 @@ const getArticles = async () => {
         active: true,
       },
       take: 12,
+      orderBy: {
+        id: "desc",
+      },
     })) || []
   );
 };
@@ -88,6 +94,9 @@ const getPortfolio = async () => {
     (await db.portfolioProduct.findMany({
       where: {
         active: true,
+      },
+      orderBy: {
+        id: "desc",
       },
       take: 12,
     })) || []

@@ -44,10 +44,10 @@ const MainLayout: FC<Props> = async ({ children }) => {
         <Container>
           <div className="">
             <div className="text-sm">
-              {/* © ritual-sculpture.by 2024г. ИП Скрипко Леонид Иосифович
-            Свидетельство о гос. регистрации: 590264434, выдано 17.06.2011г.
-            Островецким районным исполнительным комитетом */}
-              © ritual-sculpture.by 2024г | УНП 590264434
+              © ritual-sculpture.by 2024г. ИП Скрипко Леонид Иосифович
+              Свидетельство о гос. регистрации: 590264434, выдано 17.06.2011г.
+              Островецким районным исполнительным комитетом ©
+              {/* ritual-sculpture.by 2024г | УНП 590264434 */}
             </div>
             {/* <div className="grid grid-cols-2 gap-8">
               {categories.map((category) => (

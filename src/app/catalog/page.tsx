@@ -42,6 +42,9 @@ const getProducts = async (currentPage: number) => {
     where: {
       active: true,
     },
+    orderBy: {
+      id: "asc",
+    },
   });
 
   return {

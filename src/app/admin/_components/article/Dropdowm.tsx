@@ -14,20 +14,11 @@ import Link from "next/link";
 
 type Props = {
   id: number;
-  // categorySlug: string;
-  // childCategorySLug?: string;
+  articleSlug: string;
 };
 
-const Dropdowm: FC<Props> = ({
-  id,
-  // categorySlug,
-  // childCategorySLug,
-}) => {
-  // const EditLinkHref = childCategorySLug
-  //   ? `/amin/catalog/${categorySlug}/${childCategorySLug}/change-category`
-  //   : `/amin/catalog/${categorySlug}/change-category`;
-
-  const EditLinkHref = "/";
+const Dropdowm: FC<Props> = ({ id, articleSlug }) => {
+  const EditLinkHref = `/admin/articles/${articleSlug}/change-article`;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

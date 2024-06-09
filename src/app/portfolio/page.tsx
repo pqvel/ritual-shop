@@ -6,7 +6,7 @@ import { Container } from "@/components/ui/Wrappers";
 import Pagination from "@/components/ui/Pagination";
 import CatalogSection from "@/components/catalog/CatalogSection";
 import { Title } from "@/components/ui/Typography";
-import db from "../../../db/db";
+import db from "@/db";
 
 const getPortfolioProducts = async (currentPage: number) => {
   const countItemsPerPage = 12;
