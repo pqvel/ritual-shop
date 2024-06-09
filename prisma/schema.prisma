@@ -73,7 +73,7 @@ model Article {
 model Usluga {
   id               Int      @id @default(autoincrement())
   title            String
-  description      String
+  // description      String
   content          String   // markdown
   contentImages    String[] @default([])
   image            String

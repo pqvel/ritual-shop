@@ -1,5 +1,5 @@
 "use client";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { Card, CardHeader, CardContent } from "@/components/ui/shadcn-ui/card";
 import { Label } from "@/components/ui/shadcn-ui/label";
@@ -64,7 +64,7 @@ const ChangeArticleForm: FC<{ id: number; defaultData: Article }> = ({
   return (
     <Card>
       <CardHeader>
-        <h1 className=" text-2xl font-semibold">Создание новой статьи</h1>
+        <h1 className=" text-2xl font-semibold">Изменить услугу</h1>
       </CardHeader>
       <CardContent>
         <form action={action}>

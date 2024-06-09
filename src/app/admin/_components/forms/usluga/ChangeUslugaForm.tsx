@@ -1,5 +1,5 @@
 "use client";
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { Card, CardHeader, CardContent } from "@/components/ui/shadcn-ui/card";
 import { Label } from "@/components/ui/shadcn-ui/label";
@@ -12,7 +12,9 @@ import "@uiw/react-markdown-preview/markdown.css";
 import dynamic from "next/dynamic";
 import { httpClient } from "@/utils/http";
 import { TrashIcon } from "@radix-ui/react-icons";
-
+import { Usluga } from "@prisma/client";
+import { Textarea } from "@/components/ui/textarea";
+import { changeUsluga } from "@/app/actions/uslugi";
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 type ContentImage = {
@@ -20,14 +22,20 @@ type ContentImage = {
   url: string;
 };
 
-const ArticleForm: FC = () => {
+const ChangeUslugaForm: FC<{ id: number; defaultData: Usluga }> = ({
+  id,
+  defaultData,
+}) => {
   const [state, action] = useFormState<ReturnType<typeof createArticle>>(
-    createArticle,
+    changeUsluga,
     {}
   );
-
-  const [content, setContent] = useState<string | undefined>("");
-  const [images, setImages] = useState<ContentImage[]>([]);
+  const [content, setContent] = useState<string | undefined>(
+    defaultData.content
+  );
+  const [images, setImages] = useState<ContentImage[]>(
+    defaultData.contentImages.map((image) => ({ id: uuid(), url: image }))
+  );
   const [copiedImageId, setCopiedImageId] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -57,10 +65,11 @@ const ArticleForm: FC = () => {
   return (
     <Card>
       <CardHeader>
-        <h1 className=" text-2xl font-semibold">Создание новой статьи</h1>
+        <h1 className=" text-2xl font-semibold">Изменить услугу</h1>
       </CardHeader>
       <CardContent>
         <form action={action}>
+          <input type="hidden" name="id" value={id} />
           <input
             type="hidden"
             name="contentImages"
@@ -68,12 +77,27 @@ const ArticleForm: FC = () => {
           />
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Название</div>
-            <Input placeholder="Двойные памятники" name="title" />
+            <Input
+              placeholder="Двойные памятники"
+              defaultValue={defaultData.title}
+              name="title"
+            />
 
             {state?.title && (
               <div className=" text-red-600 mt-2">{state.title}</div>
             )}
           </Label>
+          {/* <Label className="block mb-4">
+            <div className="mb-2 text-lg">Описание</div>
+            <Textarea
+              name="description"
+              defaultValue={defaultData.description}
+              placeholder="описание для карточки услуги"
+            />
+            {state?.description && (
+              <div className=" text-red-600 mt-2">{state.description}</div>
+            )}
+          </Label> */}
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Изображение для карточки</div>
             <Input
@@ -134,7 +158,7 @@ const ArticleForm: FC = () => {
 
           <div className="mb-5">
             <div className="text-lg font-semibold mb-2">
-              Добавить изображение в статью
+              Добавить изображение в услугу
             </div>
             <Input className="mb-2" ref={fileInputRef} type="file" />
             <Button onClick={addImage} type="button" variant="outline">
@@ -153,64 +177,9 @@ const SubmitButton: FC = () => {
   const status = useFormStatus();
   return (
     <Button className="w-auto" type="submit" disabled={status.pending}>
-      {status.pending ? "Загрузка.." : "Создать"}
+      {status.pending ? "Загрузка.." : "Сохранить"}
     </Button>
   );
 };
 
-export default ArticleForm;
-
-// "use client";
-
-// import { useState, ChangeEvent, FormEvent } from "react";
-
-// export default function ArticleForm() {
-//   const [file, setFile] = useState<File | null>(null);
-
-//   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-//     if (event.target.files && event.target.files.length > 0) {
-//       setFile(event.target.files[0]);
-//     }
-//   };
-
-//   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-//     e.preventDefault();
-
-//     if (!file) {
-//       console.log("No file selected");
-//       return;
-//     }
-
-//     const formData = new FormData();
-//     formData.append("file", file);
-
-//     try {
-//       const response = await fetch("/api/files", {
-//         method: "POST",
-//         body: formData,
-//       });
-
-//       if (!response.ok) {
-//         const errorData = await response.json();
-//         throw new Error(errorData.error || "Network response was not ok");
-//       }
-
-//       const result = await response.json();
-//       console.log(
-//         result.success ? "File uploaded successfully" : "File upload failed"
-//       );
-//     } catch (error) {
-//       console.error("Error uploading file:", error);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h1>Upload File</h1>
-//       <form onSubmit={handleSubmit}>
-//         <input type="file" onChange={handleFileChange} />
-//         <button type="submit">Upload</button>
-//       </form>
-//     </div>
-//   );
-// }
+export default ChangeUslugaForm;

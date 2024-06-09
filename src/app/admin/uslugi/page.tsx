@@ -15,7 +15,6 @@ import {
   TableRow,
 } from "@/components/ui/shadcn-ui/table";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import CategoryItem from "../_components/category/CategoryItem";
 import db from "@/db";
 import UslugaItem from "../_components/usluga/UslugaItem";
 
@@ -39,7 +38,7 @@ const UslugiPage: FC = async () => {
           <div className="flex justify-between  gap-2">
             <Link
               className="flex items-center justify-center flex-shrink-0 px-4 py-1.5 text-sm rounded-lg border border-black"
-              href="/admin/catalog/add-category"
+              href="/admin/uslugi/add-usluga"
             >
               Добавить услугу
             </Link>
@@ -52,7 +51,6 @@ const UslugiPage: FC = async () => {
               <TableRow>
                 <TableHead className="w-[100px]">Active</TableHead>
                 <TableHead className="w-[100px]">ID</TableHead>
-                <TableHead className="w-[100px]">Parent ID</TableHead>
                 <TableHead>Название</TableHead>
                 <TableHead>slug</TableHead>
                 <TableHead>Изображение</TableHead>
@@ -60,13 +58,9 @@ const UslugiPage: FC = async () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {/* {uslugi.map((category) => (
-                <UslugaItem
-                  ={category}
-                  link={`/admin/catalog/${category.slug}`}
-                  key={category.id}
-                />
-              ))} */}
+              {uslugi.map((usluga) => (
+                <UslugaItem usluga={usluga} key={usluga.id} />
+              ))}
             </TableBody>
           </Table>
         </CardContent>

@@ -6,12 +6,14 @@ import { Label } from "@/components/ui/shadcn-ui/label";
 import { Input } from "@/components/ui/shadcn-ui/input";
 import { Button } from "@/components/ui/shadcn-ui/button";
 import { useFormStatus, useFormState } from "react-dom";
-import { createArticle } from "@/app/actions/articles";
+
+import { createUsluga } from "@/app/actions/uslugi";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 import dynamic from "next/dynamic";
 import { httpClient } from "@/utils/http";
 import { TrashIcon } from "@radix-ui/react-icons";
+import { Textarea } from "@/components/ui/textarea";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -20,12 +22,13 @@ type ContentImage = {
   url: string;
 };
 
-const ArticleForm: FC = () => {
-  const [state, action] = useFormState<ReturnType<typeof createArticle>>(
-    createArticle,
+const UslugaForm: FC = () => {
+  const [state, action] = useFormState<ReturnType<typeof createUsluga>>(
+    createUsluga,
     {}
   );
 
+  // const [imagesForm, imagesFormAction] = useFormState<null>()
   const [content, setContent] = useState<string | undefined>("");
   const [images, setImages] = useState<ContentImage[]>([]);
   const [copiedImageId, setCopiedImageId] = useState<string>("");
@@ -35,7 +38,7 @@ const ArticleForm: FC = () => {
     if (fileInputRef.current?.files?.length) {
       const formData = new FormData();
       formData.append("file", fileInputRef.current.files[0]);
-      formData.append("folderName", "articles");
+      formData.append("folderName", "uslugi");
 
       httpClient
         .post<{ url: string }>("/api/files", formData)
@@ -57,7 +60,7 @@ const ArticleForm: FC = () => {
   return (
     <Card>
       <CardHeader>
-        <h1 className=" text-2xl font-semibold">Создание новой статьи</h1>
+        <h1 className=" text-2xl font-semibold">Создание новой услуги</h1>
       </CardHeader>
       <CardContent>
         <form action={action}>
@@ -74,6 +77,16 @@ const ArticleForm: FC = () => {
               <div className=" text-red-600 mt-2">{state.title}</div>
             )}
           </Label>
+          {/* <Label className="block mb-4">
+            <div className="mb-2 text-lg">Описание</div>
+            <Textarea
+              name="description"
+              placeholder="описание для карточки услуги"
+            />
+            {state?.description && (
+              <div className=" text-red-600 mt-2">{state.description}</div>
+            )}
+          </Label> */}
           <Label className="block mb-4">
             <div className="mb-2 text-lg">Изображение для карточки</div>
             <Input
@@ -134,7 +147,7 @@ const ArticleForm: FC = () => {
 
           <div className="mb-5">
             <div className="text-lg font-semibold mb-2">
-              Добавить изображение в статью
+              Добавить изображение в услугу
             </div>
             <Input className="mb-2" ref={fileInputRef} type="file" />
             <Button onClick={addImage} type="button" variant="outline">
@@ -158,59 +171,4 @@ const SubmitButton: FC = () => {
   );
 };
 
-export default ArticleForm;
-
-// "use client";
-
-// import { useState, ChangeEvent, FormEvent } from "react";
-
-// export default function ArticleForm() {
-//   const [file, setFile] = useState<File | null>(null);
-
-//   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-//     if (event.target.files && event.target.files.length > 0) {
-//       setFile(event.target.files[0]);
-//     }
-//   };
-
-//   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-//     e.preventDefault();
-
-//     if (!file) {
-//       console.log("No file selected");
-//       return;
-//     }
-
-//     const formData = new FormData();
-//     formData.append("file", file);
-
-//     try {
-//       const response = await fetch("/api/files", {
-//         method: "POST",
-//         body: formData,
-//       });
-
-//       if (!response.ok) {
-//         const errorData = await response.json();
-//         throw new Error(errorData.error || "Network response was not ok");
-//       }
-
-//       const result = await response.json();
-//       console.log(
-//         result.success ? "File uploaded successfully" : "File upload failed"
-//       );
-//     } catch (error) {
-//       console.error("Error uploading file:", error);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h1>Upload File</h1>
-//       <form onSubmit={handleSubmit}>
-//         <input type="file" onChange={handleFileChange} />
-//         <button type="submit">Upload</button>
-//       </form>
-//     </div>
-//   );
-// }
+export default UslugaForm;

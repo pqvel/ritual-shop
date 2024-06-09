@@ -13,18 +13,11 @@ import { DeleteProduct } from "./Actions";
 import Link from "next/link";
 
 type Props = {
-  productId: number;
-  categorySlug: string;
-  childCategorySlug: string;
-  productSlug: string;
+  id: number;
+  uslugaSlug: string;
 };
 
-const Dropdowm: FC<Props> = ({
-  productId,
-  categorySlug,
-  childCategorySlug,
-  productSlug,
-}) => {
+const Dropdowm: FC<Props> = ({ id, uslugaSlug }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -34,12 +27,10 @@ const Dropdowm: FC<Props> = ({
         <DropdownMenuLabel>Действия</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <DeleteProduct productId={productId} />
+          <DeleteProduct productId={id} />
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link
-            href={`/admin/catalog/${categorySlug}/${childCategorySlug}/${productSlug}/change-product`}
-          >
+          <Link href={`/admin/uslugi/${uslugaSlug}/change-usluga`}>
             Редактировать
           </Link>
         </DropdownMenuItem>

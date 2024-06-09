@@ -46,7 +46,7 @@ const ArticlePage: FC<Props> = async ({ params }) => {
             {formatDate(article!.createdAt)}
           </span>
           <Title level={1}>{article!.title}</Title>
-          <div className="bg-white p-4 rounded-lg grid grid-cols-[2fr,1fr] gap-20 shadow-sm">
+          <div className="bg-white p-4 rounded-lg grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-20 shadow-sm">
             <div
               className="markdown-content flex flex-col"
               dangerouslySetInnerHTML={{ __html: contentHtml }}

@@ -65,3 +65,18 @@ export const articleShema: Zod.Schema = z.object({
     "Выберите изображение"
   ),
 });
+
+export const uslugaShema: Zod.Schema = z.object({
+  title: z.string().min(1, "Заполните поле"),
+  content: z.string().min(1, "Заполните поле"),
+  // description: z.string().min(1, "Заполните поле"),
+  contentImages: z
+    .string()
+    .optional()
+    .default("[]")
+    .transform((str) => JSON.parse(str)),
+  image: imageSchema.refine(
+    (file: any) => file.size > 0,
+    "Выберите изображение"
+  ),
+});
