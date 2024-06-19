@@ -37,7 +37,8 @@
     "src/app/actions/email.js",
     "src/auth.js",
     "src/app/actions/articles.js",
-    "src/app/admin/_components/forms/product/ChangeProductForm.jsx"
+    "src/app/admin/_components/forms/product/ChangeProductForm.jsx",
+    "src/components/Metrika.js"
   ],
   "exclude": ["node_modules"]
 }
